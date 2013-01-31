@@ -1,0 +1,73 @@
+/*
+Theme Name: Mellon Committee Sites
+Theme URI: http://yoursite/yourtheme
+Description: A child theme of 2012 default WordPress theme built for the Mellon Transdisciplinary Committee websites
+Author: Keith Miyake
+Author url: http://keithmiyake.commons.gc.cuny.edu
+Version: 1.0
+Tags: fixed-width, custom-header, theme-options
+Template: twentytwelve
+*/
+@import url('../twentytwelve/style.css');
+
+/* ===[ Footer Widget Areas ]=== */
+
+#footer-widgets {
+    width: 100%;
+    border-top: none;
+}
+#footer-widgets .widget li { list-style-type: none; }
+
+.template-front-page #footer-widgets { padding-top: 0; }
+
+@media screen and (min-width: 600px) { 
+    #footer-widgets.three .widget {
+        float: left;
+        margin-right: 3.7%;
+        width: 30.85%;
+    }
+    #footer-widgets.three .widget + .widget + .widget { margin-right: 0; }
+}
+
+/* for IE8 and IE7 */
+.ie #footer-widgets.three .widget {
+    float: left;
+    margin-right: 3.7%;
+    width: 29.85%;
+    clear: none;
+}
+.ie #footer-widgets.three .widget + .widget + .widget { margin-right: 0; }
+
+/* ===[ IE Homepage Template Widget fix ]=== */
+.ie .template-front-page .first.front-widgets,
+.ie .template-front-page.two-sidebars .widget-area .front-widgets {
+    float: left;
+    margin-bottom: 24px;
+    width: 51.875% ;
+}
+.ie .template-front-page .second.front-widgets { clear: right; }
+.ie .template-front-page .first.front-widgets,
+.ie .template-front-page.two-sidebars .widget-area .front-widgets + .front-widgets {
+    float: right;
+    margin: 0 0 24px;
+    width: 39.0625% ;
+}
+.ie .template-front-page.two-sidebars .widget,
+.ie .template-front-page.two-sidebars .widget:nth-child(even) { float: none; }
+.ie .template-front-page .widget-area { clear: both; }
+
+.ie .template-front-page .widget {
+    width: 100% !important;
+    border: none;
+}
+.ie .template-front-page .first.front-widgets { 
+    width: 51.875%;
+    float: left ;
+}
+.ie  .template-front-page .second.front-widgets {
+    width: 39.0625%;
+    float: right ;
+}
+
+/* Hide footer widgets Homepage Template */
+.template-front-page #footer-widgets { display: none; }
