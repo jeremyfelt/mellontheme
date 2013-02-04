@@ -3,46 +3,46 @@
  * A unique identifier is defined to store the options in the database and reference them from the theme.
  * By default it uses the theme name, in lowercase and without spaces, but this can be changed if needed.
  * If the identifier changes, it'll appear as if the options have been reset.
- *
  */
 
 function optionsframework_option_name() {
 
-	// This gets the theme name from the stylesheet (lowercase and without spaces)
+	// This gets the theme name from the stylesheet
 	$themename = get_option( 'stylesheet' );
 	$themename = preg_replace("/\W/", "_", strtolower($themename) );
 
-	$optionsframework_settings = get_option('optionsframework');
+	$optionsframework_settings = get_option( 'optionsframework' );
 	$optionsframework_settings['id'] = $themename;
-	update_option('optionsframework', $optionsframework_settings);
-
-	// echo $themename;
+	update_option( 'optionsframework', $optionsframework_settings );
 }
 
 /**
  * Defines an array of options that will be used to generate the settings page and be saved in the database.
  * When creating the 'id' fields, make sure to use all lowercase and no spaces.
  *
+ * If you are making your theme translatable, you should replace 'options_framework_theme'
+ * with the actual text domain for your theme.  Read more:
+ * http://codex.wordpress.org/Function_Reference/load_theme_textdomain
  */
 
 function optionsframework_options() {
 
 	// Test data
 	$test_array = array(
-		'one' => __('One', 'options_check'),
-		'two' => __('Two', 'options_check'),
-		'three' => __('Three', 'options_check'),
-		'four' => __('Four', 'options_check'),
-		'five' => __('Five', 'options_check')
+		'one' => __('One', 'options_framework_theme'),
+		'two' => __('Two', 'options_framework_theme'),
+		'three' => __('Three', 'options_framework_theme'),
+		'four' => __('Four', 'options_framework_theme'),
+		'five' => __('Five', 'options_framework_theme')
 	);
 
 	// Multicheck Array
 	$multicheck_array = array(
-		'one' => __('French Toast', 'options_check'),
-		'two' => __('Pancake', 'options_check'),
-		'three' => __('Omelette', 'options_check'),
-		'four' => __('Crepe', 'options_check'),
-		'five' => __('Waffle', 'options_check')
+		'one' => __('French Toast', 'options_framework_theme'),
+		'two' => __('Pancake', 'options_framework_theme'),
+		'three' => __('Omelette', 'options_framework_theme'),
+		'four' => __('Crepe', 'options_framework_theme'),
+		'five' => __('Waffle', 'options_framework_theme')
 	);
 
 	// Multicheck Defaults
@@ -88,6 +88,7 @@ function optionsframework_options() {
 		$options_tags[$tag->term_id] = $tag->name;
 	}
 
+
 	// Pull all the pages into an array
 	$options_pages = array();
 	$options_pages_obj = get_pages('sort_column=post_parent,menu_order');
@@ -97,39 +98,130 @@ function optionsframework_options() {
 	}
 
 	// If using image radio buttons, define a directory path
-	$imagepath =  get_template_directory_uri() . '/images/';
+	$imagepath =  get_stylesheet_directory_uri() . '/images/';
 
 	$options = array();
 
 	$options[] = array(
-		'name' => __('Basic Settings', 'options_check'),
+		'name' => __('Basic Settings', 'options_framework_theme'),
 		'type' => 'heading');
+		
+	$options[] = array(
+		'name' => __('First Header Image', 'options_framework_theme'),
+		'desc' => __('Upload an image to use as the first header image (i.e. logo).', 'options_framework_theme'),
+		'id' => 'primary_header_image',
+		'type' => 'upload');
 
 	$options[] = array(
-		'name' => __('Input Text Mini', 'options_check'),
-		'desc' => __('A mini text input field.', 'options_check'),
+		'name' => __('First Header Image Link', 'options_framework_theme'),
+		'desc' => __('URL to link when first header image is clicked .', 'options_framework_theme'),
+		'id' => 'primary_header_url',
+		'std' => '/',
+		'type' => 'text');
+		
+	$options[] = array(
+		'name' => __('Secondary Header Image', 'options_framework_theme'),
+		'desc' => __('Upload an image to use as the secondary header image (i.e. site name).', 'options_framework_theme'),
+		'id' => 'secondary_header_image',
+		'type' => 'upload');
+
+	$options[] = array(
+		'name' => __('Secondary Header Image Link', 'options_framework_theme'),
+		'desc' => __('URL to link when secondary header image is clicked .', 'options_framework_theme'),
+		'id' => 'secondary_header_url',
+		'std' => '/',
+		'type' => 'text');
+
+
+	$options[] = array(
+		'name' => __('Facebook URL', 'options_framework_theme'),
+		'desc' => __('Link to an associated Facebook page.', 'options_framework_theme'),
+		'id' => 'facebook_url',
+		'std' => 'http://www.facebook.com/yourpage',
+		'type' => 'text');
+
+	$options[] = array(
+		'name' => __('Twitter Feed', 'options_framework_theme'),
+		'desc' => __('URL to your Twitter feed.', 'options_framework_theme'),
+		'id' => 'twitter_feed',
+		'std' => 'http://www.twitter.com/#!/yourtwittername',
+		'type' => 'text');
+		
+	$wp_editor_settings = array(
+		'wpautop' => true, // Default
+		'textarea_rows' => 5,
+		'tinymce' => array( 'plugins' => 'wordpress' )
+	);
+	
+	$options[] = array(
+		'name' => __('Welcome Text', 'options_framework_theme'),
+		'desc' => __('Text to be displayed on the front page when displaying blog posts instead of a static front page.', 'options_framework_theme'),
+		'id' => 'welcome_text',
+		'type' => 'editor',
+		'settings' => $wp_editor_settings );
+
+	$options[] = array(
+		'name' => __('Overlay Background Color', 'options_framework_theme'),
+		'desc' => __('No color selected by default. Change the backdrop color <a href="themes.php?page=custom-background">here</a>.', 'options_framework_theme'),
+		'id' => 'background_colorpicker',
+		'std' => '',
+		'type' => 'color' );
+
+	$options[] = array(
+		'name' => __('Main Content Area Background Color', 'options_framework_theme'),
+		'desc' => __('Default is the same as the content area.', 'options_framework_theme'),
+		'id' => 'main_content_colorpicker',
+		'std' => '',
+		'type' => 'color' );
+		
+	$options[] = array(
+		'name' => __('Primary Font Color', 'options_framework_theme'),
+		'desc' => __('No color selected by default.', 'options_framework_theme'),
+		'id' => 'font_colorpicker',
+		'std' => '',
+		'type' => 'color' );
+
+	$options[] = array(
+		'name' => __('Display Author Names?', 'options_framework_theme'),
+		'desc' => __('Display author names on posts? Defaults to true.', 'options_framework_theme'),
+		'id' => 'authors_checkbox',
+		'std' => '1',
+		'type' => 'checkbox');
+
+	$options[] = array(
+		'name' => __('Display Event Slider?', 'options_framework_theme'),
+		'desc' => __('Display a slider featuring recent events on the front page? Defaults to true.', 'options_framework_theme'),
+		'id' => 'events_slider_checkbox',
+		'std' => '1',
+		'type' => 'checkbox');
+		
+		/*
+
+	$options[] = array(
+		'name' => __('Input Text Mini', 'options_framework_theme'),
+		'desc' => __('A mini text input field.', 'options_framework_theme'),
 		'id' => 'example_text_mini',
 		'std' => 'Default',
 		'class' => 'mini',
 		'type' => 'text');
 
 	$options[] = array(
-		'name' => __('Input Text', 'options_check'),
-		'desc' => __('A text input field.', 'options_check'),
+		'name' => __('Input Text', 'options_framework_theme'),
+		'desc' => __('A text input field.', 'options_framework_theme'),
 		'id' => 'example_text',
 		'std' => 'Default Value',
 		'type' => 'text');
 
 	$options[] = array(
-		'name' => __('Textarea', 'options_check'),
-		'desc' => __('Textarea description.', 'options_check'),
+		'name' => __('Textarea', 'options_framework_theme'),
+		'desc' => __('Textarea description.', 'options_framework_theme'),
 		'id' => 'example_textarea',
 		'std' => 'Default Text',
 		'type' => 'textarea');
 
 	$options[] = array(
-		'name' => __('Input Select Small', 'options_check'),
-		'desc' => __('Small Select Box.', 'options_check'),
+		'name' => __('Input Select Small', 'options_framework_theme'),
+		'desc' => __('Small Select Box.', 'options_framework_theme'),
 		'id' => 'example_select',
 		'std' => 'three',
 		'type' => 'select',
@@ -137,75 +229,77 @@ function optionsframework_options() {
 		'options' => $test_array);
 
 	$options[] = array(
-		'name' => __('Input Select Wide', 'options_check'),
-		'desc' => __('A wider select box.', 'options_check'),
+		'name' => __('Input Select Wide', 'options_framework_theme'),
+		'desc' => __('A wider select box.', 'options_framework_theme'),
 		'id' => 'example_select_wide',
 		'std' => 'two',
 		'type' => 'select',
 		'options' => $test_array);
 
 	$options[] = array(
-		'name' => __('Select a Category', 'options_check'),
-		'desc' => __('Passed an array of categories with cat_ID and cat_name', 'options_check'),
+		'name' => __('Select a Category', 'options_framework_theme'),
+		'desc' => __('Passed an array of categories with cat_ID and cat_name', 'options_framework_theme'),
 		'id' => 'example_select_categories',
 		'type' => 'select',
 		'options' => $options_categories);
-		
+	
+	if ($options_tags) {
 	$options[] = array(
 		'name' => __('Select a Tag', 'options_check'),
 		'desc' => __('Passed an array of tags with term_id and term_name', 'options_check'),
 		'id' => 'example_select_tags',
 		'type' => 'select',
 		'options' => $options_tags);
+	}
 
 	$options[] = array(
-		'name' => __('Select a Page', 'options_check'),
-		'desc' => __('Passed an pages with ID and post_title', 'options_check'),
+		'name' => __('Select a Page', 'options_framework_theme'),
+		'desc' => __('Passed an pages with ID and post_title', 'options_framework_theme'),
 		'id' => 'example_select_pages',
 		'type' => 'select',
 		'options' => $options_pages);
 
 	$options[] = array(
-		'name' => __('Input Radio (one)', 'options_check'),
-		'desc' => __('Radio select with default options "one".', 'options_check'),
+		'name' => __('Input Radio (one)', 'options_framework_theme'),
+		'desc' => __('Radio select with default options "one".', 'options_framework_theme'),
 		'id' => 'example_radio',
 		'std' => 'one',
 		'type' => 'radio',
 		'options' => $test_array);
 
 	$options[] = array(
-		'name' => __('Example Info', 'options_check'),
-		'desc' => __('This is just some example information you can put in the panel.', 'options_check'),
+		'name' => __('Example Info', 'options_framework_theme'),
+		'desc' => __('This is just some example information you can put in the panel.', 'options_framework_theme'),
 		'type' => 'info');
 
 	$options[] = array(
-		'name' => __('Input Checkbox', 'options_check'),
-		'desc' => __('Example checkbox, defaults to true.', 'options_check'),
+		'name' => __('Input Checkbox', 'options_framework_theme'),
+		'desc' => __('Example checkbox, defaults to true.', 'options_framework_theme'),
 		'id' => 'example_checkbox',
 		'std' => '1',
 		'type' => 'checkbox');
 
 	$options[] = array(
-		'name' => __('Advanced Settings', 'options_check'),
+		'name' => __('Advanced Settings', 'options_framework_theme'),
 		'type' => 'heading');
 
 	$options[] = array(
-		'name' => __('Check to Show a Hidden Text Input', 'options_check'),
-		'desc' => __('Click here and see what happens.', 'options_check'),
+		'name' => __('Check to Show a Hidden Text Input', 'options_framework_theme'),
+		'desc' => __('Click here and see what happens.', 'options_framework_theme'),
 		'id' => 'example_showhidden',
 		'type' => 'checkbox');
 		
 	$options[] = array(
-		'name' => __('Hidden Text Input', 'options_check'),
-		'desc' => __('This option is hidden unless activated by a checkbox click.', 'options_check'),
+		'name' => __('Hidden Text Input', 'options_framework_theme'),
+		'desc' => __('This option is hidden unless activated by a checkbox click.', 'options_framework_theme'),
 		'id' => 'example_text_hidden',
 		'std' => 'Hello',
 		'class' => 'hidden',
 		'type' => 'text');
 
 	$options[] = array(
-		'name' => __('Uploader Test', 'options_check'),
-		'desc' => __('This creates a full size uploader that previews the image.', 'options_check'),
+		'name' => __('Uploader Test', 'options_framework_theme'),
+		'desc' => __('This creates a full size uploader that previews the image.', 'options_framework_theme'),
 		'id' => 'example_uploader',
 		'type' => 'upload');
 
@@ -222,45 +316,45 @@ function optionsframework_options() {
 	);
 
 	$options[] = array(
-		'name' =>  __('Example Background', 'options_check'),
-		'desc' => __('Change the background CSS.', 'options_check'),
+		'name' =>  __('Example Background', 'options_framework_theme'),
+		'desc' => __('Change the background CSS.', 'options_framework_theme'),
 		'id' => 'example_background',
 		'std' => $background_defaults,
 		'type' => 'background' );
 
 	$options[] = array(
-		'name' => __('Multicheck', 'options_check'),
-		'desc' => __('Multicheck description.', 'options_check'),
+		'name' => __('Multicheck', 'options_framework_theme'),
+		'desc' => __('Multicheck description.', 'options_framework_theme'),
 		'id' => 'example_multicheck',
 		'std' => $multicheck_defaults, // These items get checked by default
 		'type' => 'multicheck',
 		'options' => $multicheck_array);
 
 	$options[] = array(
-		'name' => __('Colorpicker', 'options_check'),
-		'desc' => __('No color selected by default.', 'options_check'),
+		'name' => __('Colorpicker', 'options_framework_theme'),
+		'desc' => __('No color selected by default.', 'options_framework_theme'),
 		'id' => 'example_colorpicker',
 		'std' => '',
 		'type' => 'color' );
 		
-	$options[] = array( 'name' => __('Typography', 'options_check'),
-		'desc' => __('Example typography.', 'options_check'),
+	$options[] = array( 'name' => __('Typography', 'options_framework_theme'),
+		'desc' => __('Example typography.', 'options_framework_theme'),
 		'id' => "example_typography",
 		'std' => $typography_defaults,
 		'type' => 'typography' );
 		
 	$options[] = array(
-		'name' => __('Custom Typography', 'options_check'),
-		'desc' => __('Custom typography options.', 'options_check'),
+		'name' => __('Custom Typography', 'options_framework_theme'),
+		'desc' => __('Custom typography options.', 'options_framework_theme'),
 		'id' => "custom_typography",
 		'std' => $typography_defaults,
 		'type' => 'typography',
 		'options' => $typography_options );
 
 	$options[] = array(
-		'name' => __('Text Editor', 'options_check'),
+		'name' => __('Text Editor', 'options_framework_theme'),
 		'type' => 'heading' );
-
+*/
 	/**
 	 * For $settings options see:
 	 * http://codex.wordpress.org/Function_Reference/wp_editor
@@ -268,7 +362,7 @@ function optionsframework_options() {
 	 * 'media_buttons' are not supported as there is no post to attach items to
 	 * 'textarea_name' is set by the 'id' you choose
 	 */
-
+	 /*
 	$wp_editor_settings = array(
 		'wpautop' => true, // Default
 		'textarea_rows' => 5,
@@ -276,11 +370,37 @@ function optionsframework_options() {
 	);
 	
 	$options[] = array(
-		'name' => __('Default Text Editor', 'options_check'),
-		'desc' => sprintf( __( 'You can also pass settings to the editor.  Read more about wp_editor in <a href="%1$s" target="_blank">the WordPress codex</a>', 'options_check' ), 'http://codex.wordpress.org/Function_Reference/wp_editor' ),
+		'name' => __('Default Text Editor', 'options_framework_theme'),
+		'desc' => sprintf( __( 'You can also pass settings to the editor.  Read more about wp_editor in <a href="%1$s" target="_blank">the WordPress codex</a>', 'options_framework_theme' ), 'http://codex.wordpress.org/Function_Reference/wp_editor' ),
 		'id' => 'example_editor',
 		'type' => 'editor',
 		'settings' => $wp_editor_settings );
-
+*/
 	return $options;
+}
+
+/*
+ * This is an example of how to add custom scripts to the options panel.
+ * This example shows/hides an option when a checkbox is clicked.
+ */
+
+add_action('optionsframework_custom_scripts', 'optionsframework_custom_scripts');
+
+function optionsframework_custom_scripts() { ?>
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+
+	$('#example_showhidden').click(function() {
+  		$('#section-example_text_hidden').fadeToggle(400);
+	});
+
+	if ($('#example_showhidden:checked').val() !== undefined) {
+		$('#section-example_text_hidden').show();
+	}
+
+});
+</script>
+
+<?php
 }
