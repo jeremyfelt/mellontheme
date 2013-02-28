@@ -1,20 +1,41 @@
-body 	{ color: #F7F3E8; }
-.site 	{ background-color: #033649; }
-.entry-meta a, .entry-meta a:link, .entry-meta a:active, .entry-meta a:visited	{ color: #F7F3E8;  }
-.post-headline a, .post-headline a:link, .post-headline a:active, .post-headline a:visited	{ color: #D93F0F; }
-.post-headline a:hover	{ color: #F7F3E8; }
+body 						{ color: #F7F3E8; }
+.site 						{ background-color: #033649; }
+a, a:link, a:active			{ color: #21759b; }
+a:visited					{ color: #668284; }
+a:hover						{ color: #757575; }
+blockquote					{ background: rgba(255,255,255,0.5); }
 
-blockquote			{ background: rgba(255,255,255,0.5); }
+.post-headline a, 
+.post-headline a:link, 
+.post-headline a:active, 
+.post-headline a:visited				{ color: #D93F0F; }
+.post-headline a:hover					{ color: #F7F3E8; }
+.entry-header .entry-title				{ color: #bbb; }
+.entry-header .entry-title a, 
+.entry-header .entry-title a:link, 
+.entry-header .entry-title a:active, 
+.entry-header .entry-title a:visited 	{ color: #21759b; }
+.entry-header .entry-title a:hover		{ color: #D93F0F; }
+.entry-meta								{ color: #757575; }
+.entry-meta a, 
+.entry-meta a:link, 
+.entry-meta a:active, 
+.entry-meta a:visited					{ color: #999; }
+.entry-meta a:hover						{ color: #757575; }
+.widget-area .widget a,
+.widget-area .widget a:link,
+.widget-area .widget a:active			{ color: #21759b; }
+.widget-area .widget a:visited			{ color: #757575; }
+.widget-area .widget a:hover			{ color: #D93F0F; }
 
 div.comment-container,
-div#respond			{ color: #F7F3E8; background: #2B3E42; font-size: 0.9em; border: 2px solid #D93F0F; }
-
+div#respond								{ color: #F7F3E8; background: #2B3E42; font-size: 0.9em; border: 2px solid #D93F0F; }
 
 /* navigation menu */
-ul#menu1.sf-menu						{ background-color: #668284; border-style: solid; border-color: #D93F0F; border-width: 1px 0; }
+ul#menu1.sf-menu							{ background-color: #668284; border-style: solid; border-color: #D93F0F; border-width: 1px 0; }
 ul#menu1.sf-menu li a,
-ul#menu1.sf-menu-hor li.rMenu-expand a	{ color: #CDD3D8!important; }
-ul#menu1.sf-menu li:hover 				{ background-color: #D93F0F; }
+ul#menu1.sf-menu-hor li.rMenu-expand a		{ color: #CDD3D8!important; }
+ul#menu1.sf-menu li:hover 					{ background-color: #D93F0F; }
 ul#menu1.sf-menu li:hover a,
 ul#menu1.sf-menu-hor li.rMenu-expand:hover a { color: #F7F3E8; }
 ul#menu1.sf-menu li.current-menu-item, 

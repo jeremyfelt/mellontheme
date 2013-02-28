@@ -17,7 +17,7 @@
 		<?php endif; ?>
 		<?php if (has_post_thumbnail() && ! is_single()) : ?>
 			<div class="post-thumbnail thumbnail-box">
-				<a href="<?php the_permalink(); ?>" title="Read full post"><?php the_post_thumbnail(array(800,800), array('class' => 'bloglist-thumbnail')); ?></a>
+				<a href="<?php the_permalink(); ?>" title="Read full post"><?php the_post_thumbnail(array(600,400), array('class' => 'bloglist-thumbnail')); ?></a>
 			</div>
 		<? endif; // has_post_thumbnail() ?>
 		<header class="entry-header">

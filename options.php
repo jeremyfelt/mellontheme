@@ -105,6 +105,43 @@ function optionsframework_options() {
 	$options[] = array(
 		'name' => __('Basic Settings', 'options_framework_theme'),
 		'type' => 'heading');
+
+	$options[] = array(
+		'name' => "Page Layout",
+		'desc' => "Select single column, 2-column left side widgets, or 2-column right side widgets.",
+		'id' => "page_layout",
+		'std' => "2c-r-fixed",
+		'type' => "images",
+		'options' => array(
+			'1col-fixed' => $imagepath . '1col.png',
+			'2c-l-fixed' => $imagepath . '2cl.png',
+			'2c-r-fixed' => $imagepath . '2cr.png')
+	);
+		
+	$options[] = array(
+		'name' => __('Overlay Background Color', 'options_framework_theme'),
+		'desc' => __('No color selected by default. Change the backdrop color <a href="themes.php?page=custom-background">here</a>.', 'options_framework_theme'),
+		'id' => 'background_colorpicker',
+		'std' => '',
+		'type' => 'color' );
+
+	$options[] = array(
+		'name' => __('Main Content Area Background Color', 'options_framework_theme'),
+		'desc' => __('Default is the same as the content area.', 'options_framework_theme'),
+		'id' => 'main_content_colorpicker',
+		'std' => '',
+		'type' => 'color' );
+		
+	$options[] = array(
+		'name' => __('Primary Font Color', 'options_framework_theme'),
+		'desc' => __('No color selected by default.', 'options_framework_theme'),
+		'id' => 'font_colorpicker',
+		'std' => '',
+		'type' => 'color' );
+
+	$options[] = array(
+		'name' => __('Header Settings', 'options_framework_theme'),
+		'type' => 'heading');
 		
 	$options[] = array(
 		'name' => __('First Header Image', 'options_framework_theme'),
@@ -132,54 +169,23 @@ function optionsframework_options() {
 		'std' => '/',
 		'type' => 'text');
 
-
 	$options[] = array(
 		'name' => __('Facebook URL', 'options_framework_theme'),
-		'desc' => __('Link to an associated Facebook page.', 'options_framework_theme'),
+		'desc' => __('URL to an associated Facebook page (for social icons).', 'options_framework_theme'),
 		'id' => 'facebook_url',
 		'std' => 'http://www.facebook.com/yourpage',
 		'type' => 'text');
 
 	$options[] = array(
 		'name' => __('Twitter Feed', 'options_framework_theme'),
-		'desc' => __('URL to your Twitter feed.', 'options_framework_theme'),
+		'desc' => __('URL to an associated Twitter feed (for social icons).', 'options_framework_theme'),
 		'id' => 'twitter_feed',
 		'std' => 'http://www.twitter.com/#!/yourtwittername',
 		'type' => 'text');
-		
-	$wp_editor_settings = array(
-		'wpautop' => true, // Default
-		'textarea_rows' => 5,
-		'tinymce' => array( 'plugins' => 'wordpress' )
-	);
-	
-	$options[] = array(
-		'name' => __('Welcome Text', 'options_framework_theme'),
-		'desc' => __('Text to be displayed on the front page when displaying blog posts instead of a static front page.', 'options_framework_theme'),
-		'id' => 'welcome_text',
-		'type' => 'editor',
-		'settings' => $wp_editor_settings );
 
 	$options[] = array(
-		'name' => __('Overlay Background Color', 'options_framework_theme'),
-		'desc' => __('No color selected by default. Change the backdrop color <a href="themes.php?page=custom-background">here</a>.', 'options_framework_theme'),
-		'id' => 'background_colorpicker',
-		'std' => '',
-		'type' => 'color' );
-
-	$options[] = array(
-		'name' => __('Main Content Area Background Color', 'options_framework_theme'),
-		'desc' => __('Default is the same as the content area.', 'options_framework_theme'),
-		'id' => 'main_content_colorpicker',
-		'std' => '',
-		'type' => 'color' );
-		
-	$options[] = array(
-		'name' => __('Primary Font Color', 'options_framework_theme'),
-		'desc' => __('No color selected by default.', 'options_framework_theme'),
-		'id' => 'font_colorpicker',
-		'std' => '',
-		'type' => 'color' );
+		'name' => __('Miscellaneous Settings', 'options_framework_theme'),
+		'type' => 'heading');
 
 	$options[] = array(
 		'name' => __('Display Author Names?', 'options_framework_theme'),
@@ -195,7 +201,27 @@ function optionsframework_options() {
 		'std' => '1',
 		'type' => 'checkbox');
 		
-		/*
+	$options[] = array(
+		'name' => __('External CSS File', 'options_framework_theme'),
+		'desc' => __('Load an external CSS file by entering a valid URL.', 'options_framework_theme'),
+		'id' => 'external_css',
+		'std' => 'http://mysite.com/style.css',
+		'type' => 'text');
+
+
+/*	$wp_editor_settings = array(
+		'wpautop' => true, // Default
+		'textarea_rows' => 5,
+		'tinymce' => array( 'plugins' => 'wordpress' )
+	);
+	
+	$options[] = array(
+		'name' => __('Welcome Text', 'options_framework_theme'),
+		'desc' => __('Text to be displayed on the front page when displaying blog posts instead of a static front page.', 'options_framework_theme'),
+		'id' => 'welcome_text',
+		'type' => 'editor',
+		'settings' => $wp_editor_settings ); */
+	/*
 
 	$options[] = array(
 		'name' => __('Input Text Mini', 'options_framework_theme'),
