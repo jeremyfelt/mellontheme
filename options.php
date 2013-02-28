@@ -184,29 +184,117 @@ function optionsframework_options() {
 		'type' => 'text');
 
 	$options[] = array(
+		'name' => __('Front Page Slider', 'options_framework_theme'),
+		'type' => 'heading'
+	);
+
+	$options[] = array(
+		'name' => __('Enable Post/Page Slider?', 'options_framework_theme'),
+		'desc' => __('Display a slider on the front page? Defaults to false.', 'options_framework_theme'),
+		'id' => 'events_slider_checkbox',
+		'std' => '0',
+		'type' => 'checkbox'
+	);
+
+	/* slider options */
+	
+	$options[] = array(
+		'name' => __('Slider Width', 'options_framework_theme'),
+		'desc' => __('Enter the maximum width of the slider in pixels. Default is 600px', 'options_framework_theme'),
+		'id' => 'slider_width',
+		'std' => '600',
+		'class' => 'hidden mini',
+		'type' => 'text'
+
+	);
+	
+	$options[] = array(
+		'name' => __('Slider Height', 'options_framework_theme'),
+		'desc' => __('Enter the maximum height of the slider in pixels. Default is 380px', 'options_framework_theme'),
+		'id' => 'slider_height',
+		'std' => '380',
+		'class' => 'hidden mini',
+		'type' => 'text'
+	);
+	
+	$options[] = array(
+		'name' => __('Number of Slides', 'options_framework_theme'),
+		'desc' => __('Select the maximum number of slides to display. Default is 6.', 'options_framework_theme'),
+		'id' => 'slider_count',
+		'std' => '6',
+		'type' => 'select',
+		'class' => 'hidden mini',
+		'options' => array('3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10')
+	);
+	
+	$options[] = array(
+		'name' => __('Thumbnail Navigation', 'options_framework_theme'),
+		'desc' => __('Display a thumbnail navigation bar below the slider? Defaults to true.', 'options_framework_theme'),
+		'id' => 'slider_nav_checkbox',
+		'std' => '1',
+		'class' => 'hidden',
+		'type' => 'checkbox'
+	);
+	
+	$options[] = array(
+		'name' => __('Slider uses "sticky" posts', 'options_framework_theme'),
+		'desc' => __('Use only "sticky" posts for the slider, otherwise select from all posts.', 'options_framework_theme'),
+		'id' => 'sticky_slider',
+		'std' => '0',
+		'class' => 'hidden',
+		'type' => 'checkbox',
+		'options' => $slider_sticky
+	);
+
+	$args = array(
+		'public'   => true
+	); 
+	$post_types = get_post_types($args,'names'); 
+	foreach ($post_types as $post_type ) {
+		  $post_types[$post_type] = $post_type;
+	}
+	$post_types['tags'] = 'tags';
+	$post_types['categories'] = 'categories';
+
+	$options[] = array(
+		'name' => __('Page/Post Types', 'options_framework_theme'),
+		'desc' => __('Select the type of pages/posts to load into the slider. NOTE: only pages/posts containing a featured image will be displayed', 'options_framework_theme'),
+		'id' => 'slider_page_types',
+		'std' => 'post',
+		'type' => 'select',
+		'class' => 'hidden',
+		'options' => $post_types
+	);
+		
+	$options[] = array(
+		'name' => __('Post/Page/Tag/Category IDs', 'options_framework_theme'),
+		'desc' => __('Comma-separated list of post/pagetag/category ids to include in the slider. Default is blank and will include all pages/posts', 'options_framework_theme'),
+		'id' => 'slider_ids',
+		'std' => '',
+		'class' => 'hidden mini',
+		'type' => 'text'
+	);
+		
+	$options[] = array(
 		'name' => __('Miscellaneous Settings', 'options_framework_theme'),
-		'type' => 'heading');
+		'type' => 'heading'
+	);
 
 	$options[] = array(
 		'name' => __('Display Author Names?', 'options_framework_theme'),
 		'desc' => __('Display author names on posts? Defaults to true.', 'options_framework_theme'),
 		'id' => 'authors_checkbox',
 		'std' => '1',
-		'type' => 'checkbox');
-
-	$options[] = array(
-		'name' => __('Display Event Slider?', 'options_framework_theme'),
-		'desc' => __('Display a slider featuring recent events on the front page? Defaults to true.', 'options_framework_theme'),
-		'id' => 'events_slider_checkbox',
-		'std' => '1',
-		'type' => 'checkbox');
-		
+		'type' => 'checkbox'
+	);
+	
 	$options[] = array(
 		'name' => __('External CSS File', 'options_framework_theme'),
 		'desc' => __('Load an external CSS file by entering a valid URL.', 'options_framework_theme'),
 		'id' => 'external_css',
 		'std' => 'http://mysite.com/style.css',
-		'type' => 'text');
+		'type' => 'text'
+	);
 
 
 /*	$wp_editor_settings = array(
@@ -417,12 +505,34 @@ function optionsframework_custom_scripts() { ?>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 
-	$('#example_showhidden').click(function() {
-  		$('#section-example_text_hidden').fadeToggle(400);
+	$('#sticky_slider').click(function() {
+  		$('#section-slider_page_types').fadeToggle(400);
+		$('#section-slider_ids').fadeToggle(400);
+	});
+	$('#events_slider_checkbox').click(function() {
+  		if ($('#sticky_slider:checked').val() == undefined) {
+			$('#section-slider_page_types').fadeToggle(400);
+			$('#section-slider_ids').fadeToggle(400);
+		}
+		$('#section-sticky_slider').fadeToggle(400);
+		$('#section-slider_count').fadeToggle(400);
+		$('#section-slider_width').fadeToggle(400);
+		$('#section-slider_height').fadeToggle(400);
+		$('#section-slider_nav_checkbox').fadeToggle(400);
+		
 	});
 
-	if ($('#example_showhidden:checked').val() !== undefined) {
-		$('#section-example_text_hidden').show();
+	if ($('#events_slider_checkbox:checked').val() !== undefined) {
+		$('#section-sticky_slider').show();
+		$('#section-slider_count').show();
+		$('#section-slider_width').show();
+		$('#section-slider_height').show();	
+		$('#section-slider_nav_checkbox').show();
+	}
+
+	if ($('#events_slider_checkbox:checked').val() !== undefined && $('#sticky_slider:checked').val() == undefined) {
+		$('#section-slider_page_types').show();
+		$('#section-slider_ids').show();
 	}
 
 });
