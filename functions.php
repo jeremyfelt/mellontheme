@@ -1,5 +1,16 @@
 <?php
 
+/* 
+ * Loads the Options Panel
+ *
+ * If you're loading from a child theme use stylesheet_directory
+ * instead of template_directory
+ */
+if ( !function_exists( 'optionsframework_init' ) ) {
+	define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_stylesheet_directory_uri() . '/inc/' );
+	require_once dirname( __FILE__ ) . '/inc/options-framework.php';
+}
+
 // Register scripts
 
 function load_my_scripts() {
@@ -8,7 +19,6 @@ function load_my_scripts() {
 	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', array(), null, false );
 	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js', array('jquery'), null, false );
 	wp_enqueue_script('jquery.ui');
-//	wp_register_script( 'jquery.masonry', 'http://desandro.github.com/masonry/jquery.masonry.min.js', array('jquery'), null, false );        
 	wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false );
 	wp_register_script( 'jquery.imagesloaded', get_stylesheet_directory_uri().'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
 	wp_register_script( 'resizeimages', get_stylesheet_directory_uri().'/js/resize.min.js', array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
@@ -25,21 +35,16 @@ add_action('wp_enqueue_scripts', 'load_my_scripts', 100);
 
 //register custom stylesheets
 function load_my_styles() {
-//	if ($page_layout = of_get_option('page_layout')) {
-		$page_layout = of_get_option('page_layout');
+	if ($page_layout = of_get_option('page_layout')) {
 		$page_layout_css = get_stylesheet_directory_uri() . '/css/' . $page_layout.'.css';
 		wp_register_style( 'page_layout_style', $page_layout_css, 'screen');
 		wp_enqueue_style('page_layout_style');
-//	}
+	}
 	$extra_css = of_get_option('external_css');
 	if ($extra_css != '') {
 		wp_register_style( 'extra_css_style', $extra_css, 'screen');
 		wp_enqueue_style('extra_css_style');
 	}
-	//	wp_register_style( 'mellon_style', 'http://kaymmm.github.com/mellon-atahualpa/includes/mellon.css','screen' );
-	//	wp_register_style( 'pcp_style', 'http://kaymmm.github.com/mellon-atahualpa/pcp/css/pcp.css','screen' );
-	//	wp_enqueue_style('mellon_style');
-	//	wp_enqueue_style('pcp_style');
 }
 
 add_action('wp_enqueue_scripts', 'load_my_styles', 100);
@@ -48,17 +53,16 @@ add_action('wp_enqueue_scripts', 'load_my_styles', 100);
 function superfish_libs() {
 	$superfish_location = get_stylesheet_directory_uri();
     // Register each script, setting appropriate dependencies  
-    wp_register_script('hoverintent', $superfish_location . '/js/hoverIntent.js');  
-/*    wp_register_script('bgiframe',    $superfish_location . '/js/jquery.bgiframe.min.js');  */
-    wp_register_script('superfish',   $superfish_location . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
-    wp_register_script('supersubs',   $superfish_location . '/js/supersubs.js', array( 'superfish' ));  
-  
-    wp_enqueue_script('superfish'); 
+	wp_register_script('hoverintent', $superfish_location . '/js/hoverIntent.js');  
+/*	wp_register_script('bgiframe',    $superfish_location . '/js/jquery.bgiframe.min.js');  */
+	wp_register_script('superfish',   $superfish_location . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
+	wp_register_script('supersubs',   $superfish_location . '/js/supersubs.js', array( 'superfish' ));  
+	wp_enqueue_script('superfish'); 
  
     // Register each style, setting appropriate dependencies 
-    wp_register_style('superfishbase',   $superfish_location . '/css/superfish.css'); 
-/*    wp_register_style('superfishvert',   $superfish_location . '/css/superfish-vertical.css', array( 'superfishbase' ));  
-    wp_register_style('superfishnavbar', $superfish_location . '/css/superfish-navbar.css'); */
+	wp_register_style('superfishbase',   $superfish_location . '/css/superfish.css'); 
+/*	wp_register_style('superfishvert',   $superfish_location . '/css/superfish-vertical.css', array( 'superfishbase' ));  
+	wp_register_style('superfishnavbar', $superfish_location . '/css/superfish-navbar.css'); */
  
     // Enqueue superfishnavbar, we don't need to enqueue any others in this case either, as the dependencies take care of it  
     wp_enqueue_style('superfishnavbar');  
@@ -115,14 +119,14 @@ add_action( 'widgets_init', 'add_my_sidebars', 11);
 function deregister_navscript() {
 	wp_deregister_script( 'twentytwelve-navigation' );
 }
-add_action( 'wp_print_scripts', 'deregister_navscript', 100 );
+add_action( 'wp_print_scripts', 'deregister_navscript', 60 );
 
 function add_menus() {
 		wp_register_script( 'menus-script', get_stylesheet_directory_uri() . '/js/navigation.js', array(), '1.0', true );
 		wp_enqueue_script( 'menus-script' );
 }
 
-//add_action( 'wp_enqueue_scripts', 'add_menus' );
+add_action( 'wp_enqueue_scripts', 'add_menus',100 );
 
 // Add the new menu
 register_nav_menus( array(
