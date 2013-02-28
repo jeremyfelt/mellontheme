@@ -1,0 +1,181 @@
+/*
+Theme Name: Mellon Committee Sites
+Theme URI: https://github.com/kaymmm/mellontheme
+Description: A child theme of 2012 default WordPress theme built for the Mellon Transdisciplinary Committee websites
+Author: Keith Miyake
+Author url: http://keithmiyake.commons.gc.cuny.edu
+Version: 1.0
+Tags: fixed-width, custom-header, theme-options
+Template: twentytwelve
+*/
+@import url('../twentytwelve/style.css');
+/*@import url('css/pcp.css');*/
+/* This Block Adjusts the Overall Theme Width */
+footer[role="contentinfo"] { max-width: 1100px; }
+@media screen and (min-width: 600px) {
+	.site { max-width: 1100px; max-width: 78.571428571rem; }
+}
+.ie .site { max-width: 1100px; }
+
+@media screen and (min-width: 960px) {
+	body .site { padding: 0 40px; padding: 0 2.857142857rem;	margin-top: 0; margin-top: 0; }
+}
+
+/**** Clearfix ****/
+.clearfix:before, 
+.clearfix:after	{ content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix 		{ zoom: 1; }
+
+body .site	{ padding: 0; }
+
+.site-header { padding: 0; }
+
+div#logoarea { margin: 24px; margin: 1.714285714rem; margin-bottom: 0; padding: 0; position: relative; }
+
+div#main { padding: 0 24px; padding: 0 1.714285714rem; }
+
+.site-content { margin: 0; margin-top: 24px; margin-top: 1.714285714rem; }
+
+.widget-area .widget { margin-bottom: 24px; margin-bottom: 1.714285714rem; }
+
+.widget-area .widget h3 { margin-bottom: 14px; margin-bottom: 1rem; }
+
+@media screen and (min-width: 600px) {
+	.site-content { width: 71%; }
+}
+
+div.post-headline			{ margin-bottom: 5px; }
+h1.entry-title				{ padding: 14px 0; padding: 1rem 0;}
+.section-title				{ float: left; width: 100%; color: #999; background: #f3f3f3; padding: .25em .6em .35em .6em; margin-bottom: 20px; text-transform: lowercase; border-left: 10px solid #e9e9e9; } /* change margins to rem */
+.bloglist					{ margin: 0 0 24px 0; margin-bottom: 1rem; position: relative; width: 100%; }
+.bloglist .thumbnail-box	{ width: 100%; height: 337.5px; overflow: hidden; position: relative; margin-bottom: 14px; margin-bottom: 1rem; }
+.bloglist .thumbnail		{ position: absolute; max-width: 100%; }
+.bloglist .entry-header		{ float: left; width: 30%; margin-bottom: 14px; margin-bottom: 1rem; }
+.bloglist .entry-title		{ margin: 0 0 0.15em 0; padding: 0; font-size: 1.333333333333333em; text-transform: uppercase; line-height: 1.4em; border: none; word-spacing: 2px; word-wrap: break-word;} /* change to rem sizing */
+.post-event-info			{ margin: 0 0 .2em 0; font-size: 0.9166666666666667em; color: #bbb; line-height: 1.75em; word-spacing: 2px; }
+.bloglist .entry-summary	{ float: right; width: 65%; padding-left: 2.34375%; margin-bottom: 14px; margin-bottom: 1rem; }
+.bloglist .entry-summary p	{ margin-bottom: 0;}
+.bloglist .entry-meta		{ clear: both; display: block; margin: 0; padding: 14px; padding: 1rem; background: rgba(0, 0, 0, 0.2); color: #666; line-height: 14px; line-height: 1rem; font-size: 0.9em; border-bottom: 3px solid rgba(0,0,0,0.3); }
+.site-content article		{ border-bottom: none; margin-bottom: 48px; margin-bottom: 3.428571429rem; padding-bottom: 0; }
+
+/* comments box */
+div#respond		{ padding: 14px; padding: 1rem; }
+
+/* blog list image styles */
+#bloglist		{ clear: both; position: relative; }
+.centered 					{ margin: 0 auto; }
+#bloglist img 				{ position: absolute;}
+
+
+/* footers */
+.sitewide-footer p		{ border: none!important; margin: 0!important; padding: 0!important; }
+.sitewide-footer 		{ background: #333!important; position: absolute!important; left: 0px!important; right: 0px!important; margin-top: 48px!important; margin-top: 3.428571429rem!important;}
+.sitewide-footer img 	{ background: transparent!important; }
+.sitewide-footer a:hover, 
+.sitewide-footer a:hover { background: transparent!important; text-decoration: none!important; color: #ccc!important; }
+
+/* ===[ Footer Widget Areas ]=== */
+#footer-widgets { width: 100%; padding-top: 0; border-top: none; /*	padding: 24px; padding: 1.714285714rem; */}
+#footer-widgets .widget li { list-style-type: none; }
+
+.template-front-page #footer-widgets { padding-top: 0; }
+
+@media screen and (min-width: 600px) { 
+    #footer-widgets.three .widget { float: left; margin-right: 1.4; margin-left: 1.4%; width: 30.5%; }
+    #footer-widgets.three .widget + .widget + .widget { margin-right: 0; }
+}
+
+/* navigation menu */
+.main-navigation { margin-top: 24px; margin-top: 1rem; text-align: left; }
+
+ul#menu1.sf-menu 						{ margin-left: -1px; padding: 0px; }
+ul#menu1.sf-menu li:hover,
+ul#menu1.sf-menu-hor li.rMenu-expand,
+ul#menu1.sf-menu li 					{ margin: 0; padding: 0; border: 0; background: transparent; }
+ul#menu1.sf-menu li a,
+ul#menu1.sf-menu li a:link, 
+ul#menu1.sf-menu li a:visited, 
+ul#menu1.sf-menu li a:active,
+ul#menu1.sf-menu li a:hover,
+ul#menu1.sf-menu li:hover a,
+ul#menu1.sf-menu-hor li.rMenu-expand a	{ border: 0; padding: 5px 7px; margin: 0; line-height: 1.5em; background: transparent; text-decoration: none;}
+/*sub menus*/
+ul#menu1 ul.sub-menu					{margin-top: 0;}
+ul#menu1.sf-menu ul.sub-menu li 		{ background: transparent; border: 0; margin: 0; padding: 0; }
+ul#menu1.sf-menu ul.sub-menu li:hover	{ margin: 0; padding: 0; background-image: none;}
+ul#menu1.sf-menu ul.sub-menu li a 		{ padding: 7px; padding: .5rem; margin: 0; text-decoration: none; background: transparent; }
+ul#menu1.sf-menu-hor li.rMenu-expand a 	{ background: transparent; background-image: none!important; }
+
+/* social icons */
+#socialicons a 						{ width: 22px; height: 22px; margin-left: 7px; float: right;text-align: right; }
+#socialicons .twitterlink 			{ background: url(images/socialicons.png) no-repeat -22px 0; }
+#socialicons .youtubelink 			{ background: url(images/socialicons.png) no-repeat -44px 0; }
+#socialicons .linkedinlink 			{ background: url(images/socialicons.png) no-repeat -66px 0; }
+#socialicons .facebooklink 			{ background: url(images/socialicons.png) no-repeat -88px 0; }
+#socialicons .rsslink 				{ background: url(images/socialicons.png) no-repeat 0 0; }
+#socialicons .cuny 					{ background: url(images/cuny_logo1.png) no-repeat 0px -22px; }
+#socialicons .twitterlink:hover 	{ background-position: -22px -22px; }
+#socialicons .youtubelink:hover		{ background-position: -44px -22px; }
+#socialicons .linkedinlink:hover 	{ background-position: -66px -22px; }
+#socialicons .facebooklink:hover 	{ background-position: -88px -22px; }
+#socialicons .rsslink:hover 		{ background-position: 0px -22px; }
+#socialicons .cuny:hover 			{ background-position: 0px 0px; }
+
+/* slider styles */
+#featured-wrapper					{ float: none; overflow: hidden; display: block; position: relative; border: none; margin-bottom: 48px; margin-bottom: 3.428571429rem; padding: 0;}
+#featured-slideshow .dummy			{ width: 100%; overflow: hidden; }
+#featured-slideshow     			{ position: relative; z-index: 0 !important; width: 100%; margin-bottom: 0;}
+#featured-slideshow .entry-title 	{ color: #fff; padding: 5px; text-align: left; }
+#featured-slideshow .featured-post 	{ overflow: hidden; display: block; position: relative; text-decoration: none; cursor: pointer; margin: 0; padding: 0; }
+.no-js #featured-slideshow .dummy,
+#featured-slideshow .dummy.hidden 	{ display: none; }
+
+
+.featured-post h2.entry-title { position: absolute; top: 14px; top: 1rem; right: 0; text-align: right; }
+.featured-post h2.entry-title a	{ font-size: 1.4em; line-height: 1.8em; padding: 14px; padding: 1rem; text-decoration: none; }
+#slider-prev { left: 0; background-position: 7px -21px; }
+#slider-next { right: 0; background-position: 7px 11px; }
+.slider-nav { display: block; position: absolute; bottom: 0; width: 31px; height: 28px; font-size: 1em; z-index: 9; cursor: pointer; text-indent: -9999em; }
+.slider-nav	{ color: #fff; background: #333 url(images/slider-nav-arrows.png) no-repeat; background: rgba(0,0,0,0.5) url(images/slider-nav-arrows.png) no-repeat; }
+.slider-nav:hover { background-color: #000; }
+.slider-thumb-box { position: relative; height: 75px; overflow: hidden; }
+.slider-nav-thumbnail { position: absolute; }
+
+/*  Slider Image Navigation Bar
+-------------------------------------------------------------- */
+#slider-nav { position: relative; width: 100%; overflow: hidden; padding: 0; margin: 0; }
+#slide-thumbs { width: 100%; margin: 0; }
+#slider-nav li { float: left; list-style: none;	width: 14.66666666666667%;	margin: 0 2.4% 0 0px; padding-top: 14px; padding-top: 1rem;}
+#slider-nav li a, #slider-nav li a:visited { border-bottom: none; padding: 0; }
+#slider-nav li.last { margin-right: 0; }
+#slider-nav img { filter: alpha(opacity = 40); opacity: .4; }
+#slider-nav .activeSlide img { filter: alpha(opacity = 100); opacity: 1; }
+
+
+
+/* for IE8 and IE7 */
+.ie #footer-widgets.three .widget { float: left;margin-right: 3.7%;width: 29.85%;clear: none;}
+.ie #footer-widgets.three .widget + .widget + .widget { margin-right: 0; }
+
+/* ===[ IE Homepage Template Widget fix ]=== */
+.ie .template-front-page .first.front-widgets,
+.ie .template-front-page.two-sidebars .widget-area .front-widgets {float: left;margin-bottom: 24px;width: 51.875% ;}
+.ie .template-front-page .second.front-widgets { clear: right; }
+.ie .template-front-page .first.front-widgets,
+.ie .template-front-page.two-sidebars .widget-area .front-widgets + .front-widgets {float: right;margin: 0 0 24px;width: 39.0625% ;}
+.ie .template-front-page.two-sidebars .widget,
+.ie .template-front-page.two-sidebars .widget:nth-child(even) { float: none; }
+.ie .template-front-page .widget-area { clear: both; }
+
+.ie .template-front-page .widget {width: 100% !important;border: none;}
+.ie .template-front-page .first.front-widgets { width: 51.875%;float: left ;}
+.ie  .template-front-page .second.front-widgets {width: 39.0625%;float: right ;}
+
+/* Hide footer widgets Homepage Template */
+.template-front-page #footer-widgets { display: none; }
+
+.wp-caption { padding: 0;}
+
+/* reduce wp-ui tab padding */
+div#wp-tabs-2.wp-tabs .ui-tabs .ui-tabs-nav li a { padding: .3em .4em; }
