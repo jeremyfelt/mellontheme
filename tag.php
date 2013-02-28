@@ -1,14 +1,8 @@
 <?php
 /**
- * The template for displaying Archive pages.
+ * The template for displaying Tag pages.
  *
- * Used to display archive-type pages if nothing more specific matches a query.
- * For example, puts together date-based pages if no date.php file exists.
- *
- * If you'd like to further customize these archive views, you may create a
- * new template file for each specific one. For example, Twenty Twelve already
- * has tag.php for Tag archives, category.php for Category archives, and
- * author.php for Author archives.
+ * Used to display archive-type pages for posts in a tag.
  *
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
@@ -22,11 +16,15 @@ get_header(); ?>
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
 
-			<?php if ( of_get_option('events_slider_checkbox',1) ) :
-				events_slider(600,338,6);
-			endif; ?>
-
 		<?php if ( have_posts() ) : ?>
+			<header class="archive-header">
+				<h1 class="archive-title"><?php printf( __( 'Tag Archives: %s', 'twentytwelve' ), '<span>' . single_tag_title( '', false ) . '</span>' ); ?></h1>
+
+			<?php if ( tag_description() ) : // Show an optional tag description ?>
+				<div class="archive-meta"><?php echo tag_description(); ?></div>
+			<?php endif; ?>
+			</header><!-- .archive-header -->
+			
 			<div id="bloglist" class="clearfix" >
 			<?php
 			/* Start the Loop */
@@ -39,11 +37,11 @@ get_header(); ?>
 				get_template_part( 'content', get_post_format() );
 
 			endwhile;
-			?>
-			</div><!-- #tumblelog -->
-		<?php 
+
 			twentytwelve_content_nav( 'nav-below' );
-		else : ?>
+			?>
+			</div><!-- #bloglist -->
+		<?php else : ?>
 			<?php get_template_part( 'content', 'none' ); ?>
 		<?php endif; ?>
 

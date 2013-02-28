@@ -9,18 +9,18 @@ function load_my_scripts() {
 	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js', array('jquery'), null, false );
 	wp_enqueue_script('jquery.ui');
 //	wp_register_script( 'jquery.masonry', 'http://desandro.github.com/masonry/jquery.masonry.min.js', array('jquery'), null, false );        
-//	wp_register_script( 'resizeimages', get_stylesheet_directory_uri().'/js/resize.min.js', array('jquery','jquery.masonry','jquery.imagesloaded','scaleimage'),null,false ); 
-//	wp_enqueue_script('resizeimages');
+
 			
 //	wp_register_style( 'mellon_style', 'http://kaymmm.github.com/mellon-atahualpa/includes/mellon.css','screen' );
 //	wp_register_style( 'pcp_style', 'http://kaymmm.github.com/mellon-atahualpa/pcp/css/pcp.css','screen' );
 //	wp_enqueue_style('mellon_style');
 //	wp_enqueue_style('pcp_style');			
-	
+	wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false );
+	wp_register_script( 'jquery.imagesloaded', get_stylesheet_directory_uri().'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
+	wp_register_script( 'resizeimages', get_stylesheet_directory_uri().'/js/resize.min.js', array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
+	wp_enqueue_script('resizeimages');	
 	// scripts for specific pages
 	if (is_front_page()) {
-		wp_register_script( 'jquery.imagesloaded', get_stylesheet_directory_uri().'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false ); 
-		wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false ); 
 		wp_register_script( 'jquery.cycle', get_stylesheet_directory_uri().'/js/jquery.cycle.all.min.js', array( 'jquery' ),null,false ); 
 		wp_register_script( 'slider', get_stylesheet_directory_uri().'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
 		wp_enqueue_script('slider');
@@ -134,28 +134,27 @@ add_action('init','add_option_framework');
 
 function combine_posts_events($query) {
 	if (! is_admin() && $query->is_main_query() ) {
-	if (! is_singular()) {
-		$paged = (get_query_var('paged') ? get_query_var('paged') : ( get_query_var('page') ? get_query_var('page') : 1 ) ); 
+		if (! is_singular()) {
+			$paged = (get_query_var('paged') ? get_query_var('paged') : ( get_query_var('page') ? get_query_var('page') : 1 ) ); 
 
-		if (is_tag() || $query->query_vars['event-tags']){
-			if ($query->query_vars['event-tags']) { $the_tags = $query->query_vars['event-tags']; }
-			else { $the_tags = $query->query_vars['tag']; }
-			$query->set('post_type', array('post','event'));
-			$query->set('scope' , 'all');
-			$query->set('paged' , $paged);
-//			$query->set('posts_per_page' , 10);
-			$query->set('order' , 'DESC');
-			$query->set('tax_query', array('relation' => 'OR',
-										array('taxonomy' => 'event-tags', 'field' => 'slug','terms' => $the_tags),
-										array('taxonomy' => 'post_tag','field' => 'slug','terms' => $the_tags)));
-		} else {
-			$query->set('post_type', array('post','event'));
-			$query->set('scope', 'all');
-			$query->set('paged', $paged);
-			$query->set('order', 'DESC');
-			$query->set('orderby', 'start_date');
+			if (is_tag() || $query->query_vars['event-tags']){
+				if ($query->query_vars['event-tags']) { $the_tags = $query->query_vars['event-tags']; }
+				else { $the_tags = $query->query_vars['tag']; }
+				$query->set('post_type', array('post','event'));
+				$query->set('scope' , 'all');
+				$query->set('paged' , $paged);
+				$query->set('order' , 'DESC');
+				$query->set('tax_query', array('relation' => 'OR',
+											array('taxonomy' => 'event-tags', 'field' => 'slug','terms' => $the_tags),
+											array('taxonomy' => 'post_tag','field' => 'slug','terms' => $the_tags)));
+			} else {
+				$query->set('post_type', array('post','event'));
+				$query->set('scope', 'all');
+				$query->set('paged', $paged);
+				$query->set('order', 'DESC');
+				$query->set('orderby', 'start_date');
+			}
 		}
-	}
 	}
 	return $query;
 }
@@ -182,10 +181,14 @@ add_action( 'template_redirect', 'child_content_width', 11 );
 //Overrides default twenty_twelve_entry_meta
 function twentytwelve_entry_meta() {
 	// Translators: used between list items, there is a space after the comma.
-	$categories_list = get_the_category_list( __( ', ', 'twentytwelve' ) );
-
-	// Translators: used between list items, there is a space after the comma.
-	$tag_list = get_the_tag_list( '', __( ', ', 'twentytwelve' ) );
+	if ( 'event' == get_post_type() && ! is_single() ) : 
+		$EM_Event = em_get_event($post->ID, 'post_id');
+		$tag_list = $EM_Event->output('#_EVENTTAGS');
+		$categories_list = $EM_Event->output('#_EVENTCATEGORIES');
+	else:
+		$tag_list = get_the_tag_list( '', __( ', ', 'twentytwelve' ) );
+		$categories_list = get_the_category_list( __( ', ', 'twentytwelve' ) );
+	endif;
 
 	$date = sprintf( '<a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a>',
 		esc_url( get_permalink() ),

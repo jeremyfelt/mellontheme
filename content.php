@@ -8,37 +8,36 @@
  */
 ?>
 
-	<?php $add_classes = ( (is_home() || is_archive()) ? 'box col2 masonry-brick' : ''); ?>
+	<?php $add_classes = ( (is_home() || is_archive()) ? 'bloglist' : ''); //'hentry' for styling articles with banner and summary ?>
 	<article id="post-<?php the_ID(); ?>" <?php post_class($add_classes); ?>>
 		<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
 		<div class="featured-post">
-			<?php _e( 'Featured post', 'twentytwelve' ); ?>
+				<?php _e( 'Featured post', 'twentytwelve' ); ?>
 		</div>
 		<?php endif; ?>
-		
+		<?php if (has_post_thumbnail() && ! is_single()) : ?>
+			<div class="post-thumbnail thumbnail-box">
+				<a href="<?php the_permalink(); ?>" title="Read full post"><?php the_post_thumbnail(array(800,800), array('class' => 'bloglist-thumbnail')); ?></a>
+			</div>
+		<? endif; // has_post_thumbnail() ?>
 		<header class="entry-header">
-			<?php if ( is_single() ) : ?>
-			<h1 class="entry-title"><?php the_title(); ?></h1>
-		<?php else : ?>
-			<h1 class="entry-title">
-				<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-			</h1>
-			<?php if (has_post_thumbnail() ) : ?>
-			<div class="post-thumbnail">
-				<?php the_post_thumbnail(); ?>
-			</div>
-			<? endif;?>
-			<?php endif; // is_single() ?>
+			<h1 class="post-title entry-title">
+				<?php if ( is_single() ) :
+					the_title();
+				else : ?>
+					<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+			<?php endif; // is_single() ?></h1>
+			<?php if ( 'event' == get_post_type() && ! is_single() ) : 
+				$EM_Event = em_get_event($post->ID, 'post_id'); ?>
+				<div class="post-event-info">
+					<h6><?php echo $EM_Event->output('#_EVENTDATES'); ?></h6>
+					<h6><?php echo $EM_Event->output('#_EVENTTIMES'); ?></h6>
+					<h6><?php echo $EM_Event->output("#_LOCATION"); ?></h6>
+				</div>
+			<? endif; ?>
+			
 		</header><!-- .entry-header -->
-		<?php if ( 'event' == get_post_type() && ! is_single() ) : 
-			$EM_Event = em_get_event($post->ID, 'post_id'); ?>
-			<div class="post-event-info">
-				<h6><?php echo $EM_Event->output('#_EVENTDATES'); ?></h6>
-				<h6><?php echo $EM_Event->output('#_EVENTTIMES'); ?></h6>
-				<h6><?php echo $EM_Event->output("#_LOCATION"); ?></h6>
-			</div>
-		<? endif; ?>
-		<?php if ( ! is_single() ) : // Only display Excerpts for everything but single pages/posts ?>
+		<?php if ( ! is_single() ) : // Don't display excerpts for single pages/posts ?>
 		<div class="entry-summary">
 			<?php the_excerpt(); ?>
 		</div><!-- .entry-summary -->
@@ -54,7 +53,7 @@
 			<?php if ( comments_open() ) : ?>
 				| <?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a comment', 'twentytwelve' ) . '</span>', __( '1 Comment', 'twentytwelve' ), __( '% Comments', 'twentytwelve' ) ); ?>
 			<?php endif; // comments_open() ?>
-				| <?php edit_post_link( __( 'Edit', 'twentytwelve' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php edit_post_link( __( 'Edit', 'twentytwelve' ), ' | <span class="edit-link">', '</span>' ); ?>
 			<?php if ( is_singular() && get_the_author_meta( 'description' ) && is_multi_author() && of_get_option('authors_checkbox')) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries. ?>
 				<div class="author-info">
 					<div class="author-avatar">

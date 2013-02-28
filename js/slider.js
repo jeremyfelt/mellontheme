@@ -28,12 +28,12 @@ jQuery(document).ready(function($) {
 		$('img.featured-thumbnail').each(function() {
 			var originalDimensions = getOriginalDimensionsOfImg(this);
 			var tw = $(this).parents("div").parents("div").width();
-			var th = $(this).parents("div").parents("div").height();
-	   		var result = ScaleImage(originalDimensions.width, originalDimensions.height, tw, th, false);
+			var th = $(this).parents("div").parents("div").height()*1.2;
+	   		var result = ScaleImage(originalDimensions.width, originalDimensions.height, tw, th, true);
 	   		$(this).css("width",result.width);
 	   		$(this).css("height",result.height);
 	   		$(this).css("left", result.targetleft);
-			$(this).css("top", Math.floor(result.targettop/2));
+			$(this).css("top", Math.floor(result.targettop));
 			$(this).css("position","absolute");
 		});
 	});
@@ -51,36 +51,8 @@ jQuery(document).ready(function($) {
 	   		$(this).css("width",result.width);
 	   		$(this).css("height",result.height);
 	   		$(this).css("left", result.targetleft);
-			$(this).css("top", Math.floor(result.targettop/2));
+			$(this).css("top", Math.floor(result.targettop));
 			$(this).css("position","absolute");
 		});
 	});
-
-
-	//---------
-	//resize the images for the slider
-	/*
-	$('#featured-slideshow').imagesLoaded(function(){
-		$('img.attachment-featured-slideshow-thumb').each(function() {
-			var originalDimensions = getOriginalDimensionsOfImg(this);
-			var tw = $(this).parents("div").width();
-			var th = $(this).parents("div").height();
-	   		var result = ScaleImage(originalDimensions.width, originalDimensions.height, tw, th, false);
-	   		$(this).css("width",result.width);
-	   		$(this).css("height",result.height);
-	   		$(this).css("left", result.targetleft);
-			$(this).css("top", Math.floor(result.targettop/2));
-			$(this).css("position","absolute");
-		});
-	});
-
-	//initialize the slider
-	$('#featured-slideshow').cycle({
-		speed: 300, 
-		next: '#controls .next', 
-		prev: '#controls .prev', 
-		timeout: 7000, 
-		pause: 1, 
-		containerResize: 0
-	}); */
 });
