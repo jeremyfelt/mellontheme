@@ -134,21 +134,6 @@ register_nav_menus( array(
    'secondary' => __( 'Second Menu', 'mellontheme')
 ) );
   
-/* 
- * Loads the Options Panel
- *
- * If you're loading from a child theme use stylesheet_directory
- * instead of template_directory
- */
-function add_option_framework() {
-	if ( !function_exists( 'optionsframework_init' ) ) {
-		define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_stylesheet_directory_uri() . '/inc/' );
-		require_once dirname( __FILE__ ) . '/inc/options-framework.php';
-	}
-}
-add_action('init','add_option_framework');
- 
- 
 //Add custom query to combine events with regular posts
 
 function combine_posts_events($query) {
