@@ -96,6 +96,12 @@ $font_color = of_get_option('font_colorpicker');
 			<a class="assistive-text" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentytwelve' ); ?>"><?php _e( 'Skip to content', 'twentytwelve' ); ?></a>
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'sf-menu sf-navbar', 'menu_id' => 'menu1','fallback_cb' => 'wp_page_menu') ); ?>
 		</nav><!-- #site-navigation -->
+	
+		<div id="breadcrumbs">
+			<?php custom_breadcrumbs() ?>
+		</div>
+	
 	</header><!-- #masthead -->
 
 	<div id="main" class="wrapper">
+		
