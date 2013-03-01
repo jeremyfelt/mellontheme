@@ -289,6 +289,15 @@ function optionsframework_options() {
 	);
 	
 	$options[] = array(
+		'name' => __('Resize Blog Images', 'options_framework_theme'),
+		'desc' => __('Select the way featured images should be displayed on the blog.', 'options_framework_theme'),
+		'id' => 'resize_images',
+		'std' => 'grow',
+		'type' => 'select',
+		'options' => array('shrink'=>'Shrink images to fit within box','grow' => 'Grow images to fill box','none' => 'Do not modify images')
+	);
+	
+	$options[] = array(
 		'name' => __('External CSS File', 'options_framework_theme'),
 		'desc' => __('Load an external CSS file by entering a valid URL.', 'options_framework_theme'),
 		'id' => 'external_css',

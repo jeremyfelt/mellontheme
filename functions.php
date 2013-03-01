@@ -19,11 +19,22 @@ function load_my_scripts() {
 	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', array(), null, false );
 	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js', array('jquery'), null, false );
 	wp_enqueue_script('jquery.ui');
+
 	wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false );
 	wp_register_script( 'jquery.imagesloaded', get_stylesheet_directory_uri().'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
-	wp_register_script( 'resizeimages', get_stylesheet_directory_uri().'/js/resize.min.js', array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
-	wp_enqueue_script('resizeimages');	
+
 	// scripts for specific pages
+	if (is_front_page() || is_archive()) {
+		$resize_rule = of_get_option('resize_images','grow');
+		$resize_js = 'jquery.resize.grow.js';
+		if ($resize_rule == 'shrink') {
+			$resize_js = 'jquery.resize.shrink.js';
+		}
+		if ($resize_rule != 'none') {
+			wp_register_script( 'resizeimages', get_stylesheet_directory_uri().'/js/'.$resize_js, array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
+			wp_enqueue_script('resizeimages');
+		}
+	}
 	if (is_front_page()) {
 		wp_register_script( 'jquery.cycle', get_stylesheet_directory_uri().'/js/jquery.cycle.all.min.js', array( 'jquery' ),null,false ); 
 		wp_register_script( 'slider', get_stylesheet_directory_uri().'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
@@ -319,5 +330,168 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 <?php
 }
 
+
+/******************************************************************************
+* @Author: Boutros AbiChedid 
+* @Date:   June 20, 2011
+* @Websites: http://bacsoftwareconsulting.com/ ; http://blueoliveonline.com/
+* @Description: Preserves HTML formating to the automatically generated Excerpt.
+* Also Code modifies the default excerpt_length and excerpt_more filters.
+*******************************************************************************/
+function custom_wp_trim_excerpt($text) {
+$raw_excerpt = $text;
+if ( '' == $text ) {
+    $text = get_the_content('');
+ 
+    $text = strip_shortcodes( $text );
+ 
+    $text = apply_filters('the_content', $text);
+    $text = str_replace(']]>', ']]&gt;', $text);
+     
+    /***Add the allowed HTML tags separated by a comma.***/
+    $allowed_tags = '<em>,<strong>,<i>,<a>,<p>,<br>';  
+    $text = strip_tags($text, $allowed_tags);
+     
+    /***Change the excerpt word count.***/
+    $excerpt_word_count = 60; 
+    $excerpt_length = apply_filters('excerpt_length', $excerpt_word_count); 
+     
+    /*** Change the excerpt ending.***/
+    $excerpt_end = '… <a href="'. get_permalink($post->ID) . '">' . ' more&raquo;' . '</a>'; 
+    $excerpt_more = apply_filters('excerpt_more', ' ' . $excerpt_end);
+      
+	$words = preg_split("/[\n\r\t ]+/", $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
+    if ( count($words) > $excerpt_length ) {
+        array_pop($words);
+        $text = implode(' ', $words);
+        $text = $text . $excerpt_more;
+    } else {
+        $text = implode(' ', $words);
+    }
+	$text = closetags($text);
+}
+return apply_filters('wp_trim_excerpt', $text, $raw_excerpt);
+}
+remove_filter('get_the_excerpt', 'wp_trim_excerpt');
+add_filter('get_the_excerpt', 'custom_wp_trim_excerpt');
+
+function closetags($html) {
+    preg_match_all('#<(?!meta|img|br|hr|input\b)\b([a-z]+)(?: .*)?(?<![/|/ ])>#iU', $html, $result);
+    $openedtags = $result[1];
+    preg_match_all('#</([a-z]+)>#iU', $html, $result);
+    $closedtags = $result[1];
+    $len_opened = count($openedtags);
+    if (count($closedtags) == $len_opened) {
+        return $html;
+    }
+    $openedtags = array_reverse($openedtags);
+    for ($i=0; $i < $len_opened; $i++) {
+        if (!in_array($openedtags[$i], $closedtags)) {
+            $html .= '</'.$openedtags[$i].'>';
+        } else {
+            unset($closedtags[array_search($openedtags[$i], $closedtags)]);
+        }
+    }
+    return $html;
+} 
+
+function custom_breadcrumbs(){ 
+	$delimiter = '&raquo;';
+	$name = 'Home';
+	$currentBefore = '<span class="current">';
+	$currentAfter = '</span>';
+
+	if(!is_home() && !is_front_page() || is_paged()){
+
+		global $post;
+		$home = get_bloginfo('url');
+		echo '<a href="' . $home . '">' . $name . '</a> ' . $delimiter . ' ';
+
+		if(is_tax()){
+			  $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
+			  echo $currentBefore . $term->name . $currentAfter;
+
+		} elseif (is_category()){
+			global $wp_query;
+			$cat_obj = $wp_query->get_queried_object();
+			$thisCat = $cat_obj->term_id;
+			$thisCat = get_category($thisCat);
+			$parentCat = get_category($thisCat->parent);
+			if($thisCat->parent != 0) echo(get_category_parents($parentCat, TRUE, ' ' . $delimiter . ' '));
+			echo $currentBefore . '';
+			single_cat_title();
+			echo '' . $currentAfter;
+
+		} elseif (is_day()){
+			echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+			echo '<a href="' . get_month_link(get_the_time('Y'),get_the_time('m')) . '">' . get_the_time('F') . '</a> ' . $delimiter . ' ';
+			echo $currentBefore . get_the_time('d') . $currentAfter;
+
+		} elseif (is_month()){
+			echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a> ' . $delimiter . ' ';
+			echo $currentBefore . get_the_time('F') . $currentAfter;
+
+		} elseif (is_year()){
+			echo $currentBefore . get_the_time('Y') . $currentAfter;
+
+		} elseif (is_single()){
+			$postType = get_post_type();
+			if($postType == 'post'){
+				$cat = get_the_category(); $cat = $cat[0];
+				echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
+			} elseif($postType == 'portfolio'){
+				$terms = get_the_term_list($post->ID, 'portfolio-category', '', '###', '');
+				$terms = explode('###', $terms);
+				echo $terms[0]. ' ' . $delimiter . ' ';
+			}
+			echo $currentBefore;
+			the_title();
+			echo $currentAfter;
+
+		} elseif (is_page() && !$post->post_parent){
+			echo $currentBefore;
+			the_title();
+			echo $currentAfter;
+
+		} elseif (is_page() && $post->post_parent){
+			$parent_id  = $post->post_parent;
+			$breadcrumbs = array();
+			while($parent_id){
+				$page = get_page($parent_id);
+				$breadcrumbs[] = '<a href="' . get_permalink($page->ID) . '">' . get_the_title($page->ID) . '</a>';
+				$parent_id  = $page->post_parent;
+			}
+			$breadcrumbs = array_reverse($breadcrumbs);
+			foreach ($breadcrumbs as $crumb) echo $crumb . ' ' . $delimiter . ' ';
+			echo $currentBefore;
+			the_title();
+			echo $currentAfter;
+
+		} elseif (is_search()){
+			echo $currentBefore . __('Search Results for:', 'wpinsite'). ' &quot;' . get_search_query() . '&quot;' . $currentAfter;
+
+		} elseif (is_tag()){
+			echo $currentBefore . __('Post Tagged with:', 'wpinsite'). ' &quot;';
+			single_tag_title();
+			echo '&quot;' . $currentAfter;
+
+		} elseif (is_author()) {
+			global $author;
+			$userdata = get_userdata($author);
+			echo $currentBefore . __('Author Archive', 'wpinsite') . $currentAfter;
+
+		} elseif (is_404()){
+			echo $currentBefore . __('Page Not Found', 'wpinsite') . $currentAfter;
+
+		}
+
+		if(get_query_var('paged')){
+		if(is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ' (';
+		echo ' ' . $delimiter . ' ' . __('Page') . ' ' . get_query_var('paged');
+		if(is_category() || is_day() || is_month() || is_year() || is_search() || is_tag() || is_author() ) echo ')';
+		}
+
+	}
+}
 
 ?>
