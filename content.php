@@ -5,16 +5,12 @@
  * @package WordPress
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
+ * Modified for MellonTheme by Keith Miyake
  */
-?>
 
-	<?php $add_classes = ( (is_home() || is_archive()) ? 'bloglist' : ''); //'hentry' for styling articles with banner and summary ?>
+	$add_classes = ( (is_home() || is_archive()) ? 'bloglist' : ''); //'bloglist' for styling articles with banner and summary 
+	?> 
 	<article id="post-<?php the_ID(); ?>" <?php post_class($add_classes); ?>>
-		<?php if ( is_sticky() && is_home() && ! is_paged() ) : ?>
-		<div class="featured-post">
-				<?php _e( 'Featured post', 'twentytwelve' ); ?>
-		</div>
-		<?php endif; ?>
 		<?php if (has_post_thumbnail() && ! is_single()) : ?>
 			<div class="post-thumbnail thumbnail-box">
 				<a href="<?php the_permalink(); ?>" title="Read full post"><?php the_post_thumbnail(array(600,400), array('class' => 'bloglist-thumbnail')); ?></a>

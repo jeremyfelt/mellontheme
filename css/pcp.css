@@ -5,6 +5,8 @@ a:visited					{ color: #668284; }
 a:hover						{ color: #757575; }
 blockquote					{ background: rgba(255,255,255,0.5); }
 
+/*.bloglist .thumbnail-box	{ float: right; width: 65%; }*/
+
 .post-headline a, 
 .post-headline a:link, 
 .post-headline a:active, 
@@ -27,6 +29,11 @@ blockquote					{ background: rgba(255,255,255,0.5); }
 .widget-area .widget a:active			{ color: #21759b; }
 .widget-area .widget a:visited			{ color: #757575; }
 .widget-area .widget a:hover			{ color: #D93F0F; }
+
+/* sticky posts */
+.bloglist.sticky						{ background-color: rgba(128,128,128,0.2); border: 3px solid  #D93F0F; }
+.bloglist.sticky .entry-meta			{ border: 0; }
+
 
 div.comment-container,
 div#respond								{ color: #F7F3E8; background: #2B3E42; font-size: 0.9em; border: 2px solid #D93F0F; }

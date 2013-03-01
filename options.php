@@ -235,16 +235,6 @@ function optionsframework_options() {
 		'class' => 'hidden',
 		'type' => 'checkbox'
 	);
-	
-	$options[] = array(
-		'name' => __('Slider uses "sticky" posts', 'options_framework_theme'),
-		'desc' => __('Use only "sticky" posts for the slider, otherwise select from all posts.', 'options_framework_theme'),
-		'id' => 'sticky_slider',
-		'std' => '0',
-		'class' => 'hidden',
-		'type' => 'checkbox',
-		'options' => $slider_sticky
-	);
 
 	$args = array(
 		'public'   => true
@@ -255,20 +245,30 @@ function optionsframework_options() {
 	}
 	$post_types['tags'] = 'tags';
 	$post_types['categories'] = 'categories';
+	$post_types['stickies'] = 'stickies';
 
 	$options[] = array(
 		'name' => __('Page/Post Types', 'options_framework_theme'),
-		'desc' => __('Select the type of pages/posts to load into the slider. NOTE: only pages/posts containing a featured image will be displayed', 'options_framework_theme'),
+		'desc' => __('Select the type of pages/posts to load into the slider. NOTE: only pages/posts containing a featured image will be displayed.', 'options_framework_theme'),
 		'id' => 'slider_page_types',
 		'std' => 'post',
 		'type' => 'select',
 		'class' => 'hidden',
 		'options' => $post_types
 	);
-		
+
+	$options[] = array(
+		'name' => __('Ignore Sticky Flag', 'options_framework_theme'),
+		'desc' => __('Check to ignore the "sticky" flag for posts in the slider. Only effective if post is selected above. Default is to ignore stickies (checked). NOTE: if unchecked, sticky posts will appear first on the slider', 'options_framework_theme'),
+		'id' => 'slider_sticky',
+		'std' => '0',
+		'class' => 'hidden',
+		'type' => 'checkbox'
+	);
+			
 	$options[] = array(
 		'name' => __('Post/Page/Tag/Category IDs', 'options_framework_theme'),
-		'desc' => __('Comma-separated list of post/pagetag/category ids to include in the slider. Default is blank and will include all pages/posts', 'options_framework_theme'),
+		'desc' => __('Comma-separated list of post/pagetag/category ids to include in the slider. Default is blank and will include all pages/posts. NOTE: Currently only works with standard posts/pages', 'options_framework_theme'),
 		'id' => 'slider_ids',
 		'std' => '',
 		'class' => 'hidden mini',
@@ -505,32 +505,22 @@ function optionsframework_custom_scripts() { ?>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 
-	$('#sticky_slider').click(function() {
-  		$('#section-slider_page_types').fadeToggle(400);
-		$('#section-slider_ids').fadeToggle(400);
-	});
 	$('#events_slider_checkbox').click(function() {
-  		if ($('#sticky_slider:checked').val() == undefined) {
-			$('#section-slider_page_types').fadeToggle(400);
-			$('#section-slider_ids').fadeToggle(400);
-		}
-		$('#section-sticky_slider').fadeToggle(400);
+		$('#section-slider_sticky').fadeToggle(400);
 		$('#section-slider_count').fadeToggle(400);
 		$('#section-slider_width').fadeToggle(400);
 		$('#section-slider_height').fadeToggle(400);
 		$('#section-slider_nav_checkbox').fadeToggle(400);
-		
+		$('#section-slider_page_types').fadeToggle(400);
+		$('#section-slider_ids').fadeToggle(400);		
 	});
 
 	if ($('#events_slider_checkbox:checked').val() !== undefined) {
-		$('#section-sticky_slider').show();
+		$('#section-slider_sticky').show();
 		$('#section-slider_count').show();
 		$('#section-slider_width').show();
 		$('#section-slider_height').show();	
 		$('#section-slider_nav_checkbox').show();
-	}
-
-	if ($('#events_slider_checkbox:checked').val() !== undefined && $('#sticky_slider:checked').val() == undefined) {
 		$('#section-slider_page_types').show();
 		$('#section-slider_ids').show();
 	}

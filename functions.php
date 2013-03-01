@@ -228,42 +228,65 @@ function twentytwelve_entry_meta() {
 }
 
 function events_slider($width=600, $height=380, $num_posts = 6) {
-	$slider_count = (int)of_get_option('slider_count',5);
 	$slider_nav = of_get_option('slider_nav_checkbox',true);
-	
-	if (of_get_option('sticky_slider',false)) : //get sticky posts
-		$sticky = get_option( 'sticky_posts' );
-		rsort( $sticky );
-		$sticky = array_slice( $sticky, 0, $slider_count );
-		$args = array( 'post__in' => $sticky, 'caller_get_posts' => 1 );
-	else: //other types of posts
-		$slider_post_type = of_get_option('slider_page_types','post');
-		$args = array ( 'post_type' => $slider_post_type,
-				'order' => 'DESC',
-				'orderby' => 'date',
-				'posts_per_page' => $num_posts,
-				'meta_query' => array(array('key' => '_thumbnail_id'))); //make sure the post has a featured image
-		if ($slider_ids = of_get_option('slider_ids','')):
-			$slider_ids_array = array_map("intval", explode(",", $slider_ids));
-			switch ($slider_post_type) {
-				case 'post':
-				case 'page':
-					$args['post__in'] = $slider_ids_array;
-				break;
-				case 'tags':
-					$args['tag__in'] = $slider_ids_array;
-				break;
-				case 'categories':
-					$args['category__in'] = $slider_ids_array;
-				break;
-			}
+	$slider_post_type = of_get_option('slider_page_types','post');
+
+	$args = array (
+			'order' => 'DESC',
+			'orderby' => 'date',
+			'meta_query' => array(array('key' => '_thumbnail_id')) //make sure the post has a featured image
+	);
+
+	if (of_get_option('slider_sticky','1')=='0' && ($slider_post_type == 'post')):
+		//slider will include sticky posts so reduce the posts_per_page by the number of stickies
+		$sticky_count = count(get_option( 'sticky_posts' ));
+		if ($sticky_count < $num_posts):
+			$num_posts -= $sticky_count;
+		else: //more sticky posts than the slider limit so only use stickies and truncate the post list to $num_posts
+			$slider_post_type = 'stickies';
 		endif;
+	else:
+		$args['ignore_sticky_posts'] = '1';
+	endif;
+	
+	$args['posts_per_page'] = $num_posts;
+	
+	switch ($slider_post_type) {
+		case 'tags':
+			$args['post_type'] = 'post';
+			$ids_in = 'tag__in';
+		break;
+		case 'categories':
+			$args['post_type'] = 'post';
+			$ids_in = 'category__in';
+		break;
+		case 'stickies':
+			if (count(get_option( 'sticky_posts' ))>2):
+				$sticky = get_option( 'sticky_posts' );
+				rsort( $sticky );
+				$sticky = array_slice( $sticky, 0, $num_posts );
+				$args = array( 'post__in' => $sticky, 'caller_get_posts' => 1 );
+			else:
+				return 0; //there are too few/no sticky posts so don't display anything
+			endif;
+		break;
+		case 'post':
+		case 'page':
+			$ids_in = 'post__in';
+		default:
+			$args['post_type'] = $slider_post_type;
+	}
+	if (of_get_option('slider_ids','') && $ids_in):
+		$slider_ids_array = explode(",", of_get_option('slider_ids',''));
+		$args[$ids_in] = $slider_ids_array;
 	endif;
 	
 	$recent_posts = new WP_Query($args);
 	$slider_code = '';
 	$thumbs_code = '';
 	$slidecount = 1;
+	if ($recent_posts->post_count<3)
+		return 0;
 	while ( $recent_posts->have_posts() ): 
 		$recent_posts->the_post(); 
 		$thumb_large = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array($width,$height));
@@ -275,9 +298,9 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 			$thumbs_code .= '<img src="'.$thumb_small[0].'" class="slider-nav-thumbnail" alt="'. the_title_attribute('echo=0').'" /></a></div></li>';
 			$slidecount++;
 		endif; // thumbnail navigation
-		$slider_code .= '<div class="featured-post" style="width: 100%; height:'.$height.'px;" >\n';
-		$slider_code .= '<a href="' . the_permalink() . '" title="' . the_title_attribute() . '"><img src="' . $thumb_large[0] . '" alt="' . the_title_attribute() . '" class="featured-thumbnail" /></a>\n';
-		$slider_code .= '<h2 class="post-title entry-title"><a href="' . the_permalink() . '" title="' . the_title_attribute() . '" rel="bookmark">' . the_title() . '</a></h2>\n</div><!-- featured-post -->\n';
+		$slider_code .= '<div class="featured-post" style="width: 100%; height:'.$height.'px;" >';
+		$slider_code .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '"><img src="' . $thumb_large[0] . '" alt="' . get_the_title() . '" class="featured-thumbnail" /></a>';
+		$slider_code .= '<h2 class="post-title entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></h2></div><!-- featured-post -->';
 	endwhile; 
 	wp_reset_query(); ?>
 	<div id="featured-wrapper" class="featured clear fix">

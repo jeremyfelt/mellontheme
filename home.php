@@ -25,8 +25,8 @@ get_header(); ?>
 			<?php if ( of_get_option('events_slider_checkbox',1) ) :
 				$slider_width = of_get_option('slider_width',600);
 				$slider_height = of_get_option('slider_height',380);
-				$slider_count = of_get_option('slider_width',6);
-				events_slider((int)$slider_width, (int)$slider_height, (int)$slider_count);
+				$slider_count = of_get_option('slider_count',6);
+				events_slider($slider_width, $slider_height, $slider_count);
 			endif; ?>
 
 		<?php if ( have_posts() ) : ?>
