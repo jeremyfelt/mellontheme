@@ -309,9 +309,23 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 			$thumbs_code .= '<img src="'.$thumb_small[0].'" class="slider-nav-thumbnail" alt="'. the_title_attribute('echo=0').'" /></a></div></li>';
 			$slidecount++;
 		endif; // thumbnail navigation
+		if ($slider_post_type == 'event' && function_exists('em_get_event')) :
+			$EM_Event = em_get_event(get_the_ID(), 'post_id');
+			$the_date = $EM_Event->output('#_EVENTDATES<br/>#_EVENTTIMES');
+			$the_excerpt = $EM_Event->output('#_EVENTEXCERPT');
+			$the_location = $EM_Event->output('#_LOCATIONNAME');
+		else:
+			$the_date = get_the_date();
+			$the_excerpt = get_the_excerpt();
+		endif;
 		$slider_code .= '<div class="featured-post" style="width: 100%; height:'.$height.'px;" >';
 		$slider_code .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '"><img src="' . $thumb_large[0] . '" alt="' . get_the_title() . '" class="featured-thumbnail" /></a>';
-		$slider_code .= '<h2 class="post-title entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></h2></div><!-- featured-post -->';
+		$slider_code .= '<div class="entry-date">'. $the_date . '</span>';
+		$slider_code .= '<span class="entry-info">';
+		$slider_code .= '<span class="post-title entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></span>';
+		$slider_code .= '<span class="entry-excerpt">'. $the_excerpt . '</span>';
+		$slider_code .= '</div>';
+		$slider_code .= '</div><!-- featured-post -->';
 	endwhile; 
 	wp_reset_query(); ?>
 	<div id="featured-wrapper" class="featured clear fix">

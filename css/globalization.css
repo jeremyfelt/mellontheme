@@ -5,28 +5,29 @@ a:visited					{ color: #668284; }
 a:hover						{ color: #757575; }
 blockquote					{ background: rgba(255,255,255,0.5); }
 
-.post-headline a, 
-.post-headline a:link, 
-.post-headline a:active, 
-.post-headline a:visited				{ color: #D93F0F; }
-.post-headline a:hover					{ color: #F7F3E8; }
-.entry-header .entry-title				{ color: #bbb; }
-.entry-header .entry-title a, 
-.entry-header .entry-title a:link, 
-.entry-header .entry-title a:active, 
-.entry-header .entry-title a:visited 	{ color: #21759b; }
-.entry-header .entry-title a:hover		{ color: #D93F0F; }
-.entry-meta								{ color: #757575; }
-.entry-meta a, 
-.entry-meta a:link, 
-.entry-meta a:active, 
-.entry-meta a:visited					{ color: #999; }
-.entry-meta a:hover						{ color: #757575; }
-.widget-area .widget a,
-.widget-area .widget a:link,
-.widget-area .widget a:active			{ color: #21759b; }
-.widget-area .widget a:visited			{ color: #757575; }
-.widget-area .widget a:hover			{ color: #D93F0F; }
+/* blog posts */
+.bloglist .post-headline a, 
+.bloglist .post-headline a:link, 
+.bloglist .post-headline a:active, 
+.bloglist .post-headline a:visited				{ color: #D93F0F; }
+.bloglist .post-headline a:hover					{ color: #F7F3E8; }
+.bloglist .entry-header .entry-title				{ color: #bbb; }
+.bloglist .entry-header .entry-title a, 
+.bloglist .entry-header .entry-title a:link, 
+.bloglist .entry-header .entry-title a:active, 
+.bloglist .entry-header .entry-title a:visited 	{ color: #21759b; }
+.bloglist .entry-header .entry-title a:hover		{ color: #D93F0F; }
+.bloglist .entry-meta								{ color: #757575; }
+.bloglist .entry-meta a, 
+.bloglist .entry-meta a:link, 
+.bloglist .entry-meta a:active, 
+.bloglist .entry-meta a:visited					{ color: #999; }
+.bloglist .entry-meta a:hover						{ color: #757575; }
+.bloglist .widget-area .widget a,
+.bloglist .widget-area .widget a:link,
+.bloglist .widget-area .widget a:active			{ color: #21759b; }
+.bloglist .widget-area .widget a:visited			{ color: #757575; }
+.bloglist .widget-area .widget a:hover			{ color: #D93F0F; }
 
 div.comment-container,
 div#respond								{ color: #F7F3E8; background: #2B3E42; font-size: 0.9em; border: 2px solid #D93F0F; }
