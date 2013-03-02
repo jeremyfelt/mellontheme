@@ -1,0 +1,79 @@
+body 						{ color: #757575; }
+.site 						{ background-color: #033649; }
+a, a:link, a:active			{ color: #474724; }
+a:visited					{ color: #5C5C33; }
+a:hover						{ color: #7A5200; }
+blockquote					{ background: rgba(255,255,255,0.5); }
+
+/* blog posts */
+.bloglist .entry-header					{ width: 35%; }
+.bloglist .entry-summary				{ width: 60%; }
+.bloglist .post-headline a, 
+.bloglist .post-headline a:link, 
+.bloglist .post-headline a:active, 
+.bloglist .post-headline a:visited				{ color: #757575; }
+.bloglist .post-headline a:hover					{ color: #F7F3E8; }
+.bloglist .entry-header .entry-title				{ color: #bbb; }
+.bloglist .entry-header .entry-title a, 
+.bloglist .entry-header .entry-title a:link, 
+.bloglist .entry-header .entry-title a:active, 
+.bloglist .entry-header .entry-title a:visited 		{ color: #5A391B; }
+.bloglist .entry-header .entry-title a:hover		{ color: #6E4F34; }
+.bloglist .entry-meta								{ color: #757575; }
+.bloglist .entry-meta a, 
+.bloglist .entry-meta a:link, 
+.bloglist .entry-meta a:active, 
+.bloglist .entry-meta a:visited			{ color: #999; }
+.bloglist .entry-meta a:hover			{ color: #757575; }
+.bloglist .entry-summary				{ color: #1D130D;}
+.bloglist .post-event-info h6			{ line-height: 1.4em; font-weight: normal; font-size: 1.1em; color: #757575;}
+.widget-area .widget a,
+.widget-area .widget a:link,
+.widget-area .widget a:active			{ color: #21759b; }
+.widget-area .widget a:visited			{ color: #757575; }
+.widget-area .widget a:hover			{ color: #757575; }
+
+div.comment-container,
+div#respond								{ color: #5e5e5e; background: #e6ebe6; font-size: 0.9em; border: 2px solid #757575; }
+#breadcrumbs							{ text-align: left; font-size: 0.8em; line-height: 1em; }
+
+/* navigation menu */
+ul#menu1.sf-menu							{ background-color: #FCFFF5; border-style: dotted; border-color: #ccc; border-width: 1px 0; }
+ul#menu1.sf-menu li a,
+ul#menu1.sf-menu-hor li.rMenu-expand a		{ color: #777; }
+ul#menu1.sf-menu li:hover 					{ background-color: #757575; }
+ul#menu1.sf-menu li:hover a,
+
+ul#menu1.sf-menu li.current-menu-item, 
+ul#menu1.sf-menu li.current_page_item,
+ul#menu1.sf-menu li.current_page_ancestor	{ background-color: #E6EBE6; }
+ul#menu1.sf-menu li.current-menu-item a, 
+ul#menu1.sf-menu li.current_page_item a,
+ul#menu1.sf-menu li.current_page_ancestor a	{ background: transparent; color: #222; }
+/*sub menus*/
+ul#menu1  									{ background-color: #E6EBE6; }
+ul#menu1.sf-menu ul.sub-menu li a 			{ color: #757575; }
+ul#menu1.sf-menu ul.sub-menu li:hover		{ background-color: #757575; }
+ul#menu1.sf-menu ul.sub-menu li:hover a		{ color: #F7F3E8; }
+ul#menu1 ul.sub-menu, 
+ul#menu1.sf-menu li.current-menu-item ul.sub-menu, 
+ul#menu1.sf-menu li.current_page_item ul.sub-menu 	{ background-color: #e6ebe6; color: #F7F3E8; border: 1px dotted #ccc; border-top: 0;}
+
+/* slider styles */
+#featured-wrapper	 			{ background: #1a2528; }
+.featured-post .entry-title a	{ color: #333; }
+.slider-nav						{ color: #222; background: #BBE4E5; background: rgba(187,228,229,0.8); text-indent: 0; text-align: center; font-size: 2em;}
+.slider-nav:hover 				{ background: #BBE4E5; background: rgba(187,228,229,1) }
+#slider-nav li.activeSlide		{ border-bottom: 14px solid #BBE4E5; border-bottom: 1rem solid #BBE4E5; padding-top: 0; }
+#featured-wrapper .entry-date	{ position: absolute; top: 0; right: 0; text-align: right; background-color: #222; color: #ddd; padding: 7px; font-size: 1.1em; line-height: 1.3em;}
+#featured-wrapper .entry-info	{ position: absolute; top: 70%; max-width: 65%; right: 0; background-color: #BBE4E5; background-color: rgba(187,228,229,0.8); color: #333; text-align: right;}
+#featured-wrapper .entry-info:hover	{ background-color: #BBE4E5; background-color: rgba(187,228,229,1); }
+#featured-wrapper .entry-title	a { font-size: 1.3em; text-decoration: none; line-height: 1.6em;}
+#featured-wrapper .entry-excerpt	{ display: none;}
+
+/* events listing pages */
+span.event-page-date	 		{ padding: 0; margin: 0; text-align: left; font-style: italic; }
+span.event-page-name 			{ padding: 0; margin: 0; text-align: left; }
+span.event-widget-date			{ padding: 0; margin: 0; text-align: right!important; font-style: italic; font-size: 1em; color: #668284; }
+span.event-widget-name 			{ padding: 0; margin: 0; text-align: right!important; font-size: 1.2em; line-height: 1.2em; color: #668284; padding-right: 2px;}
+span.event-widget-name:hover	{ color: #757575; }

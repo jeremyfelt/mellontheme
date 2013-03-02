@@ -5,6 +5,7 @@
  * @package WordPress
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
+<<<<<<< HEAD
  */
 ?>
 
@@ -15,18 +16,39 @@
 				<?php _e( 'Featured post', 'twentytwelve' ); ?>
 		</div>
 		<?php endif; ?>
+=======
+ * Modified for MellonTheme by Keith Miyake
+ */
+
+	$add_classes = ( (is_home() || is_archive()) ? 'bloglist' : ''); //'bloglist' for styling articles with banner and summary 
+	$add_classes .= ((has_post_thumbnail() && ! is_single()) ? ' has-thumbnail' : '');
+	?> 
+	<article id="post-<?php the_ID(); ?>" <?php post_class($add_classes); ?>>
+	<div class="all-but-meta">
+>>>>>>> gh-pages
 		<?php if (has_post_thumbnail() && ! is_single()) : ?>
 			<div class="post-thumbnail thumbnail-box">
 				<a href="<?php the_permalink(); ?>" title="Read full post"><?php the_post_thumbnail(array(600,400), array('class' => 'bloglist-thumbnail')); ?></a>
 			</div>
 		<? endif; // has_post_thumbnail() ?>
+<<<<<<< HEAD
+=======
+		<? if (is_home() || is_archive()): ?>
+		<div class="bloglist-post-content">
+		<? endif; ?>
+>>>>>>> gh-pages
 		<header class="entry-header">
 			<h1 class="post-title entry-title">
 				<?php if ( is_single() ) :
 					the_title();
 				else : ?>
 					<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+<<<<<<< HEAD
 			<?php endif; // is_single() ?></h1>
+=======
+				<?php endif; // is_single() ?>
+			</h1>
+>>>>>>> gh-pages
 			<?php if ( 'event' == get_post_type() && ! is_single() ) : 
 				$EM_Event = em_get_event($post->ID, 'post_id'); ?>
 				<div class="post-event-info">
@@ -47,7 +69,14 @@
 			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?>
 		</div><!-- .entry-content -->
 		<?php endif; ?>
+<<<<<<< HEAD
 
+=======
+		<? if (is_home() || is_archive()): ?>
+		</div><!--bloglist-post-content-->
+		<? endif; ?>
+	</div><!--all-but-meta-->
+>>>>>>> gh-pages
 		<footer class="entry-meta">
 			<?php twentytwelve_entry_meta(); ?>
 			<?php if ( comments_open() ) : ?>

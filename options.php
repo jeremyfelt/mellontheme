@@ -16,6 +16,30 @@ function optionsframework_option_name() {
 	update_option( 'optionsframework', $optionsframework_settings );
 }
 
+<<<<<<< HEAD
+=======
+
+/**
+ * Returns an array of all files in $directory_path of type $filetype.
+ *
+ * The $directory_uri + file name is used for the key
+ * The file name is the value
+ */
+ 
+function options_stylesheets_get_file_list( $directory_path, $filetype, $directory_uri ) {
+	$alt_stylesheets = array();
+	$alt_stylesheet_files = array();
+	if ( is_dir( $directory_path ) ) {
+		$alt_stylesheet_files = glob( $directory_path . "*.$filetype");
+		foreach ( $alt_stylesheet_files as $file ) {
+			$file = str_replace( $directory_path, "", $file);
+			$alt_stylesheets[ $directory_uri . $file] = $file;
+		}
+	}
+	return $alt_stylesheets;
+}
+
+>>>>>>> gh-pages
 /**
  * Defines an array of options that will be used to generate the settings page and be saved in the database.
  * When creating the 'id' fields, make sure to use all lowercase and no spaces.
@@ -184,14 +208,121 @@ function optionsframework_options() {
 		'type' => 'text');
 
 	$options[] = array(
+<<<<<<< HEAD
 		'name' => __('Miscellaneous Settings', 'options_framework_theme'),
 		'type' => 'heading');
+=======
+		'name' => __('Front Page Slider', 'options_framework_theme'),
+		'type' => 'heading'
+	);
+
+	$options[] = array(
+		'name' => __('Enable Post/Page Slider?', 'options_framework_theme'),
+		'desc' => __('Display a slider on the front page? Defaults to false.', 'options_framework_theme'),
+		'id' => 'events_slider_checkbox',
+		'std' => '0',
+		'type' => 'checkbox'
+	);
+
+	/* slider options */
+	
+	$options[] = array(
+		'name' => __('Slider Width', 'options_framework_theme'),
+		'desc' => __('Enter the maximum width of the slider in pixels. Default is 600px', 'options_framework_theme'),
+		'id' => 'slider_width',
+		'std' => '600',
+		'class' => 'hidden mini',
+		'type' => 'text'
+
+	);
+	
+	$options[] = array(
+		'name' => __('Slider Height', 'options_framework_theme'),
+		'desc' => __('Enter the maximum height of the slider in pixels. Default is 380px', 'options_framework_theme'),
+		'id' => 'slider_height',
+		'std' => '380',
+		'class' => 'hidden mini',
+		'type' => 'text'
+	);
+	
+	$options[] = array(
+		'name' => __('Number of Slides', 'options_framework_theme'),
+		'desc' => __('Select the maximum number of slides to display. Default is 6.', 'options_framework_theme'),
+		'id' => 'slider_count',
+		'std' => '6',
+		'type' => 'select',
+		'class' => 'hidden mini',
+		'options' => array('3'=>'3','4'=>'4','5'=>'5','6'=>'6','7'=>'7','8'=>'8','9'=>'9','10'=>'10')
+	);
+	
+	$options[] = array(
+		'name' => __('Thumbnail Navigation', 'options_framework_theme'),
+		'desc' => __('Display a thumbnail navigation bar below the slider? Defaults to true.', 'options_framework_theme'),
+		'id' => 'slider_nav_checkbox',
+		'std' => '1',
+		'class' => 'hidden',
+		'type' => 'checkbox'
+	);
+
+	$args = array(
+		'public'   => true
+	); 
+	$post_types = get_post_types($args,'names'); 
+	foreach ($post_types as $post_type ) {
+		  $post_types[$post_type] = $post_type;
+	}
+	$post_types['tags'] = 'tags';
+	$post_types['categories'] = 'categories';
+	$post_types['stickies'] = 'stickies';
+
+	$options[] = array(
+		'name' => __('Page/Post Types', 'options_framework_theme'),
+		'desc' => __('Select the type of pages/posts to load into the slider. NOTE: only pages/posts containing a featured image will be displayed.', 'options_framework_theme'),
+		'id' => 'slider_page_types',
+		'std' => 'post',
+		'type' => 'select',
+		'class' => 'hidden',
+		'options' => $post_types
+	);
+
+	$options[] = array(
+		'name' => __('Ignore Sticky Flag', 'options_framework_theme'),
+		'desc' => __('Check to ignore the "sticky" flag for posts in the slider. Only effective if post is selected above. Default is to ignore stickies (checked). NOTE: if unchecked, sticky posts will appear first on the slider', 'options_framework_theme'),
+		'id' => 'slider_sticky',
+		'std' => '0',
+		'class' => 'hidden',
+		'type' => 'checkbox'
+	);
+			
+	$options[] = array(
+		'name' => __('Post/Page/Tag/Category IDs', 'options_framework_theme'),
+		'desc' => __('Comma-separated list of post/pagetag/category ids to include in the slider. Default is blank and will include all pages/posts. NOTE: Currently only works with standard posts/pages', 'options_framework_theme'),
+		'id' => 'slider_ids',
+		'std' => '',
+		'class' => 'hidden mini',
+		'type' => 'text'
+	);
+		
+	$options[] = array(
+		'name' => __('Miscellaneous Settings', 'options_framework_theme'),
+		'type' => 'heading'
+	);
+
+	$options[] = array(
+		'name' => __('Breadcrumbs', 'options_framework_theme'),
+		'desc' => __('Display breadcrumbs on the top of pages? Defaults to true.', 'options_framework_theme'),
+		'id' => 'breadcrumbs_enabled',
+		'std' => '1',
+		'type' => 'checkbox'
+	);
+>>>>>>> gh-pages
 
 	$options[] = array(
 		'name' => __('Display Author Names?', 'options_framework_theme'),
 		'desc' => __('Display author names on posts? Defaults to true.', 'options_framework_theme'),
 		'id' => 'authors_checkbox',
 		'std' => '1',
+<<<<<<< HEAD
 		'type' => 'checkbox');
 
 	$options[] = array(
@@ -201,12 +332,48 @@ function optionsframework_options() {
 		'std' => '1',
 		'type' => 'checkbox');
 		
+=======
+		'type' => 'checkbox'
+	);
+	
+	$options[] = array(
+		'name' => __('Resize Blog Images', 'options_framework_theme'),
+		'desc' => __('Select the way featured images should be displayed on the blog.', 'options_framework_theme'),
+		'id' => 'resize_images',
+		'std' => 'grow',
+		'type' => 'select',
+		'options' => array('shrink'=>'Shrink images to fit within box','grow' => 'Grow images to fill box','none' => 'Do not modify images')
+	);
+	
+	
+	$alt_stylesheets = options_stylesheets_get_file_list(
+		get_stylesheet_directory() . '/styles/', // $directory_path
+	    'css', // $filetype
+	    get_stylesheet_directory_uri() . '/styles/' // $directory_uri
+	);
+	
+	
+	$options[] = array(
+		'name' => __('Theme Style', 'options_framework_theme'),
+		'desc' => __('Select a style to use. Add new styles by dropping custom .css files into the /styles/ directory on the server.', 'options_framework_theme'),
+		'id' => 'style_css',
+		'std' => 'clean',
+		'type' => 'select',
+		'options' => $alt_stylesheets
+	);
+
+>>>>>>> gh-pages
 	$options[] = array(
 		'name' => __('External CSS File', 'options_framework_theme'),
 		'desc' => __('Load an external CSS file by entering a valid URL.', 'options_framework_theme'),
 		'id' => 'external_css',
 		'std' => 'http://mysite.com/style.css',
+<<<<<<< HEAD
 		'type' => 'text');
+=======
+		'type' => 'text'
+	);
+>>>>>>> gh-pages
 
 
 /*	$wp_editor_settings = array(
@@ -417,16 +584,41 @@ function optionsframework_custom_scripts() { ?>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 
+<<<<<<< HEAD
 	$('#example_showhidden').click(function() {
   		$('#section-example_text_hidden').fadeToggle(400);
 	});
 
 	if ($('#example_showhidden:checked').val() !== undefined) {
 		$('#section-example_text_hidden').show();
+=======
+	$('#events_slider_checkbox').click(function() {
+		$('#section-slider_sticky').fadeToggle(400);
+		$('#section-slider_count').fadeToggle(400);
+		$('#section-slider_width').fadeToggle(400);
+		$('#section-slider_height').fadeToggle(400);
+		$('#section-slider_nav_checkbox').fadeToggle(400);
+		$('#section-slider_page_types').fadeToggle(400);
+		$('#section-slider_ids').fadeToggle(400);		
+	});
+
+	if ($('#events_slider_checkbox:checked').val() !== undefined) {
+		$('#section-slider_sticky').show();
+		$('#section-slider_count').show();
+		$('#section-slider_width').show();
+		$('#section-slider_height').show();	
+		$('#section-slider_nav_checkbox').show();
+		$('#section-slider_page_types').show();
+		$('#section-slider_ids').show();
+>>>>>>> gh-pages
 	}
 
 });
 </script>
 
 <?php
+<<<<<<< HEAD
+=======
+
+>>>>>>> gh-pages
 }
