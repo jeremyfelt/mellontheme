@@ -66,7 +66,7 @@ div#respond		{ padding: 14px; padding: 1rem; }
 /* blog list image styles */
 #bloglist					{ clear: both; position: relative; }
 .centered 					{ margin: 0 auto; }
-#bloglist img 				{ position: absolute; }
+#bloglist img 				{ position: absolute; max-width: none;}
 
 
 /* footers */
@@ -131,10 +131,9 @@ ul#menu1.sf-menu-hor li.rMenu-expand a 	{ background: transparent; background-im
 #featured-slideshow .featured-post 	{ overflow: hidden; display: block; position: relative; text-decoration: none; cursor: pointer; margin: 0; padding: 0; }
 .no-js #featured-slideshow .dummy,
 #featured-slideshow .dummy.hidden 	{ display: none; }
-
-
 .featured-post h2.entry-title { position: absolute; top: 14px; top: 1rem; right: 0; text-align: right; }
 .featured-post h2.entry-title a	{ font-size: 1.4em; line-height: 1.8em; padding: 14px; padding: 1rem; text-decoration: none; }
+#featured-slideshow .featured-post img	{ max-width: none;}
 #slider-prev { left: 0; background-position: 7px -21px; }
 #slider-next { right: 0; background-position: 7px 11px; }
 .slider-nav { display: block; position: absolute; bottom: 0; width: 31px; height: 28px; font-size: 1em; z-index: 9; cursor: pointer; text-indent: -9999em; }
@@ -153,7 +152,8 @@ ul#menu1.sf-menu-hor li.rMenu-expand a 	{ background: transparent; background-im
 #slider-nav img { filter: alpha(opacity = 40); opacity: .4; }
 #slider-nav .activeSlide img { filter: alpha(opacity = 100); opacity: 1; }
 
-
+/* breadcrumbs */
+#breadcrumbs	{ padding: 14px; padding: 1rem; text-align: right; }
 
 /* for IE8 and IE7 */
 .ie #footer-widgets.three .widget { float: left;margin-right: 3.7%;width: 29.85%;clear: none;}

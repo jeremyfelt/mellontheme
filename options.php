@@ -281,6 +281,14 @@ function optionsframework_options() {
 	);
 
 	$options[] = array(
+		'name' => __('Breadcrumbs', 'options_framework_theme'),
+		'desc' => __('Display breadcrumbs on the top of pages? Defaults to true.', 'options_framework_theme'),
+		'id' => 'breadcrumbs_enabled',
+		'std' => '1',
+		'type' => 'checkbox'
+	);
+
+	$options[] = array(
 		'name' => __('Display Author Names?', 'options_framework_theme'),
 		'desc' => __('Display author names on posts? Defaults to true.', 'options_framework_theme'),
 		'id' => 'authors_checkbox',

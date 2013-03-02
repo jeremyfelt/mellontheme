@@ -97,10 +97,11 @@ $font_color = of_get_option('font_colorpicker');
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'sf-menu sf-navbar', 'menu_id' => 'menu1','fallback_cb' => 'wp_page_menu') ); ?>
 		</nav><!-- #site-navigation -->
 	
-		<div id="breadcrumbs">
-			<?php custom_breadcrumbs() ?>
-		</div>
-	
+		<? if (of_get_option('breadcrumbs_enabled','1') == '1'):?>
+			<div id="breadcrumbs">
+				<?php custom_breadcrumbs() ?>
+			</div>
+		<?endif;?>
 	</header><!-- #masthead -->
 
 	<div id="main" class="wrapper">
