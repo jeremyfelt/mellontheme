@@ -52,6 +52,9 @@ function load_my_styles() {
 		wp_enqueue_style('page_layout_style');
 	}
 	$extra_css = of_get_option('external_css');
+	if (strpos($extra_css,'http') == false){ //no http so assume local css
+		$extra_css = get_stylesheet_directory_uri() . $extra_css;
+	}
 	if ($extra_css != '') {
 		wp_register_style( 'extra_css_style', $extra_css, 'screen');
 		wp_enqueue_style('extra_css_style');
@@ -320,8 +323,8 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 		endif;
 		$slider_code .= '<div class="featured-post" style="width: 100%; height:'.$height.'px;" >';
 		$slider_code .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '"><img src="' . $thumb_large[0] . '" alt="' . get_the_title() . '" class="featured-thumbnail" /></a>';
-		$slider_code .= '<div class="entry-date">'. $the_date . '</span>';
-		$slider_code .= '<span class="entry-info">';
+		$slider_code .= '<span class="entry-date">'. $the_date . '</span>';
+		$slider_code .= '<div class="entry-info">';
 		$slider_code .= '<span class="post-title entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></span>';
 		$slider_code .= '<span class="entry-excerpt">'. $the_excerpt . '</span>';
 		$slider_code .= '</div>';

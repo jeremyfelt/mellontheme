@@ -9,7 +9,7 @@ Tags: fixed-width, custom-header, theme-options
 Template: twentytwelve
 */
 @import url('../twentytwelve/style.css');
-@import url('css/pcp.css');
+
 /* This Block Adjusts the Overall Theme Width */
 footer[role="contentinfo"] { max-width: 1100px; }
 @media screen and (min-width: 600px) {
