@@ -23,14 +23,10 @@ get_header(); ?>
 		<div id="content" role="main">
 
 			<?php if ( of_get_option('events_slider_checkbox',1) ) :
-<<<<<<< HEAD
-				events_slider(600,338,6);
-=======
 				$slider_width = of_get_option('slider_width',600);
 				$slider_height = of_get_option('slider_height',380);
 				$slider_count = of_get_option('slider_count',6);
 				events_slider($slider_width, $slider_height, $slider_count);
->>>>>>> gh-pages
 			endif; ?>
 
 		<?php if ( have_posts() ) : ?>

@@ -12,15 +12,9 @@
 
 if ( ! function_exists( 'optionsframework_uploader' ) ) :
 
-<<<<<<< HEAD
-function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '') {
-
-	$optionsframework_settings = get_option('optionsframework');
-=======
 function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '' ) {
 
 	$optionsframework_settings = get_option( 'optionsframework' );
->>>>>>> gh-pages
 	
 	// Gets the unique option id
 	if ( isset( $optionsframework_settings['id'] ) ) {
@@ -44,11 +38,7 @@ function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '' ) {
 		$value = $_value;
 	}
 	
-<<<<<<< HEAD
-	if ($_name != '') {
-=======
 	if ( $_name != '' ) {
->>>>>>> gh-pages
 		$name = $_name;
 	}
 	else {
@@ -58,13 +48,6 @@ function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '' ) {
 	if ( $value ) {
 		$class = ' has-file';
 	}
-<<<<<<< HEAD
-	$output .= '<input id="' . $id . '" class="upload' . $class . '" type="text" name="'.$name.'" value="' . $value . '" placeholder="' . __('No file chosen', 'optionsframework') .'" />' . "\n";
-	if ( $value == '' ) {
-		$output .= '<input id="upload-' . $id . '" class="upload-button button" type="button" value="' . __( 'Upload', 'options_framework_theme' ) . '" />' . "\n";
-	} else {
-		$output .= '<input id="remove-' . $id . '" class="remove-file button" type="button" value="' . __( 'Remove', 'options_framework_theme' ) . '" />' . "\n";
-=======
 	$output .= '<input id="' . $id . '" class="upload' . $class . '" type="text" name="'.$name.'" value="' . $value . '" placeholder="' . __('No file chosen', 'options_framework_theme') .'" />' . "\n";
 	if ( function_exists( 'wp_enqueue_media' ) ) {
 		if ( ( $value == '' ) ) {
@@ -74,7 +57,6 @@ function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '' ) {
 		}
 	} else {
 		$output .= '<p><i>' . __( 'Upgrade your version of WordPress for full media support.', 'options_framework_theme' ) . '</i></p>';
->>>>>>> gh-pages
 	}
 	
 	if ( $_desc != '' ) {
@@ -98,11 +80,7 @@ function optionsframework_uploader( $_id, $_value, $_desc = '', $_name = '' ) {
 			$output .= '';
 		
 			// Standard generic output if it's not an image.	
-<<<<<<< HEAD
-			$title = __( 'View File', 'optionsframework' );
-=======
 			$title = __( 'View File', 'options_framework_theme' );
->>>>>>> gh-pages
 			$output .= '<div class="no-image"><span class="file_link"><a href="' . $value . '" target="_blank" rel="external">'.$title.'</a></span></div>';
 		}	
 	}
@@ -118,16 +96,11 @@ endif;
  
 if ( ! function_exists( 'optionsframework_media_scripts' ) ) :
 
-<<<<<<< HEAD
-function optionsframework_media_scripts(){
-	wp_enqueue_media();
-=======
 add_action( 'admin_enqueue_scripts', 'optionsframework_media_scripts' );
 
 function optionsframework_media_scripts(){
 	if ( function_exists( 'wp_enqueue_media' ) )
 		wp_enqueue_media();
->>>>>>> gh-pages
 	wp_register_script( 'of-media-uploader', OPTIONS_FRAMEWORK_DIRECTORY .'js/media-uploader.js', array( 'jquery' ) );
 	wp_enqueue_script( 'of-media-uploader' );
 	wp_localize_script( 'of-media-uploader', 'optionsframework_l10n', array(

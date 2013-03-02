@@ -16,8 +16,6 @@ function optionsframework_option_name() {
 	update_option( 'optionsframework', $optionsframework_settings );
 }
 
-<<<<<<< HEAD
-=======
 
 /**
  * Returns an array of all files in $directory_path of type $filetype.
@@ -39,7 +37,6 @@ function options_stylesheets_get_file_list( $directory_path, $filetype, $directo
 	return $alt_stylesheets;
 }
 
->>>>>>> gh-pages
 /**
  * Defines an array of options that will be used to generate the settings page and be saved in the database.
  * When creating the 'id' fields, make sure to use all lowercase and no spaces.
@@ -208,10 +205,6 @@ function optionsframework_options() {
 		'type' => 'text');
 
 	$options[] = array(
-<<<<<<< HEAD
-		'name' => __('Miscellaneous Settings', 'options_framework_theme'),
-		'type' => 'heading');
-=======
 		'name' => __('Front Page Slider', 'options_framework_theme'),
 		'type' => 'heading'
 	);
@@ -315,24 +308,12 @@ function optionsframework_options() {
 		'std' => '1',
 		'type' => 'checkbox'
 	);
->>>>>>> gh-pages
 
 	$options[] = array(
 		'name' => __('Display Author Names?', 'options_framework_theme'),
 		'desc' => __('Display author names on posts? Defaults to true.', 'options_framework_theme'),
 		'id' => 'authors_checkbox',
 		'std' => '1',
-<<<<<<< HEAD
-		'type' => 'checkbox');
-
-	$options[] = array(
-		'name' => __('Display Event Slider?', 'options_framework_theme'),
-		'desc' => __('Display a slider featuring recent events on the front page? Defaults to true.', 'options_framework_theme'),
-		'id' => 'events_slider_checkbox',
-		'std' => '1',
-		'type' => 'checkbox');
-		
-=======
 		'type' => 'checkbox'
 	);
 	
@@ -362,18 +343,13 @@ function optionsframework_options() {
 		'options' => $alt_stylesheets
 	);
 
->>>>>>> gh-pages
 	$options[] = array(
 		'name' => __('External CSS File', 'options_framework_theme'),
 		'desc' => __('Load an external CSS file by entering a valid URL.', 'options_framework_theme'),
 		'id' => 'external_css',
 		'std' => 'http://mysite.com/style.css',
-<<<<<<< HEAD
-		'type' => 'text');
-=======
 		'type' => 'text'
 	);
->>>>>>> gh-pages
 
 
 /*	$wp_editor_settings = array(
@@ -584,14 +560,6 @@ function optionsframework_custom_scripts() { ?>
 <script type="text/javascript">
 jQuery(document).ready(function($) {
 
-<<<<<<< HEAD
-	$('#example_showhidden').click(function() {
-  		$('#section-example_text_hidden').fadeToggle(400);
-	});
-
-	if ($('#example_showhidden:checked').val() !== undefined) {
-		$('#section-example_text_hidden').show();
-=======
 	$('#events_slider_checkbox').click(function() {
 		$('#section-slider_sticky').fadeToggle(400);
 		$('#section-slider_count').fadeToggle(400);
@@ -610,15 +578,11 @@ jQuery(document).ready(function($) {
 		$('#section-slider_nav_checkbox').show();
 		$('#section-slider_page_types').show();
 		$('#section-slider_ids').show();
->>>>>>> gh-pages
 	}
 
 });
 </script>
 
 <?php
-<<<<<<< HEAD
-=======
 
->>>>>>> gh-pages
 }

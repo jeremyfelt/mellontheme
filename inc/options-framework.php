@@ -4,11 +4,7 @@ Description: A framework for building theme options.
 Author: Devin Price
 Author URI: http://www.wptheming.com
 License: GPLv2
-<<<<<<< HEAD
-Version: 1.4
-=======
 Version: 1.5
->>>>>>> gh-pages
 */
 
 /*
@@ -42,11 +38,7 @@ function optionsframework_rolescheck () {
 
 /* Loads the file for option sanitization */
 
-<<<<<<< HEAD
-add_action('init', 'optionsframework_load_sanitization' );
-=======
 add_action( 'init', 'optionsframework_load_sanitization' );
->>>>>>> gh-pages
 
 function optionsframework_load_sanitization() {
 	require_once dirname( __FILE__ ) . '/options-sanitize.php';
@@ -76,10 +68,6 @@ function optionsframework_init() {
 		require_once dirname( __FILE__ ) . '/options.php';
 	}
 	
-<<<<<<< HEAD
-	$optionsframework_settings = get_option('optionsframework' );
-	
-=======
 	// Load settings
 	$optionsframework_settings = get_option('optionsframework' );
 	
@@ -91,16 +79,11 @@ function optionsframework_init() {
 		optionsframework_upgrade_routine();
 	}
 	
->>>>>>> gh-pages
 	// Updates the unique option id in the database if it has changed
 	optionsframework_option_name();
 	
 	// Gets the unique id, returning a default if it isn't defined
-<<<<<<< HEAD
-	if ( isset($optionsframework_settings['id']) ) {
-=======
 	if ( isset( $optionsframework_settings['id'] ) ) {
->>>>>>> gh-pages
 		$option_name = $optionsframework_settings['id'];
 	}
 	else {
@@ -143,11 +126,7 @@ function optionsframework_page_capability( $capability ) {
 
 function optionsframework_setdefaults() {
 	
-<<<<<<< HEAD
-	$optionsframework_settings = get_option('optionsframework');
-=======
 	$optionsframework_settings = get_option( 'optionsframework' );
->>>>>>> gh-pages
 
 	// Gets the unique option id
 	$option_name = $optionsframework_settings['id'];
@@ -160,19 +139,6 @@ function optionsframework_setdefaults() {
 	 *
 	 */
 	
-<<<<<<< HEAD
-	if ( isset($optionsframework_settings['knownoptions']) ) {
-		$knownoptions =  $optionsframework_settings['knownoptions'];
-		if ( !in_array($option_name, $knownoptions) ) {
-			array_push( $knownoptions, $option_name );
-			$optionsframework_settings['knownoptions'] = $knownoptions;
-			update_option('optionsframework', $optionsframework_settings);
-		}
-	} else {
-		$newoptionname = array($option_name);
-		$optionsframework_settings['knownoptions'] = $newoptionname;
-		update_option('optionsframework', $optionsframework_settings);
-=======
 	if ( isset( $optionsframework_settings['knownoptions'] ) ) {
 		$knownoptions =  $optionsframework_settings['knownoptions'];
 		if ( !in_array( $option_name, $knownoptions ) ) {
@@ -184,7 +150,6 @@ function optionsframework_setdefaults() {
 		$newoptionname = array( $option_name );
 		$optionsframework_settings['knownoptions'] = $newoptionname;
 		update_option( 'optionsframework', $optionsframework_settings );
->>>>>>> gh-pages
 	}
 	
 	// Gets the default options data from the array in options.php
@@ -193,11 +158,7 @@ function optionsframework_setdefaults() {
 	// If the options haven't been added to the database yet, they are added now
 	$values = of_get_default_values();
 	
-<<<<<<< HEAD
-	if ( isset($values) ) {
-=======
 	if ( isset( $values ) ) {
->>>>>>> gh-pages
 		add_option( $option_name, $values ); // Add option with default settings
 	}
 }
@@ -207,18 +168,10 @@ function optionsframework_setdefaults() {
 if ( !function_exists( 'optionsframework_add_page' ) ) {
 
 	function optionsframework_add_page() {
-<<<<<<< HEAD
-		$of_page = add_theme_page(__('Theme Options', 'optionsframework'), __('Theme Options', 'optionsframework'), 'edit_theme_options', 'options-framework','optionsframework_page');
-
-		// Load the required CSS and javscript
-		add_action( 'admin_enqueue_scripts', 'optionsframework_load_scripts');
-		add_action( 'admin_enqueue_scripts', 'optionsframework_media_scripts');
-=======
 		$of_page = add_theme_page( __('Theme Options', 'options_framework_theme'), __('Theme Options', 'options_framework_theme'), 'edit_theme_options', 'options-framework','optionsframework_page' );
 
 		// Load the required CSS and javscript
 		add_action( 'admin_enqueue_scripts', 'optionsframework_load_scripts' );
->>>>>>> gh-pages
 		add_action( 'admin_print_styles-' . $of_page, 'optionsframework_load_styles' );
 	}
 	
@@ -227,26 +180,16 @@ if ( !function_exists( 'optionsframework_add_page' ) ) {
 /* Loads the CSS */
 
 function optionsframework_load_styles() {
-<<<<<<< HEAD
-	wp_enqueue_style('optionsframework', OPTIONS_FRAMEWORK_DIRECTORY.'css/optionsframework.css');
-	if ( !wp_style_is( 'wp-color-picker','registered' ) ) {
-		wp_register_style('wp-color-picker', OPTIONS_FRAMEWORK_DIRECTORY.'css/color-picker.min.css');
-=======
 	wp_enqueue_style( 'optionsframework', OPTIONS_FRAMEWORK_DIRECTORY.'css/optionsframework.css' );
 	if ( !wp_style_is( 'wp-color-picker','registered' ) ) {
 		wp_register_style( 'wp-color-picker', OPTIONS_FRAMEWORK_DIRECTORY.'css/color-picker.min.css' );
->>>>>>> gh-pages
 	}
 	wp_enqueue_style( 'wp-color-picker' );
 }
 
 /* Loads the javascript */
 
-<<<<<<< HEAD
-function optionsframework_load_scripts($hook) {
-=======
 function optionsframework_load_scripts( $hook ) {
->>>>>>> gh-pages
 
 	if ( 'appearance_page_options-framework' != $hook )
         return;
@@ -256,15 +199,9 @@ function optionsframework_load_scripts( $hook ) {
 		wp_register_script( 'iris', OPTIONS_FRAMEWORK_DIRECTORY . 'js/iris.min.js', array( 'jquery-ui-draggable', 'jquery-ui-slider', 'jquery-touch-punch' ), false, 1 );
 		wp_register_script( 'wp-color-picker', OPTIONS_FRAMEWORK_DIRECTORY . 'js/color-picker.min.js', array( 'jquery', 'iris' ) );
 		$colorpicker_l10n = array(
-<<<<<<< HEAD
-			'clear' => __( 'Clear' ),
-			'defaultString' => __( 'Default' ),
-			'pick' => __( 'Select Color' )
-=======
 			'clear' => __( 'Clear','options_framework_theme' ),
 			'defaultString' => __( 'Default', 'options_framework_theme' ),
 			'pick' => __( 'Select Color', 'options_framework_theme' )
->>>>>>> gh-pages
 		);
 		wp_localize_script( 'wp-color-picker', 'wpColorPickerL10n', $colorpicker_l10n );
 	}
@@ -306,11 +243,7 @@ function optionsframework_page() {
     <div id="optionsframework-metabox" class="metabox-holder">
 	    <div id="optionsframework" class="postbox">
 			<form action="options.php" method="post">
-<<<<<<< HEAD
-			<?php settings_fields('optionsframework'); ?>
-=======
 			<?php settings_fields( 'optionsframework' ); ?>
->>>>>>> gh-pages
 			<?php optionsframework_fields(); /* Settings */ ?>
 			<div id="optionsframework-submit">
 				<input type="submit" class="button-primary" name="update" value="<?php esc_attr_e( 'Save Options', 'options_framework_theme' ); ?>" />
@@ -320,11 +253,7 @@ function optionsframework_page() {
 			</form>
 		</div> <!-- / #container -->
 	</div>
-<<<<<<< HEAD
-	<?php do_action('optionsframework_after'); ?>
-=======
 	<?php do_action( 'optionsframework_after' ); ?>
->>>>>>> gh-pages
 	</div> <!-- / .wrap -->
 	
 <?php

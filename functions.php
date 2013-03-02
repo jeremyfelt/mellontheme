@@ -1,7 +1,5 @@
 <?php
 
-<<<<<<< HEAD
-=======
 /* 
  * Loads the Options Panel
  *
@@ -13,7 +11,6 @@ if ( !function_exists( 'optionsframework_init' ) ) {
 	require_once dirname( __FILE__ ) . '/inc/options-framework.php';
 }
 
->>>>>>> gh-pages
 // Register scripts
 
 function load_my_scripts() {
@@ -22,14 +19,6 @@ function load_my_scripts() {
 	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', array(), null, false );
 	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js', array('jquery'), null, false );
 	wp_enqueue_script('jquery.ui');
-<<<<<<< HEAD
-//	wp_register_script( 'jquery.masonry', 'http://desandro.github.com/masonry/jquery.masonry.min.js', array('jquery'), null, false );        
-	wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false );
-	wp_register_script( 'jquery.imagesloaded', get_stylesheet_directory_uri().'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
-	wp_register_script( 'resizeimages', get_stylesheet_directory_uri().'/js/resize.min.js', array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
-	wp_enqueue_script('resizeimages');	
-	// scripts for specific pages
-=======
 
 	wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false );
 	wp_register_script( 'jquery.imagesloaded', get_stylesheet_directory_uri().'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
@@ -46,7 +35,6 @@ function load_my_scripts() {
 			wp_enqueue_script('resizeimages');
 		}
 	}
->>>>>>> gh-pages
 	if (is_front_page()) {
 		wp_register_script( 'jquery.cycle', get_stylesheet_directory_uri().'/js/jquery.cycle.all.min.js', array( 'jquery' ),null,false ); 
 		wp_register_script( 'slider', get_stylesheet_directory_uri().'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
@@ -58,15 +46,6 @@ add_action('wp_enqueue_scripts', 'load_my_scripts', 100);
 
 //register custom stylesheets
 function load_my_styles() {
-<<<<<<< HEAD
-//	if ($page_layout = of_get_option('page_layout')) {
-		$page_layout = of_get_option('page_layout');
-		$page_layout_css = get_stylesheet_directory_uri() . '/css/' . $page_layout.'.css';
-		wp_register_style( 'page_layout_style', $page_layout_css, 'screen');
-		wp_enqueue_style('page_layout_style');
-//	}
-	$extra_css = of_get_option('external_css');
-=======
 	if ($page_layout = of_get_option('page_layout')) {
 		$page_layout_css = get_stylesheet_directory_uri() . '/css/' . $page_layout.'.css';
 		wp_register_style( 'page_layout_style', $page_layout_css, 'screen');
@@ -82,18 +61,10 @@ function load_my_styles() {
 	if (strpos($extra_css,'http') == false){ //no http so assume local css (for debugging purposes)
 		$extra_css = get_stylesheet_directory_uri() . $extra_css;
 	}
->>>>>>> gh-pages
 	if ($extra_css != '') {
 		wp_register_style( 'extra_css_style', $extra_css, 'screen');
 		wp_enqueue_style('extra_css_style');
 	}
-<<<<<<< HEAD
-	//	wp_register_style( 'mellon_style', 'http://kaymmm.github.com/mellon-atahualpa/includes/mellon.css','screen' );
-	//	wp_register_style( 'pcp_style', 'http://kaymmm.github.com/mellon-atahualpa/pcp/css/pcp.css','screen' );
-	//	wp_enqueue_style('mellon_style');
-	//	wp_enqueue_style('pcp_style');
-=======
->>>>>>> gh-pages
 }
 
 add_action('wp_enqueue_scripts', 'load_my_styles', 100);
@@ -102,19 +73,6 @@ add_action('wp_enqueue_scripts', 'load_my_styles', 100);
 function superfish_libs() {
 	$superfish_location = get_stylesheet_directory_uri();
     // Register each script, setting appropriate dependencies  
-<<<<<<< HEAD
-    wp_register_script('hoverintent', $superfish_location . '/js/hoverIntent.js');  
-/*    wp_register_script('bgiframe',    $superfish_location . '/js/jquery.bgiframe.min.js');  */
-    wp_register_script('superfish',   $superfish_location . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
-    wp_register_script('supersubs',   $superfish_location . '/js/supersubs.js', array( 'superfish' ));  
-  
-    wp_enqueue_script('superfish'); 
- 
-    // Register each style, setting appropriate dependencies 
-    wp_register_style('superfishbase',   $superfish_location . '/css/superfish.css'); 
-/*    wp_register_style('superfishvert',   $superfish_location . '/css/superfish-vertical.css', array( 'superfishbase' ));  
-    wp_register_style('superfishnavbar', $superfish_location . '/css/superfish-navbar.css'); */
-=======
 	wp_register_script('hoverintent', $superfish_location . '/js/hoverIntent.js');  
 /*	wp_register_script('bgiframe',    $superfish_location . '/js/jquery.bgiframe.min.js');  */
 	wp_register_script('superfish',   $superfish_location . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
@@ -125,7 +83,6 @@ function superfish_libs() {
 	wp_register_style('superfishbase',   $superfish_location . '/css/superfish.css'); 
 /*	wp_register_style('superfishvert',   $superfish_location . '/css/superfish-vertical.css', array( 'superfishbase' ));  
 	wp_register_style('superfishnavbar', $superfish_location . '/css/superfish-navbar.css'); */
->>>>>>> gh-pages
  
     // Enqueue superfishnavbar, we don't need to enqueue any others in this case either, as the dependencies take care of it  
     wp_enqueue_style('superfishnavbar');  
@@ -182,22 +139,14 @@ add_action( 'widgets_init', 'add_my_sidebars', 11);
 function deregister_navscript() {
 	wp_deregister_script( 'twentytwelve-navigation' );
 }
-<<<<<<< HEAD
-add_action( 'wp_print_scripts', 'deregister_navscript', 100 );
-=======
 add_action( 'wp_print_scripts', 'deregister_navscript', 60 );
->>>>>>> gh-pages
 
 function add_menus() {
 		wp_register_script( 'menus-script', get_stylesheet_directory_uri() . '/js/navigation.js', array(), '1.0', true );
 		wp_enqueue_script( 'menus-script' );
 }
 
-<<<<<<< HEAD
-//add_action( 'wp_enqueue_scripts', 'add_menus' );
-=======
 add_action( 'wp_enqueue_scripts', 'add_menus',100 );
->>>>>>> gh-pages
 
 // Add the new menu
 register_nav_menus( array(
@@ -205,24 +154,6 @@ register_nav_menus( array(
    'secondary' => __( 'Second Menu', 'mellontheme')
 ) );
   
-<<<<<<< HEAD
-/* 
- * Loads the Options Panel
- *
- * If you're loading from a child theme use stylesheet_directory
- * instead of template_directory
- */
-function add_option_framework() {
-	if ( !function_exists( 'optionsframework_init' ) ) {
-		define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_stylesheet_directory_uri() . '/inc/' );
-		require_once dirname( __FILE__ ) . '/inc/options-framework.php';
-	}
-}
-add_action('init','add_option_framework');
- 
- 
-=======
->>>>>>> gh-pages
 //Add custom query to combine events with regular posts
 
 function combine_posts_events($query) {
@@ -316,38 +247,6 @@ function twentytwelve_entry_meta() {
 	);
 }
 
-<<<<<<< HEAD
-function events_slider($width=600, $height=450, $num_posts = 5) {
-	if ( class_exists('EM_Events')) : ?>
-		<div id="featured-wrapper" class="featured clear fix">
-			<div id="featured-slideshow" style="width: 100%; height:<?php echo $height; ?>px;" >
-				<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.gif" alt="" width="<?php echo $width;?>" height="<?php echo $height;?>">
-				<?php
-				$args = array ( 'post_type' => 'event',
-						'order' => 'DESC',
-						'orderby' => 'date',
-						'posts_per_page' => $num_posts,
-						'meta_query' => array(array('key' => '_thumbnail_id'))
-						);
-				$recent_posts = new WP_Query($args);
-				$thumbs_code = '';
-				$slidecount = 1;
-				while ( $recent_posts->have_posts() ): 
-					$recent_posts->the_post(); 
-					$thumb_large = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array($width,$height));
-					$thumb_small = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array(120,120) ); ?>
-					<div class="featured-post" style="width: 100%; height:<?php echo $height; ?>px;" >
-						<a href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><img src="<?php echo $thumb_large[0]; ?>" alt="<?php the_title_attribute(); ?>" class="featured-thumbnail" /></a>
-						<h2 class="post-title entry-title"><a href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
-					</div><!-- featured-post -->
-					<?php $thumbs_code .= '<li';
-					$thumbs_code .= ($slidecount == $num_posts ? ' class="last">' : '>');
-					$thumbs_code .= '<div class="slider-thumb-box"><a href="'. get_permalink().'" title="'. the_title_attribute('echo=0').'">';
-					$thumbs_code .= '<img src="'.$thumb_small[0].'" class="slider-nav-thumbnail" alt="'. the_title_attribute('echo=0').'" /></a></div></li>';
-					$slidecount++;
-				endwhile; 
-				wp_reset_query(); ?>
-=======
 function events_slider($width=600, $height=380, $num_posts = 6) {
 	$slider_nav = of_get_option('slider_nav_checkbox',true);
 	$slider_post_type = of_get_option('slider_page_types','post');
@@ -442,7 +341,6 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 		<div id="featured-slideshow" style="width: 100%; height:<?php echo $height; ?>px;" >
 			<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.gif" alt="" width="<?php echo $width;?>" height="<?php echo $height;?>">
 				<?php echo $slider_code; ?>
->>>>>>> gh-pages
 				<span id="slider-prev" class="slider-nav">←</span>
 				<span id="slider-next" class="slider-nav">→</span>
 			</div> <!-- featured-content -->
@@ -452,11 +350,6 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 				</ul>
 			</div><!-- #slider-nav-->
 		</div> <!-- featured-wrapper-->
-<<<<<<< HEAD
-<?php endif;
-}
-
-=======
 <?php
 }
 
@@ -623,6 +516,5 @@ function custom_breadcrumbs(){
 
 	}
 }
->>>>>>> gh-pages
 
 ?>
