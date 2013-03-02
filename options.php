@@ -16,6 +16,27 @@ function optionsframework_option_name() {
 	update_option( 'optionsframework', $optionsframework_settings );
 }
 
+
+/**
+ * Returns an array of all files in $directory_path of type $filetype.
+ *
+ * The $directory_uri + file name is used for the key
+ * The file name is the value
+ */
+ 
+function options_stylesheets_get_file_list( $directory_path, $filetype, $directory_uri ) {
+	$alt_stylesheets = array();
+	$alt_stylesheet_files = array();
+	if ( is_dir( $directory_path ) ) {
+		$alt_stylesheet_files = glob( $directory_path . "*.$filetype");
+		foreach ( $alt_stylesheet_files as $file ) {
+			$file = str_replace( $directory_path, "", $file);
+			$alt_stylesheets[ $directory_uri . $file] = $file;
+		}
+	}
+	return $alt_stylesheets;
+}
+
 /**
  * Defines an array of options that will be used to generate the settings page and be saved in the database.
  * When creating the 'id' fields, make sure to use all lowercase and no spaces.
@@ -305,6 +326,23 @@ function optionsframework_options() {
 		'options' => array('shrink'=>'Shrink images to fit within box','grow' => 'Grow images to fill box','none' => 'Do not modify images')
 	);
 	
+	
+	$alt_stylesheets = options_stylesheets_get_file_list(
+		get_stylesheet_directory() . '/styles/', // $directory_path
+	    'css', // $filetype
+	    get_stylesheet_directory_uri() . '/styles/' // $directory_uri
+	);
+	
+	
+	$options[] = array(
+		'name' => __('Theme Style', 'options_framework_theme'),
+		'desc' => __('Select a style to use. Add new styles by dropping custom .css files into the /styles/ directory on the server.', 'options_framework_theme'),
+		'id' => 'style_css',
+		'std' => 'clean',
+		'type' => 'select',
+		'options' => $alt_stylesheets
+	);
+
 	$options[] = array(
 		'name' => __('External CSS File', 'options_framework_theme'),
 		'desc' => __('Load an external CSS file by entering a valid URL.', 'options_framework_theme'),
@@ -546,4 +584,5 @@ jQuery(document).ready(function($) {
 </script>
 
 <?php
+
 }

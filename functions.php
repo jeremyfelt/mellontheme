@@ -51,8 +51,14 @@ function load_my_styles() {
 		wp_register_style( 'page_layout_style', $page_layout_css, 'screen');
 		wp_enqueue_style('page_layout_style');
 	}
+	
+	if ( of_get_option('style_css') ) {
+	        wp_enqueue_style( 'options_stylesheets_alt_style', of_get_option('style_css'), array(), null );
+    }
+	
+	
 	$extra_css = of_get_option('external_css');
-	if (strpos($extra_css,'http') == false){ //no http so assume local css
+	if (strpos($extra_css,'http') == false){ //no http so assume local css (for debugging purposes)
 		$extra_css = get_stylesheet_directory_uri() . $extra_css;
 	}
 	if ($extra_css != '') {
