@@ -16,8 +16,10 @@ if ( !function_exists( 'optionsframework_init' ) ) {
 function load_my_scripts() {
     wp_deregister_script( 'jquery' );  
 	wp_deregister_script( 'jquery-ui' );	
-	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', array(), null, false );
-	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js', array('jquery'), null, false );
+/*	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', array(), null, false );
+	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js', array('jquery'), null, false ); */
+	wp_register_script( 'jquery', get_stylesheet_directory_uri().'/js/jquery.1.8.1.min.js', array(),null,false );
+	wp_register_script( 'jquery', get_stylesheet_directory_uri().'/js/jquery.jquery-ui.1.8.23.min', array(),null,false );
 	wp_enqueue_script('jquery.ui');
 
 	wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false );
@@ -73,19 +75,20 @@ add_action('wp_enqueue_scripts', 'load_my_styles', 100);
 function superfish_libs() {
 	$superfish_location = get_stylesheet_directory_uri();
     // Register each script, setting appropriate dependencies  
-	wp_register_script('hoverintent', $superfish_location . '/js/hoverIntent.js');  
+	wp_register_script('hoverintent', $superfish_location . '/js/jquery.hoverIntent.min.js');  
 /*	wp_register_script('bgiframe',    $superfish_location . '/js/jquery.bgiframe.min.js');  */
-	wp_register_script('superfish',   $superfish_location . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
-	wp_register_script('supersubs',   $superfish_location . '/js/supersubs.js', array( 'superfish' ));  
+	wp_register_script('superfish',   $superfish_location . '/js/jquery.superfish-reloaded.min.js', array( 'jquery', 'hoverintent' ));  
+/*	wp_register_script('supersubs',   $superfish_location . '/js/jquery.supersubs.min.js', array( 'superfish' ));
+	wp_enqueue_script('supersubs'); */
 	wp_enqueue_script('superfish'); 
  
     // Register each style, setting appropriate dependencies 
-	wp_register_style('superfishbase',   $superfish_location . '/css/superfish.css'); 
-/*	wp_register_style('superfishvert',   $superfish_location . '/css/superfish-vertical.css', array( 'superfishbase' ));  
-	wp_register_style('superfishnavbar', $superfish_location . '/css/superfish-navbar.css'); */
+/*	wp_register_style('superfishbase',   $superfish_location . '/css/superfish.css'); 
+	wp_register_style('superfishvert',   $superfish_location . '/css/superfish-vertical.css', array( 'superfishbase' )); 
+	wp_register_style('superfishnavbar', $superfish_location . '/css/superfish-navbar.css');
  
     // Enqueue superfishnavbar, we don't need to enqueue any others in this case either, as the dependencies take care of it  
-    wp_enqueue_style('superfishnavbar');  
+    wp_enqueue_style('superfishnavbar');  */
 }
 add_action( 'wp_enqueue_scripts', 'superfish_libs' );  
 

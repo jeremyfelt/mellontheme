@@ -46,8 +46,8 @@ div#main { padding: 0 24px; padding: 0 1.714285714rem; }
 }
 
 div.post-headline			{ margin-bottom: 5px; }
-h1.entry-title				{ padding: 14px 0; padding: 1rem 0;}
-.section-title				{ float: left; width: 100%; color: #999; background: #f3f3f3; padding: .25em .6em .35em .6em; margin-bottom: 20px; text-transform: lowercase; border-left: 10px solid #e9e9e9; } /* change margins to rem */
+.bloglist h1.entry-title	{ padding: 14px 0; padding: 1rem 0;}
+.bloglist .section-title	{ float: left; width: 100%; color: #999; background: #f3f3f3; padding: .25em .6em .35em .6em; margin-bottom: 20px; text-transform: lowercase; border-left: 10px solid #e9e9e9; } /* change margins to rem */
 .bloglist					{ margin: 0 0 24px 0; margin-bottom: 1rem; position: relative; width: 100%; }
 .bloglist .thumbnail-box	{ width: 100%; height: 300px; overflow: hidden; position: relative; margin-bottom: 14px; margin-bottom: 1rem; }
 .bloglist-thumbnail			{ position: absolute; }
@@ -90,7 +90,7 @@ div#respond		{ padding: 14px; padding: 1rem; }
 /* navigation menu */
 .main-navigation { margin-top: 24px; margin-top: 1rem; text-align: left; }
 
-ul#menu1.sf-menu 						{ margin-left: -1px; padding: 0px; }
+ul#menu1.sf-menu 						{ margin-left: -1px; padding: 0px; height: auto; line-height: 1em; width: 100%;}
 ul#menu1.sf-menu li:hover,
 ul#menu1.sf-menu-hor li.rMenu-expand,
 ul#menu1.sf-menu li 					{ margin: 0; padding: 0; border: 0; background: transparent; }
