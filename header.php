@@ -52,14 +52,14 @@ $font_color = of_get_option('font_colorpicker');
 <style type="text/css">
 	<?php if ($background_color != '') :?>
 		div#page {background-color: <?php echo $background_color; ?>; }
-	<? endif;
+	<?php endif;
 	if ($main_content_color != '') :?>
 		div#main {background-color: <?php echo $main_content_color; ?>; }
-	<? endif;
+	<?php endif;
 	if ($font_color != '') :?>
 		div#main {color: <?php echo $font_color; ?>; }
-	<? endif; ?>
-	
+	<?php endif; ?>
+
 </style>
 </head>
 
@@ -83,7 +83,7 @@ $font_color = of_get_option('font_colorpicker');
 				<?php endif;
 				if ( ! empty( $secondary_header_image ) ) : ?>
 					<a href="<?php echo $secondary_header_url; ?>"><img class="logo" src="<?php echo $secondary_header_image; ?>" alt="<?php bloginfo('name'); ?>"></a>
-				<?php endif; 
+				<?php endif;
 			else :
 				$header_image = get_header_image();
 				if ( ! empty( $header_image ) ) : ?>
@@ -96,13 +96,13 @@ $font_color = of_get_option('font_colorpicker');
 			<a class="assistive-text" href="#content" title="<?php esc_attr_e( 'Skip to content', 'twentytwelve' ); ?>"><?php _e( 'Skip to content', 'twentytwelve' ); ?></a>
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'sf-menu sf-navbar', 'menu_id' => 'menu1','fallback_cb' => 'wp_page_menu') ); ?>
 		</nav><!-- #site-navigation -->
-	
-		<? if (of_get_option('breadcrumbs_enabled','1') == '1'):?>
+
+		<?php if (of_get_option('breadcrumbs_enabled','1') == '1'):?>
 			<div id="breadcrumbs">
 				<?php custom_breadcrumbs() ?>
 			</div>
-		<?endif;?>
+		<?php endif;?>
 	</header><!-- #masthead -->
 
 	<div id="main" class="wrapper">
-		
+
