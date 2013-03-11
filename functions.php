@@ -6,6 +6,7 @@
  * If you're loading from a child theme use stylesheet_directory
  * instead of template_directory
  */
+
 if ( !function_exists( 'optionsframework_init' ) ) {
 	define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_stylesheet_directory_uri() . '/inc/' );
 	require_once dirname( __FILE__ ) . '/inc/options-framework.php';
@@ -14,37 +15,46 @@ if ( !function_exists( 'optionsframework_init' ) ) {
 // Register scripts
 
 function load_my_scripts() {
+	$ss_dir = get_stylesheet_directory_uri();
     wp_deregister_script( 'jquery' );  
 	wp_deregister_script( 'jquery-ui' );	
-/*	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js', array(), null, false );
-	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.23/jquery-ui.min.js', array('jquery'), null, false ); */
-	wp_register_script( 'jquery', get_stylesheet_directory_uri().'/js/jquery.1.8.1.min.js', array(),null,false );
-	wp_register_script( 'jquery', get_stylesheet_directory_uri().'/js/jquery.jquery-ui.1.8.23.min', array(),null,false );
+/*	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', array(), null, false );
+	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js', array('jquery'), null, false ); */
+	wp_register_script( 'jquery', $ss_dir.'/js/jquery.min.js', array(),null,false );
+	wp_enqueue_script('jquery');
+	
+	wp_register_script( 'jquery.ui', $ss_dir.'/js/jquery-ui.min.js', array('jquery'),null,false );
 	wp_enqueue_script('jquery.ui');
 
-	wp_register_script( 'scaleimage', get_stylesheet_directory_uri().'/js/scaleimage.min.js', array(),null,false );
-	wp_register_script( 'jquery.imagesloaded', get_stylesheet_directory_uri().'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
-
+	wp_register_script('hoverintent', $ss_dir . '/js/jquery.hoverIntent.minified.js');  
+	wp_register_script('superfish',   $ss_dir . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
+	wp_enqueue_script('superfish');
+/*	wp_register_script('bgiframe',    $ss_dir . '/js/jquery.bgiframe.min.js');
+	wp_register_script('supersubs',   $ss_dir . '/js/jquery.supersubs.min.js', array( 'superfish' ));
+	wp_enqueue_script('supersubs'); */
+	
 	// scripts for specific pages
-	if (is_front_page() || is_archive()) {
+	if (is_front_page() || is_home() || is_archive()) {
+		wp_register_script( 'scaleimage', $ss_dir.'/js/scaleimage.min.js', array(),null,false );
+		wp_register_script( 'jquery.imagesloaded', $ss_dir.'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
+		if ((is_front_page() || is_home()) && (of_get_option('events_slider_checkbox','1')=='1')) {
+			wp_register_script( 'jquery.cycle', $ss_dir.'/js/jquery.cycle.all.js', array( 'jquery' ),null,false ); 
+			wp_register_script( 'slider', $ss_dir.'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
+			wp_enqueue_script('slider');
+		}
 		$resize_rule = of_get_option('resize_images','grow');
 		$resize_js = 'jquery.resize.grow.js';
 		if ($resize_rule == 'shrink') {
 			$resize_js = 'jquery.resize.shrink.js';
 		}
 		if ($resize_rule != 'none') {
-			wp_register_script( 'resizeimages', get_stylesheet_directory_uri().'/js/'.$resize_js, array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
+			wp_register_script( 'resizeimages', $ss_dir.'/js/'.$resize_js, array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
 			wp_enqueue_script('resizeimages');
 		}
 	}
-	if (is_front_page()) {
-		wp_register_script( 'jquery.cycle', get_stylesheet_directory_uri().'/js/jquery.cycle.all.min.js', array( 'jquery' ),null,false ); 
-		wp_register_script( 'slider', get_stylesheet_directory_uri().'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
-		wp_enqueue_script('slider');
-	}
 }
 
-add_action('wp_enqueue_scripts', 'load_my_scripts', 100);
+add_action('wp_enqueue_scripts', 'load_my_scripts', 10);
 
 //register custom stylesheets
 function load_my_styles() {
@@ -70,27 +80,6 @@ function load_my_styles() {
 }
 
 add_action('wp_enqueue_scripts', 'load_my_styles', 100);
-
-
-function superfish_libs() {
-	$superfish_location = get_stylesheet_directory_uri();
-    // Register each script, setting appropriate dependencies  
-	wp_register_script('hoverintent', $superfish_location . '/js/jquery.hoverIntent.min.js');  
-/*	wp_register_script('bgiframe',    $superfish_location . '/js/jquery.bgiframe.min.js');  */
-	wp_register_script('superfish',   $superfish_location . '/js/jquery.superfish-reloaded.min.js', array( 'jquery', 'hoverintent' ));  
-/*	wp_register_script('supersubs',   $superfish_location . '/js/jquery.supersubs.min.js', array( 'superfish' ));
-	wp_enqueue_script('supersubs'); */
-	wp_enqueue_script('superfish'); 
- 
-    // Register each style, setting appropriate dependencies 
-/*	wp_register_style('superfishbase',   $superfish_location . '/css/superfish.css'); 
-	wp_register_style('superfishvert',   $superfish_location . '/css/superfish-vertical.css', array( 'superfishbase' )); 
-	wp_register_style('superfishnavbar', $superfish_location . '/css/superfish-navbar.css');
- 
-    // Enqueue superfishnavbar, we don't need to enqueue any others in this case either, as the dependencies take care of it  
-    wp_enqueue_style('superfishnavbar');  */
-}
-add_action( 'wp_enqueue_scripts', 'superfish_libs' );  
 
 
 // Register additional widget areas
