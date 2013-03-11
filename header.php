@@ -101,8 +101,8 @@ $font_color = of_get_option('font_colorpicker');
 			<div id="breadcrumbs">
 				<?php custom_breadcrumbs() ?>
 			</div>
-		<?endif;?>
+		<?php endif;?>
 	</header><!-- #masthead -->
 
 	<div id="main" class="wrapper">
-		
+
