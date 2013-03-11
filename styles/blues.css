@@ -68,7 +68,7 @@ ul#menu1.sf-menu li.current-menu-item ul.sub-menu,
 ul#menu1.sf-menu li.current_page_item ul.sub-menu 	{ background-color: #2B3E42; color: #F7F3E8; border: 1px solid #D93F0F; }
 
 /* slider styles */
-#featured-wrapper	 			{ background: #1a2528; }
+#featured-wrapper	 			{ background: transparent; }
 .featured-post .entry-title a	{ color: #333; }
 .slider-nav						{ color: #fff; background: #D93F0F url(../images/slider-nav-arrows.png) no-repeat; background: rgba(217,63,15,0.5) url(../images/slider-nav-arrows.png) no-repeat; }
 .slider-nav:hover 				{ background-color: #D93F0F; }

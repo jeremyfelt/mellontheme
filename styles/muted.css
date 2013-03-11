@@ -58,7 +58,7 @@ ul#menu1.sf-menu li.current-menu-item ul.sub-menu,
 ul#menu1.sf-menu li.current_page_item ul.sub-menu 	{ background-color: #B1DDD5; color: #3B473B; border: 1px dotted #ccc; border-top: 0;}
 
 /* slider styles */
-#featured-wrapper	 			{ background: #1a2528; }
+#featured-wrapper	 			{ background: transparent; }
 .featured-post .entry-title a	{ color: #333; }
 .slider-nav						{ color: #222; background-color: #8ED1C8; background: rgba(142,209,200,0.8); text-indent: 0; text-align: center; font-size: 2em;}
 .slider-nav:hover 				{ background-color: #8ED1C8; background: rgba(142,209,200,1); }

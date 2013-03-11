@@ -331,7 +331,7 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 	wp_reset_query(); ?>
 	<div id="featured-wrapper" class="featured clear fix">
 		<div id="featured-slideshow" style="width: 100%; height:<?php echo $height; ?>px;" >
-			<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.gif" alt="" width="<?php echo $width;?>" height="<?php echo $height;?>">
+			<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.png" alt="" width="<?php echo $width;?>" height="<?php echo $height;?>">
 				<?php echo $slider_code; ?>
 				<span id="slider-prev" class="slider-nav">←</span>
 				<span id="slider-next" class="slider-nav">→</span>

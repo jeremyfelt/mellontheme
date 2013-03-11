@@ -60,7 +60,7 @@ ul#menu1.sf-menu li.current-menu-item ul.sub-menu,
 ul#menu1.sf-menu li.current_page_item ul.sub-menu 	{ background-color: #e6ebe6; color: #F7F3E8; border: 1px dotted #ccc; border-top: 0;}
 
 /* slider styles */
-#featured-wrapper	 			{ background: #1a2528; }
+#featured-wrapper	 			{ background: transparent; }
 .featured-post .entry-title a	{ color: #333; }
 .slider-nav						{ color: #222; background: #BBE4E5; background: rgba(187,228,229,0.8); text-indent: 0; text-align: center; font-size: 2em;}
 .slider-nav:hover 				{ background: #BBE4E5; background: rgba(187,228,229,1) }
