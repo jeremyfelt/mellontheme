@@ -75,3 +75,7 @@ span.event-page-name 			{ padding: 0; margin: 0; text-align: left; }
 span.event-widget-date			{ padding: 0; margin: 0; text-align: right!important; font-style: italic; font-size: 1em; color: #668284; }
 span.event-widget-name 			{ padding: 0; margin: 0; text-align: right!important; font-size: 1.2em; line-height: 1.2em; color: #668284; padding-right: 2px;}
 span.event-widget-name:hover	{ color: #B1DDD5; }
+
+
+/* people page */
+.person { padding-bottom: 14px; }
