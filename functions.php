@@ -15,41 +15,43 @@ if ( !function_exists( 'optionsframework_init' ) ) {
 // Register scripts
 
 function load_my_scripts() {
-	$ss_dir = get_stylesheet_directory_uri();
-    wp_deregister_script( 'jquery' );  
-	wp_deregister_script( 'jquery-ui' );	
-/*	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', array(), null, false );
-	wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js', array('jquery'), null, false ); */
-	wp_register_script( 'jquery', $ss_dir.'/js/jquery.min.js', array(),null,false );
-	wp_enqueue_script('jquery');
+	if (! is_admin()){
+		$ss_dir = get_stylesheet_directory_uri();
+	    wp_deregister_script( 'jquery' );  
+		wp_deregister_script( 'jquery-ui' );	
+	/*	wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', array(), null, false );
+		wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js', array('jquery'), null, false ); */
+		wp_register_script( 'jquery', $ss_dir.'/js/jquery.min.js', array(),null,false );
+		wp_enqueue_script('jquery');
 	
-	wp_register_script( 'jquery.ui', $ss_dir.'/js/jquery-ui.min.js', array('jquery'),null,false );
-	wp_enqueue_script('jquery.ui');
+		wp_register_script( 'jquery.ui', $ss_dir.'/js/jquery-ui.min.js', array('jquery'),null,false );
+		wp_enqueue_script('jquery.ui');
 
-	wp_register_script('hoverintent', $ss_dir . '/js/jquery.hoverIntent.minified.js');  
-	wp_register_script('superfish',   $ss_dir . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
-	wp_enqueue_script('superfish');
-/*	wp_register_script('bgiframe',    $ss_dir . '/js/jquery.bgiframe.min.js');
-	wp_register_script('supersubs',   $ss_dir . '/js/jquery.supersubs.min.js', array( 'superfish' ));
-	wp_enqueue_script('supersubs'); */
+		wp_register_script('hoverintent', $ss_dir . '/js/jquery.hoverIntent.minified.js');  
+		wp_register_script('superfish',   $ss_dir . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
+		wp_enqueue_script('superfish');
+	/*	wp_register_script('bgiframe',    $ss_dir . '/js/jquery.bgiframe.min.js');
+		wp_register_script('supersubs',   $ss_dir . '/js/jquery.supersubs.min.js', array( 'superfish' ));
+		wp_enqueue_script('supersubs'); */
 	
-	// scripts for specific pages
-	if (is_front_page() || is_home() || is_archive()) {
-		wp_register_script( 'scaleimage', $ss_dir.'/js/scaleimage.min.js', array(),null,false );
-		wp_register_script( 'jquery.imagesloaded', $ss_dir.'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
-		if ((is_front_page() || is_home()) && (of_get_option('events_slider_checkbox','1')=='1')) {
-			wp_register_script( 'jquery.cycle', $ss_dir.'/js/jquery.cycle.all.js', array( 'jquery' ),null,false ); 
-			wp_register_script( 'slider', $ss_dir.'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
-			wp_enqueue_script('slider');
-		}
-		$resize_rule = of_get_option('resize_images','grow');
-		$resize_js = 'jquery.resize.grow.js';
-		if ($resize_rule == 'shrink') {
-			$resize_js = 'jquery.resize.shrink.js';
-		}
-		if ($resize_rule != 'none') {
-			wp_register_script( 'resizeimages', $ss_dir.'/js/'.$resize_js, array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
-			wp_enqueue_script('resizeimages');
+		// scripts for specific pages
+		if (is_front_page() || is_home() || is_archive()) {
+			wp_register_script( 'scaleimage', $ss_dir.'/js/scaleimage.min.js', array(),null,false );
+			wp_register_script( 'jquery.imagesloaded', $ss_dir.'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
+			if ((is_front_page() || is_home()) && (of_get_option('events_slider_checkbox','1')=='1')) {
+				wp_register_script( 'jquery.cycle', $ss_dir.'/js/jquery.cycle.all.js', array( 'jquery' ),null,false ); 
+				wp_register_script( 'slider', $ss_dir.'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
+				wp_enqueue_script('slider');
+			}
+			$resize_rule = of_get_option('resize_images','grow');
+			$resize_js = 'jquery.resize.grow.js';
+			if ($resize_rule == 'shrink') {
+				$resize_js = 'jquery.resize.shrink.js';
+			}
+			if ($resize_rule != 'none') {
+				wp_register_script( 'resizeimages', $ss_dir.'/js/'.$resize_js, array('jquery','jquery.imagesloaded','scaleimage'),null,false ); 
+				wp_enqueue_script('resizeimages');
+			}
 		}
 	}
 }
