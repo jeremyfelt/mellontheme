@@ -44,7 +44,7 @@ $secondary_header_image = esc_url(of_get_option('secondary_header_image', ''));
 $primary_header_url = esc_url(of_get_option('primary_header_url', '/'));
 $secondary_header_url = esc_url(of_get_option('secondary_header_url', '/'));
 $facebook_url = esc_url(of_get_option('facebook_url', '/'));
-$twitter_feed = esc_url(of_get_option('twitter_feed', ''));
+$twitter_feed = esc_url(of_get_option('twitter_feed', '/'));
 $background_color = of_get_option('background_colorpicker');
 $main_content_color = of_get_option('main_content_colorpicker');
 $font_color = of_get_option('font_colorpicker');
@@ -72,7 +72,7 @@ $font_color = of_get_option('font_colorpicker');
 		</hgroup>
 		<div id="logoarea">
 			<div id="socialicons">
-				<a target="_blank" href="http://twitter.com/#!/<?php echo $twitter_feed; ?>" class="twitterlink"></a>
+				<a target="_blank" href="<?php echo $twitter_feed; ?>" class="twitterlink"></a>
 				<a target="_blank" href="<?php echo $facebook_url; ?>" class="facebooklink"></a> 
 				<a target="_blank" href="http://www.cuny.edu" class="cuny"></a> 
 			</div><!-- #social icons -->

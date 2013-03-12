@@ -201,7 +201,7 @@ function optionsframework_options() {
 		'name' => __('Twitter Feed', 'options_framework_theme'),
 		'desc' => __('URL to an associated Twitter feed (for social icons).', 'options_framework_theme'),
 		'id' => 'twitter_feed',
-		'std' => 'http://www.twitter.com/#!/yourtwittername',
+		'std' => 'http://www.twitter.com/yourtwittername',
 		'type' => 'text');
 
 	$options[] = array(
