@@ -69,10 +69,7 @@ function load_my_styles() {
     }
 	
 	
-	$extra_css = of_get_option('external_css');
-	if (strpos($extra_css,'http') == false){ //no http so assume local css (for debugging purposes)
-		$extra_css = get_stylesheet_directory_uri() . $extra_css;
-	}
+	$extra_css = of_get_option('external_css','');
 	if ($extra_css != '') {
 		wp_register_style( 'extra_css_style', $extra_css, 'screen');
 		wp_enqueue_style('extra_css_style');
@@ -134,8 +131,8 @@ function deregister_navscript() {
 add_action( 'wp_print_scripts', 'deregister_navscript', 60 );
 
 function add_menus() {
-		wp_register_script( 'menus-script', get_stylesheet_directory_uri() . '/js/navigation.js', array(), '1.0', true );
-		wp_enqueue_script( 'menus-script' );
+	wp_register_script( 'menus-script', get_stylesheet_directory_uri() . '/js/navigation.js', array(), '1.0', true );
+	wp_enqueue_script( 'menus-script' );
 }
 
 add_action( 'wp_enqueue_scripts', 'add_menus',100 );
