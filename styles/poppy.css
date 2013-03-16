@@ -1,8 +1,8 @@
-body 						{ color: #757575; }
-.site 						{ background-color: #033649; }
-a, a:link, a:active			{ color: #474724; }
-a:visited					{ color: #5C5C33; }
-a:hover						{ color: #7A5200; }
+body 						{ color: #1D130D; }
+.site 						{ background-color: #fcfff5; }
+a, a:link, a:active			{ color: #613F1A; }
+a:visited					{ color: #918B65; }
+a:hover						{ color: #94704A; }
 blockquote					{ background: rgba(255,255,255,0.5); }
 
 /* blog posts */
@@ -19,7 +19,7 @@ blockquote					{ background: rgba(255,255,255,0.5); }
 .bloglist .entry-header .entry-title a:active, 
 .bloglist .entry-header .entry-title a:visited 		{ color: #5A391B; }
 .bloglist .entry-header .entry-title a:hover		{ color: #6E4F34; }
-.bloglist .entry-meta								{ color: #757575; }
+.bloglist .entry-meta								{ color: #757575; background-color: rgba(0,0,0,0.1);}
 .bloglist .entry-meta a, 
 .bloglist .entry-meta a:link, 
 .bloglist .entry-meta a:active, 
@@ -29,9 +29,9 @@ blockquote					{ background: rgba(255,255,255,0.5); }
 .bloglist .post-event-info h6			{ line-height: 1.4em; font-weight: normal; font-size: 1.1em; color: #757575;}
 .widget-area .widget a,
 .widget-area .widget a:link,
-.widget-area .widget a:active			{ color: #21759b; }
-.widget-area .widget a:visited			{ color: #757575; }
-.widget-area .widget a:hover			{ color: #757575; }
+.widget-area .widget a:active			{ color: #613F1A; }
+.widget-area .widget a:visited			{ color: #918B65; }
+.widget-area .widget a:hover			{ color: #94704A; }
 
 div.comment-container,
 div#respond								{ color: #5e5e5e; background: #e6ebe6; font-size: 0.9em; border: 2px solid #757575; }
