@@ -79,6 +79,9 @@ div#respond		{ padding: 14px; padding: 1rem; }
 /* ===[ Footer Widget Areas ]=== */
 #footer-widgets { width: 100%; padding-top: 0; border-top: none; /*	padding: 24px; padding: 1.714285714rem; */}
 #footer-widgets .widget li { list-style-type: none; }
+.footer-widget-left 	{ text-align: left; }
+.footer-widget-center 	{ text-align: center; }
+.footer-widget-right 	{ text-align: right; }
 
 .template-front-page #footer-widgets { padding-top: 0; }
 

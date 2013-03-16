@@ -96,30 +96,30 @@ function add_my_sidebars() {
 	) );
 
    register_sidebar( array(
-       'name' => __( 'Footer Widget One', 'mellontheme' ),
+       'name' => __( 'Footer Widget Left', 'mellontheme' ),
        'id' => 'sidebar-5',
        'description' => __( 'Found at the bottom of every page (except 404s and optional homepage template) Left Footer Widget.', 'mellontheme' ),
-       'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+       'before_widget' => '<aside id="%1$s" class="widget footer-widget-left %2$s ">',
        'after_widget' => '</aside>',
        'before_title' => '<h3 class="widget-title">',
        'after_title' => '</h3>',
    ) );
 
    register_sidebar( array(
-       'name' => __( 'Footer Widget Two', 'mellontheme' ),
+       'name' => __( 'Footer Widget Center', 'mellontheme' ),
        'id' => 'sidebar-6',
        'description' => __( 'Found at the bottom of every page (except 404s and optional homepage template) Center Footer Widget.', 'mellontheme' ),
-       'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+       'before_widget' => '<aside id="%1$s" class="widget footer-widget-center %2$s">',
        'after_widget' => "</aside>",
        'before_title' => '<h3 class="widget-title">',
        'after_title' => '</h3>',
    ) );
 
    register_sidebar( array(
-       'name' => __( 'Footer Widget Three', 'mellontheme' ),
+       'name' => __( 'Footer Widget Right', 'mellontheme' ),
        'id' => 'sidebar-7',
        'description' => __( 'Found at the bottom of every page (except 404s and optional homepage template) Right Footer Widget.', 'mellontheme' ),
-       'before_widget' => '<aside id="%1$s" class="widget %2$s">',
+       'before_widget' => '<aside id="%1$s" class="widget footer-widget-right %2$s">',
        'after_widget' => "</aside>",
        'before_title' => '<h3 class="widget-title">',
        'after_title' => '</h3>',
