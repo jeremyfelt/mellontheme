@@ -19,38 +19,38 @@
 			</div>
 		<?php endif; // has_post_thumbnail() ?>
 		<?php if (is_home() || is_archive()): ?>
-		<div class="bloglist-post-content">
+			<div class="bloglist-post-content">
 		<?php endif; ?>
-		<header class="entry-header">
-			<h1 class="post-title entry-title">
-				<?php if ( is_single() ) :
-					the_title();
-				else : ?>
-					<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
-				<?php endif; // is_single() ?>
-			</h1>
-			<?php if ( 'event' == get_post_type() && ! is_single() ) :
-				$EM_Event = em_get_event($post->ID, 'post_id'); ?>
-				<div class="post-event-info">
-					<h6><?php echo $EM_Event->output('#_EVENTDATES'); ?></h6>
-					<h6><?php echo $EM_Event->output('#_EVENTTIMES'); ?></h6>
-					<h6><?php echo $EM_Event->output("#_LOCATION"); ?></h6>
-				</div>
-			<?php endif; ?>
+			<header class="entry-header">
+				<h1 class="post-title entry-title">
+					<?php if ( is_single() ) :
+						the_title();
+					else : ?>
+						<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+					<?php endif; // is_single() ?>
+				</h1>
+				<?php if ( 'event' == get_post_type() && ! is_single() ) :
+					$EM_Event = em_get_event($post->ID, 'post_id'); ?>
+					<div class="post-event-info">
+						<h6><?php echo $EM_Event->output('#_EVENTDATES'); ?></h6>
+						<h6><?php echo $EM_Event->output('#_EVENTTIMES'); ?></h6>
+						<h6><?php echo $EM_Event->output("#_LOCATION"); ?></h6>
+					</div>
+				<?php endif; ?>
 
-		</header><!-- .entry-header -->
-		<?php if ( ! is_single() ) : // Don't display excerpts for single pages/posts ?>
-		<div class="entry-summary">
-			<?php the_excerpt(); ?>
-		</div><!-- .entry-summary -->
-		<?php else : ?>
-		<div class="entry-content">
-			<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentytwelve' ) ); ?>
-			<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?>
-		</div><!-- .entry-content -->
-		<?php endif; ?>
+			</header><!-- .entry-header -->
+			<?php if ( ! is_single() ) : // Don't display excerpts for single pages/posts ?>
+				<div class="entry-summary">
+					<?php the_excerpt(); ?>
+				</div><!-- .entry-summary -->
+			<?php else : ?>
+				<div class="entry-content">
+					<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentytwelve' ) ); ?>
+					<?php wp_link_pages( array( 'before' => '<div class="page-links">' . __( 'Pages:', 'twentytwelve' ), 'after' => '</div>' ) ); ?>
+				</div><!-- .entry-content -->
+			<?php endif; ?>
 		<?php if (is_home() || is_archive()): ?>
-		</div><!--bloglist-post-content-->
+			</div><!--bloglist-post-content-->
 		<?php endif; ?>
 	</div><!--all-but-meta-->
 		<footer class="entry-meta">
