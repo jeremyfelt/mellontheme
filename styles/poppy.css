@@ -1,4 +1,4 @@
-body 						{ color: #1D130D; }
+body 						{ color: #1D130D; background-color: #e6ebe6; }
 .site 						{ background-color: #fcfff5; }
 a, a:link, a:active			{ color: #613F1A; }
 a:visited					{ color: #918B65; }
@@ -26,7 +26,7 @@ blockquote					{ background: rgba(255,255,255,0.5); }
 .bloglist .entry-meta a:visited			{ color: #999; }
 .bloglist .entry-meta a:hover			{ color: #757575; }
 .bloglist .entry-summary				{ color: #1D130D;}
-.bloglist .post-event-info h6			{ line-height: 1.4em; font-weight: normal; font-size: 1.1em; color: #757575;}
+.bloglist .post-event-info h6			{ line-height: 1.4em; font-weight: normal; font-size: 1.1em; color: #757575; margin: 0;}
 .widget-area .widget a,
 .widget-area .widget a:link,
 .widget-area .widget a:active			{ color: #613F1A; }
@@ -62,12 +62,12 @@ ul#menu1.sf-menu li.current_page_item ul.sub-menu 	{ background-color: #e6ebe6; 
 /* slider styles */
 #featured-wrapper	 			{ background: transparent; }
 .featured-post .entry-title a	{ color: #333; }
-.slider-nav						{ color: #222; background: #BBE4E5; background: rgba(187,228,229,0.8); text-indent: 0; text-align: center; font-size: 2em;}
-.slider-nav:hover 				{ background: #BBE4E5; background: rgba(187,228,229,1) }
+.slider-nav						{ color: #222; background: #e6ebe6; background: rgba(230,235,230,0.8); text-indent: 0; text-align: center; font-size: 2em;}
+.slider-nav:hover 				{ background: #e6ebe6; background: rgba(230,235,230,1); }
 #slider-nav li.activeSlide		{ border-bottom: 14px solid #BBE4E5; border-bottom: 1rem solid #BBE4E5; padding-top: 0; }
 #featured-wrapper .entry-date	{ position: absolute; top: 0; right: 0; text-align: right; background-color: #222; color: #ddd; padding: 7px; font-size: 1.1em; line-height: 1.3em;}
-#featured-wrapper .entry-info	{ position: absolute; top: 70%; max-width: 65%; right: 0; background-color: #BBE4E5; background-color: rgba(187,228,229,0.8); color: #333; text-align: right;}
-#featured-wrapper .entry-info:hover	{ background-color: #BBE4E5; background-color: rgba(187,228,229,1); }
+#featured-wrapper .entry-info	{ position: absolute; top: 70%; max-width: 65%; right: 0; background-color: #e6ebe6; background-color: rgba(230,235,230,0.8); color: #333; text-align: right;}
+#featured-wrapper .entry-info:hover	{ background-color: #e6ebe6; background-color: rgba(230,235,230,1); }
 #featured-wrapper .entry-title	a { font-size: 1.3em; text-decoration: none; line-height: 1.6em;}
 #featured-wrapper .entry-excerpt	{ display: none;}
 
@@ -77,3 +77,27 @@ span.event-page-name 			{ padding: 0; margin: 0; text-align: left; }
 span.event-widget-date			{ padding: 0; margin: 0; text-align: right!important; font-style: italic; font-size: 1em; color: #668284; }
 span.event-widget-name 			{ padding: 0; margin: 0; text-align: right!important; font-size: 1.2em; line-height: 1.2em; color: #668284; padding-right: 2px;}
 span.event-widget-name:hover	{ color: #757575; }
+
+/*events calendar*/
+table.em-calendar thead td				{ text-align: center; line-height: 2em; height: auto; }
+table.em-calendar						{ width: 100%; margin-bottom: 10px; }
+table.em-calendar td					{ vertical-align: top; width: 14%; padding: 2px; }
+table.em-calendar.fullcalendar			{ height: 75px; }
+table.em-calendar tr.days-names td 		{ text-align: center; height: auto; }
+table.em-calendar td ul 				{ font-size: 0.9em; line-height: 1.3em; list-style: none; padding: 0; }
+table.em-calendar td ul a 				{ text-decoration: none; }
+table.em-calendar td ul li				{ background: #598A9C; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; padding: 2px; margin-bottom: 4px; }
+table.em-calendar td.eventful-pre a, 
+table.em-calendar td.eventful-post a,
+table.em-calendar td.eventful a, 
+table.em-calendar td.eventful-today a 	{ color: #AAA!important; text-decoration: none!important; }
+table.em-calendar td.eventful-pre a:hover, 
+table.em-calendar td.eventful-post a:hover,
+table.em-calendar td.eventful a:hover, 
+table.em-calendar td.eventful-today a:hover 	{ color: #1E1B1D!important; text-decoration: underline!important; }
+table.em-calendar td.eventless , 
+table.em-calendar td.eventless-today 	{ color: #1E1B1D!important; }
+table.em-calendar td.eventless-today, 
+table.em-calendar td.eventful-today 	{ background-color: transparent; background: rgba(0, 0, 0, 0.2); }
+
+.tubepress_thumb		{ width: 250px; height: 250px; font-size: 1.2em; line-height: 1.3em; margin: 6px; }

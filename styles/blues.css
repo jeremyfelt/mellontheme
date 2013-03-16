@@ -7,7 +7,7 @@ blockquote					{ background: rgba(255,255,255,0.5); }
 
 .bloglist .all-but-meta								{ position: relative;} 
 .bloglist .thumbnail-box							{ height: 480px!important; }
-.bloglist.has-thumbnail .bloglist-post-content		{ width: 100%; background-color: rgba(0,0,0,0.8); z-index: 3; float: left; position: absolute; bottom: 0; }
+.bloglist.has-thumbnail .bloglist-post-content		{ width: 100%; background-color: rgba(0,0,0,0.8); z-index: 3; float: left; position: absolute; bottom: 0; max-height: 45%; overflow: auto;}
 .bloglist.has-thumbnail .entry-summary,
 .bloglist.has-thumbnail .entry-header,
 .bloglist.has-thumbnail .entry-title				{ margin-bottom: 0; }

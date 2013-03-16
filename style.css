@@ -183,3 +183,10 @@ ul#menu1.sf-menu-hor li.rMenu-expand a 	{ background: transparent; background-im
 
 /* reduce wp-ui tab padding */
 div#wp-tabs-2.wp-tabs .ui-tabs .ui-tabs-nav li a { padding: .3em .4em; }
+
+img#wpstats	{display:none;}
+
+@media print 
+{
+  .noPrint, .navigation-bottom, .sharedaddy, .printicon { display:none; }
+}
