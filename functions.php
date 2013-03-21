@@ -8,8 +8,13 @@
  */
 
 if ( !function_exists( 'optionsframework_init' ) ) {
-	define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_stylesheet_directory_uri() . '/inc/' );
-	require_once dirname( __FILE__ ) . '/inc/options-framework.php';
+	define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_stylesheet_directory_uri() . '/inc/options-framework/' );
+	require_once dirname( __FILE__ ) . '/inc/options-framework/options-framework.php';
+}
+
+/* load the scripts for the front page slider */
+if ( !function_exists( 'ScaleImage' ) ) {
+	require_once dirname( __FILE__ ) . '/inc/scaleimage.php';
 }
 
 // Register scripts
@@ -242,6 +247,7 @@ function twentytwelve_entry_meta() {
 function events_slider($width=600, $height=380, $num_posts = 6) {
 	$slider_nav = of_get_option('slider_nav_checkbox',true);
 	$slider_post_type = of_get_option('slider_page_types','post');
+	$letterbox = (of_get_option('slider_image_letterbox','1') == '1' ? true : false);
 
 	$args = array (
 			'order' => 'DESC',
@@ -302,6 +308,7 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 	while ( $recent_posts->have_posts() ): 
 		$recent_posts->the_post(); 
 		$thumb_large = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array($width,$height));
+		$resized_thumb = ScaleImage($thumb_large[1], $thumb_large[2], $width, $height, $letterbox);
 		if ($slider_nav) :
 			$thumb_small = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array(120,120) );
 			$thumbs_code .= '<li';
@@ -319,8 +326,10 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 			$the_date = get_the_date();
 			$the_excerpt = get_the_excerpt();
 		endif;
-		$slider_code .= '<div class="featured-post" style="width: 100%; height:'.$height.'px;" >';
-		$slider_code .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '"><img src="' . $thumb_large[0] . '" alt="' . get_the_title() . '" class="featured-thumbnail" /></a>';
+		$slider_code .= '<div class="featured-post" style="width: '.$width.'px; height:'.$height.'px;" >';
+		$slider_code .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '"><img src="' . $thumb_large[0] . '" alt="' . get_the_title() . '" class="featured-thumbnail" ';
+		$slider_code .= 'style="width:'.$resized_thumb['width'].'px; height:'.$resized_thumb['height'].'px; top:'.$resized_thumb['targettop'].'px; left:'.$resized_thumb['targetleft'].'px; position: absolute;"';
+		$slider_code .= ' /></a>';
 		$slider_code .= '<span class="entry-date">'. $the_date . '</span>';
 		$slider_code .= '<div class="entry-info">';
 		$slider_code .= '<span class="post-title entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></span>';
@@ -330,17 +339,19 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 	endwhile; 
 	wp_reset_query(); ?>
 	<div id="featured-wrapper" class="featured clear fix">
-		<div id="featured-slideshow" style="width: 100%; height:<?php echo $height; ?>px;" >
+		<div id="featured-slideshow" style="width: <?php echo $width; ?> height:<?php echo $height; ?>px;" >
 			<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.png" alt="" width="<?php echo $width;?>" height="<?php echo $height;?>">
 				<?php echo $slider_code; ?>
 				<span id="slider-prev" class="slider-nav">←</span>
 				<span id="slider-next" class="slider-nav">→</span>
 			</div> <!-- featured-content -->
+			<?php if ($slider_nav) : ?>
 			<div id="slider-nav">
 				<ul id="slide-thumbs">
 					<?php echo $thumbs_code; ?>
 				</ul>
 			</div><!-- #slider-nav-->
+		<?php endif; ?>
 		</div> <!-- featured-wrapper-->
 <?php
 }

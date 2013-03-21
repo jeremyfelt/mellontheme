@@ -1,7 +1,5 @@
 jQuery(document).ready(function($) {
 
-	$( 'body' ).removeClass( 'no-js' );
-
 //initialize the slider
 	
 	$('#featured-slideshow').cycle( {
@@ -23,20 +21,7 @@ jQuery(document).ready(function($) {
     	}
 	});
 
-	//resize the images for the slider
-	$('#featured-slideshow').imagesLoaded(function() {
-		$('img.featured-thumbnail').each(function() {
-			var originalDimensions = getOriginalDimensionsOfImg(this);
-			var tw = $(this).parents("div").parents("div").width();
-			var th = $(this).parents("div").parents("div").height()*1.2;
-	   		var result = ScaleImage(originalDimensions.width, originalDimensions.height, tw, th, true);
-	   		$(this).css("width",result.width);
-	   		$(this).css("height",result.height);
-	   		$(this).css("left", result.targetleft);
-			$(this).css("top", Math.floor(result.targettop));
-			$(this).css("position","absolute");
-		});
-	});
+//resize the images for the slider nav
 	$('#slider-nav').imagesLoaded(function() {
 		var numImgs = $('img.slider-nav-thumbnail').length;
 		$('div.slider-thumb-box').each(function() {

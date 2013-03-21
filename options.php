@@ -249,6 +249,15 @@ function optionsframework_options() {
 	);
 	
 	$options[] = array(
+		'name' => __('Letterbox Images', 'options_framework_theme'),
+		'desc' => __('Shrink images to fit within the width/height of the slider and add letterboxing? Defaults to true. Otherwise images are sized up to fill the slider.', 'options_framework_theme'),
+		'id' => 'slider_image_letterbox',
+		'std' => '1',
+		'class' => 'hidden',
+		'type' => 'checkbox'
+	);
+
+	$options[] = array(
 		'name' => __('Thumbnail Navigation', 'options_framework_theme'),
 		'desc' => __('Display a thumbnail navigation bar below the slider? Defaults to true.', 'options_framework_theme'),
 		'id' => 'slider_nav_checkbox',
@@ -566,6 +575,7 @@ jQuery(document).ready(function($) {
 		$('#section-slider_width').fadeToggle(400);
 		$('#section-slider_height').fadeToggle(400);
 		$('#section-slider_nav_checkbox').fadeToggle(400);
+		$('#section-slider_image_letterbox').fadeToggle(400);
 		$('#section-slider_page_types').fadeToggle(400);
 		$('#section-slider_ids').fadeToggle(400);		
 	});
@@ -576,6 +586,7 @@ jQuery(document).ready(function($) {
 		$('#section-slider_width').show();
 		$('#section-slider_height').show();	
 		$('#section-slider_nav_checkbox').show();
+		$('#section-slider_image_letterbox').show();
 		$('#section-slider_page_types').show();
 		$('#section-slider_ids').show();
 	}
