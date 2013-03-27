@@ -1,177 +1,237 @@
 
 /*
- * Superfish v1.5 - jQuery menu widget
- * Copyright (c) 2012 Bob Gregor
+ * Superfish v1.6.7 - jQuery menu widget
+ * Copyright (c) 2013 Joel Birch
  *
  * Dual licensed under the MIT and GPL licenses:
  * 	http://www.opensource.org/licenses/mit-license.php
  * 	http://www.gnu.org/licenses/gpl.html
  *
- * CHANGELOG: https://github.com/bobbravo2/superfish/blob/master/changelog.txt
  */
 
-;(function($){
-	//Set up local instance with defaults
-	var sf = {};
+;(function($) {
+	$.fn.superfish = function(op) {
+
+		var sf = $.fn.superfish,
+			c = sf.c,
+			$arrow = $('<span class="' + c.arrowClass + '"> &#187;</span>'),
+			over = function() {
+				var $this = $(this),
+					o = getOptions($this);
+
+				clearTimeout(o.sfTimer);
+				$this.showSuperfishUl().siblings().hideSuperfishUl();
+			},
+			out = function(e) {
+				var $this = $(this),
+					o = getOptions($this);
+
+				if (e.type === 'click' || sf.ios) {
+					$.proxy(close, $this, o)();
+				}
+				else {
+					clearTimeout(o.sfTimer);
+					o.sfTimer = setTimeout($.proxy(close, $this, o), o.delay);
+				}
+			},
+			close = function(o) {
+				o.retainPath = ( $.inArray(this[0], o.$path) > -1);
+				this.hideSuperfishUl();
+
+				if (!this.parents('.' + o.hoverClass).length) {
+					o.onIdle.call(getMenu(this));
+					if (o.$path.length) {
+						$.proxy(over, o.$path)();
+					}
+				}
+			},
+			getMenu = function($el) {
+				return $el.closest('.' + c.menuClass);
+			},
+			getOptions = function($el) {
+				return getMenu($el).data('sf-options');
+			},
+			applyTouchAction = function($menu) {
+				// needed by MS pointer events
+				$menu.css('ms-touch-action', 'none');
+			},
+			applyHandlers = function($menu,o) {
+				var targets = 'li:has(ul)';
+
+				if (!o.useClick) {
+					if ($.fn.hoverIntent && !o.disableHI) {
+						$menu.hoverIntent(over, out, targets);
+					}
+					else {
+						$menu
+							.on('mouseenter', targets, over)
+							.on('mouseleave', targets, out);
+					}
+				}
+				var touchstart = 'MSPointerDown';
+
+				if (!sf.ios) {
+					touchstart += ' touchstart';
+				}
+				if (sf.wp7) {
+					touchstart += ' mousedown';
+				}
+				$menu
+					.on('focusin', 'li', over)
+					.on('focusout', 'li', out)
+					.on('click', 'a', o, clickHandler)
+					.on(touchstart, 'a', touchHandler);
+			},
+			touchHandler = function(e) {
+				var $this = $(this),
+					$ul = $this.siblings('ul');
+
+				if ($ul.length > 0 && $ul.is(':hidden')) {
+					$this.data('follow', false);
+					if (e.type === 'MSPointerDown') {
+						$this.trigger('focus');
+						return false;
+					}
+				}
+			},
+			clickHandler = function(e) {
+				var $a = $(this),
+					o = e.data,
+					$submenu = $a.siblings('ul'),
+					follow = ($a.data('follow') === false) ? false : true;
+
+				if ($submenu.length && (o.useClick || !follow)) {
+					e.preventDefault();
+					if ($submenu.is(':hidden')) {
+						$.proxy(over, $a.parent('li'))();
+					}
+					else if (o.useClick && follow) {
+						$.proxy(out, $a.parent('li'), e)();
+					}
+				}
+			},
+			setPathToCurrent = function($menu, o) {
+				return $menu.find('li.' + o.pathClass).slice(0, o.pathLevels)
+					.addClass(o.hoverClass + ' ' + c.bcClass)
+						.filter(function() {
+							return ($(this).children('ul').hide().show().length);
+						}).removeClass(o.pathClass);
+			},
+			addArrows = function($li, o) {
+				if (o.autoArrows) {
+					$li.children('a').each(function() {
+						addArrow( $(this) );
+					});
+				}
+			},
+			addArrow = function($a) {
+				$a.addClass(c.anchorClass).append($arrow.clone());
+			};
+
+		sf.getOptions = getOptions;
+
+		return this.addClass(c.menuClass).each(function() {
+			var $this = $(this),
+				o = $.extend({}, sf.defaults, op),
+				$liHasUl = $this.find('li:has(ul)');
+
+			o.$path = setPathToCurrent($this, o);
+
+			$this.data('sf-options', o);
+
+			addArrows($liHasUl, o);
+			applyTouchAction($this);
+			applyHandlers($this, o);
+
+			$liHasUl.not('.' + c.bcClass).hideSuperfishUl(true);
+
+			o.onInit.call(this);
+		});
+	};
+
+	var sf = $.fn.superfish;
+	sf.o = [];
+	sf.op = {};
+
 	sf.c = {
-		menuClass   : 'sf-js-enabled',
-		subClass		: 'sf-sub-indicator',
-		anchorClass : 'sf-with-ul'
+		bcClass: 'sf-breadcrumb',
+		menuClass: 'sf-js-enabled',
+		anchorClass: 'sf-with-ul',
+		arrowClass: 'sf-sub-indicator'
 	};
 	sf.defaults = {
-		hoverClass	: 'sfHover',
-		pathClass	: 'overideThisToUse',
-		pathLevels	: 1,
-		delay		: 700,
-		animIn		: {opacity:'show'},//What animation object to use to show the submenus
-		animOut		: {opacity:'hide'},//  "	"		   "	"  "  "	 hide  "     "
-		easeIn		: "swing",
-		easeOut		: "swing",
-		speedIn		: 'normal',
-		speedOut	: 'normal',
-		autoArrows	: true,
-		arrow		: '<span class="'+sf.c.subClass+'">&#187;</span>',//Markup to use for sub-menu indicators
-		disableHI	: false,		// true disables hoverIntent detection
-		//All Callbacks are passed the current superfish instance as an argument
-		onInit		: function(){}, // Called on init, after plugin data initialized
-		onAfterInit	: function(){}, // callback functions
-		onBeforeShow: function(){}, //Passed the UL to be animated
-		onShow		: function(){}, //Passed the UL just animated
-		onBeforeHide: function(){},
-		onHide		: function(){}
+		hoverClass: 'sfHover',
+		pathClass: 'overrideThisToUse',
+		pathLevels: 1,
+		delay: 800,
+		animation: {opacity:'show'},
+		animationOut: {opacity:'hide'},
+		speed: 'normal',
+		speedOut: 'fast',
+		autoArrows: true,
+		disableHI: false,		// true disables hoverIntent detection
+		useClick: false,
+		onInit: $.noop, // callback functions
+		onBeforeShow: $.noop,
+		onShow: $.noop,
+		onBeforeHide: $.noop,
+		onHide: $.noop,
+		onIdle: $.noop
 	};
-	// Method calling logic
-	$.fn.superfish = function(method) {
-	    if ( sf.methods[method] ) {
-	      return sf.methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-	    } else if ( typeof method === 'object' || ! method ) {
-	      return sf.methods.init.apply( this, arguments );
-	    } else {
-	      $.error( 'Method ' +  method + ' does not exist on jQuery.superfish' );
-	    }
-	};
-	sf.methods = {
-			init: function  (opts) {
-				return this.each(function() {
-					//Set up local variables
-					var _ = $(this),
-					//Namespace instance data
-					data = _.data('superfish'),
-					o = $.extend({}, sf.defaults, opts);
-					
-					if (! data ) {
-						//Initialize data
-						var lis = _.find('li'); //Get all instance LI's
-						var uls = lis.find('ul'); //Get all instance UL's
-						_.data('superfish', {
-							//Set namaspaced instance data
-							target: _,
-							timer: null,
-							uls : uls, //Save all child UL dom nodes
-							lis: lis,
-							options: o
-						});
-						data = _.data('superfish');//make it easy for the rest of init()
-					}
-					//Sanity Checks
-					//Check if jQuery.superfish has already been intitialized
-					if (data.initialized) {
-						if (typeof(console) != 'undefined') console.warn('superfish already initialized on',this);
-						return this;
-					}
-					data.initialized = true;
-					//Parse jquery strings for out speed
-					if (typeof(o.speedOut) === 'string') o.speedOut = 600;
-					//make sure passed in element actually has submenus
-					if (data.uls.length == 0 ) {
-						if (typeof(console) != 'undefined') console.warn('no ul\'s found on parent menu item, exiting');
-						return this;
-					}
-					//Add root menu CSS class
-					_.addClass(sf.c.menuClass);
-					//Call onInit Callback
-					o.onInit.call(null,_);
-					//Add Arrows
-					if (o.autoArrows) {
-						$('li:has(ul)',data.target).addClass(sf.c.anchorClass).children('A').append(o.arrow);
-					}
-					//Set all UL's to hidden
-					data.uls.hide();
-					data.lis.delegate('a','mouseenter mouseleave', function  (e) {
-						//this is the event target, <a href="#"/>
-						var $this = $(this),
-						$li = $this.parent('li');
-						$next = $li.children('UL').first();
-						if (e.type == 'mouseenter') {
-							//Clear Timeout
-							clearTimeout(data.timer);
-							//Clean up adjacent hover classes, but not the current xpath
-							data.lis.not($li).not($li.parents()).removeClass(o.hoverClass);
-							//Add hover class to current LI
-							$li.addClass(o.hoverClass);
-							//Find next UL and animate it
-							if ($next.is(':hidden')) {
-								o.onBeforeShow.call(null,$next); 
-								$next.animate(o.animIn,o.speedIn,o.easeIn, function(){ 
-									o.onShow.call(null,$next); 
-								});
-							}
-						} else if (e.type == "mouseleave") {
-							data.timer = setTimeout(function(){
-								sf.methods.close(_);
-							},o.delay);	
-						} else {
-							console.warn(' $(this), event.type', $(this), e.type);
-						}
-						e.preventDefault();
-						e.stopPropagation();
-						return false;
-					});
-					//@TODO
-					if (o.pathClass !== sf.defaults.pathClass) {
-						console.warn('@TODO pathClass enabled');
-						$('li.'+o.pathClass,_).slice(0,o.pathLevels);
-					}
-					o.onAfterInit.call(null,_);
-				});
-				//End jQuery.each
-			},
-			//END INIT METHOD
-			close: function  (elem) {
-				//Handle API invoked method
-				if (typeof(elem) == "undefined") var elem = $(this);
-				return elem.each( function  () {
-					var data  = elem.data('superfish'),
-					o = data.options;
-					o.onBeforeHide.call(null,elem);
-					data.uls.animate(o.animOut,o.speedOut,o.easeOut, function(){
-						o.onHide.call(null,$(this));
-					});
-					//Second timeout to run after animation is complete
-					setTimeout( function  () {
-						data.uls.hide();
-						data.lis.removeClass(o.hoverClass);
-					}, o.speedOut);			
-				});
-			},
-			destroy: function  () {
-				return this.each( function  () {
-					if ($(this).data('superfish')) {
-						var data = $(this).data('superfish'),
-						o = data.options;
-						data.target.removeClass(sf.c.menuClass);
-						data.uls.removeAttr('style');
-						if (o.autoArrows) {
-							$('li:has(ul)',data.target).removeClass(sf.c.anchorClass);
-							$("."+sf.c.subClass,data.target).remove();
-						}
-						data.lis.undelegate('a','mouseenter mouseleave');
-						$(this).removeData('superfish');
-					} else {
-						if (typeof(console) !== "undefined") console.warn('Superfish not initialized on that dom element');
+	sf.ios = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+	sf.wp7 = (function() {
+		var style = document.documentElement.style;
+		return ('behavior' in style && 'fill' in style && /iemobile/i.test(navigator.userAgent));
+	})();
+	$.fn.extend({
+		hideSuperfishUl: function(instant) {
+			if (this.length) {
+				var $this = this,
+					o = sf.getOptions($this),
+					not = (o.retainPath === true) ? o.$path : '',
+					$ul = $this.find('li.' + o.hoverClass).add(this).not(not).removeClass(o.hoverClass).children('ul'),
+					speed = o.speedOut;
+
+				if (instant) {
+					$ul.show();
+					speed = 0;
+				}
+				o.retainPath = false;
+				o.onBeforeHide.call($ul);
+				$ul.stop(true, true).animate(o.animationOut, speed, function() {
+					o.onHide.call($(this));
+					if (o.useClick) {
+						$this.children('a').data('follow', false);
 					}
 				});
 			}
-	};
-	//End Methods
+			return this;
+		},
+		showSuperfishUl: function() {
+			var o = sf.getOptions(this),
+				$this = this.addClass(o.hoverClass),
+				$ul = $this.children('ul');
+
+			o.onBeforeShow.call($ul);
+			$ul.stop(true, true).animate(o.animation, o.speed, function() {
+				o.onShow.call($ul);
+				$this.children('a').data('follow', true);
+			});
+			return this;
+		}
+	});
+
+	if (sf.ios) {
+		// iOS click won't bubble to body, attach to closest possible
+		$(window).load(function() {
+			$('body').children().on('click', $.noop);
+		});
+		$(window).on('pageshow', function(e) {
+			// only way to reset subs after back button click. Seriously.
+			if (e.originalEvent.persisted) {
+				window.location.reload();
+			}
+		});
+	}
+
 })(jQuery);

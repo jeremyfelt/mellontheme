@@ -22,18 +22,16 @@ if ( !function_exists( 'ScaleImage' ) ) {
 function load_my_scripts() {
 	if (! is_admin()){
 		$ss_dir = get_stylesheet_directory_uri();
-/*	    wp_deregister_script( 'jquery' );  
-		wp_deregister_script( 'jquery-ui' );	
-		wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', array(), null, false );
-		wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js', array('jquery'), null, false ); */
-
+	    wp_deregister_script( 'jquery' );  
+/*		wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', array(), null, false ); */
 		wp_register_script( 'jquery', $ss_dir.'/js/jquery.min.js', array(),null,false );
 		wp_enqueue_script('jquery');
-/*	
+/*		wp_deregister_script( 'jquery-ui' );
+		wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js', array('jquery'), null, false );
 		wp_register_script( 'jquery.ui', $ss_dir.'/js/jquery-ui.min.js', array('jquery'),null,false );
-		wp_enqueue_script('jquery.ui');
-*/
-		wp_register_script('hoverintent', $ss_dir . '/js/jquery.hoverIntent.minified.js');  
+		wp_enqueue_script('jquery.ui'); */
+
+		wp_register_script('hoverintent', $ss_dir . '/js/jquery.hoverIntent.js');  
 		wp_register_script('superfish',   $ss_dir . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
 		wp_enqueue_script('superfish');
 	/*	wp_register_script('bgiframe',    $ss_dir . '/js/jquery.bgiframe.min.js');
