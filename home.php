@@ -21,14 +21,9 @@ get_header(); ?>
 
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
-
-			<?php if ( of_get_option('events_slider_checkbox',1) ) :
-				$slider_width = of_get_option('slider_width',600);
-				$slider_height = of_get_option('slider_height',380);
-				$slider_count = of_get_option('slider_count',6);
-				events_slider($slider_width, $slider_height, $slider_count);
+			<?php if ( of_get_option('events_slider_checkbox',1) && (of_get_option('slider_layout','full-width')=='with-sidebars')) :
+				events_slider();
 			endif; ?>
-
 		<?php if ( have_posts() ) : ?>
 			<div id="bloglist" class="clearfix" >
 			<?php

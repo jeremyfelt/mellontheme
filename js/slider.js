@@ -2,8 +2,8 @@ jQuery(document).ready(function($) {
 
 //initialize the slider
 	
-	$('#featured-slideshow').cycle( {
-		slideExpr: '.featured-post',
+	$('#slider-slideshow').cycle( {
+		slideExpr: '.slider-post',
 		speed: 300,
 		timeout: 7000,
 		pause: 1,
@@ -22,7 +22,7 @@ jQuery(document).ready(function($) {
 	});
 
 //resize the images for the slider nav
-	$('#slider-nav').imagesLoaded(function() {
+	$('#slider-image-navbar').imagesLoaded(function() {
 		var numImgs = $('img.slider-nav-thumbnail').length;
 		$('div.slider-thumb-box').each(function() {
 	   		var tw = $(this).parents("li").width();

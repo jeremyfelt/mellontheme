@@ -105,4 +105,7 @@ $font_color = of_get_option('font_colorpicker');
 	</header><!-- #masthead -->
 
 	<div id="main" class="wrapper">
+		<?php if ( is_home() && of_get_option('events_slider_checkbox',1) && (of_get_option('slider_layout','full-width')=='full-width')) :
+			events_slider();
+		endif; ?>
 

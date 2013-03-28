@@ -204,6 +204,8 @@ function optionsframework_options() {
 		'std' => 'http://www.twitter.com/yourtwittername',
 		'type' => 'text');
 
+/* slider options */
+
 	$options[] = array(
 		'name' => __('Front Page Slider', 'options_framework_theme'),
 		'type' => 'heading'
@@ -216,8 +218,18 @@ function optionsframework_options() {
 		'std' => '0',
 		'type' => 'checkbox'
 	);
-
-	/* slider options */
+	
+	$options[] = array(
+		'name' => "Slider Layout",
+		'desc' => "Select full width (before sidebars) or next to the widget sidebars.",
+		'id' => "slider_layout",
+		'std' => "full-width",
+		'type' => "images",
+		'class' => "hidden",
+		'options' => array(
+			'full-width' => $imagepath . 'sl-fw.png',
+			'with-sidebars' => $imagepath . 'sl-sb.png')
+	);
 	
 	$options[] = array(
 		'name' => __('Slider Width', 'options_framework_theme'),
@@ -226,7 +238,6 @@ function optionsframework_options() {
 		'std' => '600',
 		'class' => 'hidden mini',
 		'type' => 'text'
-
 	);
 	
 	$options[] = array(
@@ -279,7 +290,7 @@ function optionsframework_options() {
 
 	$options[] = array(
 		'name' => __('Page/Post Types', 'options_framework_theme'),
-		'desc' => __('Select the type of pages/posts to load into the slider. NOTE: only pages/posts containing a featured image will be displayed.', 'options_framework_theme'),
+		'desc' => __('Select the type of pages/posts to load into the slider. NOTE: only pages/posts containing a slider image will be displayed.', 'options_framework_theme'),
 		'id' => 'slider_page_types',
 		'std' => 'post',
 		'type' => 'select',
@@ -328,7 +339,7 @@ function optionsframework_options() {
 	
 	$options[] = array(
 		'name' => __('Resize Blog Images', 'options_framework_theme'),
-		'desc' => __('Select the way featured images should be displayed on the blog.', 'options_framework_theme'),
+		'desc' => __('Select the way slider images should be displayed on the blog.', 'options_framework_theme'),
 		'id' => 'resize_images',
 		'std' => 'grow',
 		'type' => 'select',
@@ -572,6 +583,7 @@ jQuery(document).ready(function($) {
 	$('#events_slider_checkbox').click(function() {
 		$('#section-slider_sticky').fadeToggle(400);
 		$('#section-slider_count').fadeToggle(400);
+		$('#section-slider_layout').fadeToggle(400);
 		$('#section-slider_width').fadeToggle(400);
 		$('#section-slider_height').fadeToggle(400);
 		$('#section-slider_nav_checkbox').fadeToggle(400);
@@ -583,6 +595,7 @@ jQuery(document).ready(function($) {
 	if ($('#events_slider_checkbox:checked').val() !== undefined) {
 		$('#section-slider_sticky').show();
 		$('#section-slider_count').show();
+		$('#section-slider_layout').show();
 		$('#section-slider_width').show();
 		$('#section-slider_height').show();	
 		$('#section-slider_nav_checkbox').show();

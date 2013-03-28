@@ -242,7 +242,10 @@ function twentytwelve_entry_meta() {
 	);
 }
 
-function events_slider($width=600, $height=380, $num_posts = 6) {
+function events_slider() {
+	$slider_width = of_get_option('slider_width',600);
+	$slider_height = of_get_option('slider_height',380);
+	$slider_count = of_get_option('slider_count',6);
 	$slider_nav = of_get_option('slider_nav_checkbox',true);
 	$slider_post_type = of_get_option('slider_page_types','post');
 	$letterbox = (of_get_option('slider_image_letterbox','1') == '1' ? true : false);
@@ -250,22 +253,22 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 	$args = array (
 			'order' => 'DESC',
 			'orderby' => 'date',
-			'meta_query' => array(array('key' => '_thumbnail_id')) //make sure the post has a featured image
+			'meta_query' => array(array('key' => '_thumbnail_id')) //make sure the post has a thumbnail image
 	);
 
 	if (of_get_option('slider_sticky','1')=='0' && ($slider_post_type == 'post')):
 		//slider will include sticky posts so reduce the posts_per_page by the number of stickies
 		$sticky_count = count(get_option( 'sticky_posts' ));
-		if ($sticky_count < $num_posts):
-			$num_posts -= $sticky_count;
-		else: //more sticky posts than the slider limit so only use stickies and truncate the post list to $num_posts
+		if ($sticky_count < $slider_count):
+			$slider_count -= $sticky_count;
+		else: //more sticky posts than the slider limit so only use stickies and truncate the post list to $slider_count
 			$slider_post_type = 'stickies';
 		endif;
 	else:
 		$args['ignore_sticky_posts'] = '1';
 	endif;
 	
-	$args['posts_per_page'] = $num_posts;
+	$args['posts_per_page'] = $slider_count;
 	
 	switch ($slider_post_type) {
 		case 'tags':
@@ -280,7 +283,7 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 			if (count(get_option( 'sticky_posts' ))>2):
 				$sticky = get_option( 'sticky_posts' );
 				rsort( $sticky );
-				$sticky = array_slice( $sticky, 0, $num_posts );
+				$sticky = array_slice( $sticky, 0, $slider_count );
 				$args = array( 'post__in' => $sticky, 'caller_get_posts' => 1 );
 			else:
 				return 0; //there are too few/no sticky posts so don't display anything
@@ -305,12 +308,12 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 		return 0;
 	while ( $recent_posts->have_posts() ): 
 		$recent_posts->the_post(); 
-		$thumb_large = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array($width,$height));
-		$resized_thumb = ScaleImage($thumb_large[1], $thumb_large[2], $width, $height, $letterbox);
+		$thumb_large = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array($slider_width,$slider_height));
+		$resized_thumb = ScaleImage($thumb_large[1], $thumb_large[2], $slider_width, $slider_height, $letterbox);
 		if ($slider_nav) :
 			$thumb_small = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), array(120,120) );
 			$thumbs_code .= '<li';
-			$thumbs_code .= ($slidecount == $num_posts ? ' class="last">' : '>');
+			$thumbs_code .= ($slidecount == $slider_count ? ' class="last">' : '>');
 			$thumbs_code .= '<div class="slider-thumb-box"><a href="'. get_permalink().'" title="'. the_title_attribute('echo=0').'">';
 			$thumbs_code .= '<img src="'.$thumb_small[0].'" class="slider-nav-thumbnail" alt="'. the_title_attribute('echo=0').'" /></a></div></li>';
 			$slidecount++;
@@ -324,8 +327,8 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 			$the_date = get_the_date();
 			$the_excerpt = get_the_excerpt();
 		endif;
-		$slider_code .= '<div class="featured-post" style="width: '.$width.'px; height:'.$height.'px;" >';
-		$slider_code .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '"><img src="' . $thumb_large[0] . '" alt="' . get_the_title() . '" class="featured-thumbnail" ';
+		$slider_code .= '<div class="slider-post" style="width: '.$slider_width.'px; height:'.$slider_height.'px;" >';
+		$slider_code .= '<a href="' . get_permalink() . '" title="' . get_the_title() . '"><img src="' . $thumb_large[0] . '" alt="' . get_the_title() . '" class="slider-thumbnail" ';
 		$slider_code .= 'style="width:'.$resized_thumb['width'].'px; height:'.$resized_thumb['height'].'px; top:'.$resized_thumb['targettop'].'px; left:'.$resized_thumb['targetleft'].'px; position: absolute;"';
 		$slider_code .= ' /></a>';
 		$slider_code .= '<span class="entry-date">'. $the_date . '</span>';
@@ -333,24 +336,26 @@ function events_slider($width=600, $height=380, $num_posts = 6) {
 		$slider_code .= '<span class="post-title entry-title"><a href="' . get_permalink() . '" title="' . get_the_title() . '" rel="bookmark">' . get_the_title() . '</a></span>';
 		$slider_code .= '<span class="entry-excerpt">'. $the_excerpt . '</span>';
 		$slider_code .= '</div>';
-		$slider_code .= '</div><!-- featured-post -->';
+		$slider_code .= '</div><!-- slider-post -->';
 	endwhile; 
 	wp_reset_query(); ?>
-	<div id="featured-wrapper" class="featured clear fix">
-		<div id="featured-slideshow" style="width: <?php echo $width; ?> height:<?php echo $height; ?>px;" >
-			<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.png" alt="" width="<?php echo $width;?>" height="<?php echo $height;?>">
+	<div id="slider-container" style="width: 100%; height: auto;">
+	<div id="slider-wrapper" class="slider clear fix" style="width: <?php echo $slider_width; ?>px; height:auto;" >
+		<div id="slider-slideshow" style="width: <?php echo $slider_width; ?>px; height:<?php echo $slider_height; ?>px;" >
+<!--			<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.png" alt="" width="<?php echo $slider_width;?>" height="<?php echo $slider_height;?>"> -->
 				<?php echo $slider_code; ?>
-				<span id="slider-prev" class="slider-nav">←</span>
-				<span id="slider-next" class="slider-nav">→</span>
-			</div> <!-- featured-content -->
+			</div> <!-- slider-content -->
+			<span id="slider-prev" class="slider-nav" style="top: <?php echo floor($slider_height/2-10); ?>px;">←</span>
+			<span id="slider-next" class="slider-nav" style="top: <?php echo floor($slider_height/2-10); ?>px;">→</span>
+				</div> <!-- slider-wrapper-->
 			<?php if ($slider_nav) : ?>
-			<div id="slider-nav">
-				<ul id="slide-thumbs">
-					<?php echo $thumbs_code; ?>
-				</ul>
-			</div><!-- #slider-nav-->
-		<?php endif; ?>
-		</div> <!-- featured-wrapper-->
+				<div id="slider-image-navbar" style="width: <?php echo $slider_width; ?>px;">
+					<ul id="slide-thumbs">
+						<?php echo $thumbs_code; ?>
+					</ul>
+				</div><!-- #slider-image-navbar-->
+			<?php endif; ?>
+	</div> <!-- slider-container-->
 <?php
 }
 

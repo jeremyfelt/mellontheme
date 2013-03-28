@@ -58,16 +58,16 @@ ul#menu1.sf-menu li.current-menu-item ul.sub-menu,
 ul#menu1.sf-menu li.current_page_item ul.sub-menu 	{ background-color: #B1DDD5; color: #3B473B; border: 1px dotted #ccc; border-top: 0;}
 
 /* slider styles */
-#featured-wrapper	 			{ background: transparent; }
-.featured-post .entry-title a	{ color: #333; }
+.slider-post .entry-title a		{ color: #333; }
 .slider-nav						{ color: #222; background-color: #8ED1C8; background: rgba(142,209,200,0.8); text-indent: 0; text-align: center; font-size: 2em;}
 .slider-nav:hover 				{ background-color: #8ED1C8; background: rgba(142,209,200,1); }
-#slider-nav li.activeSlide		{ border-bottom: 14px solid #BBE4E5; border-bottom: 1rem solid #BBE4E5; padding-top: 0; }
-#featured-wrapper .entry-date	{ position: absolute; top: 0; right: 0; text-align: right; background-color: #222; color: #ddd; padding: 7px; font-size: 1.1em; line-height: 1.3em;}
-#featured-wrapper .entry-info	{ position: absolute; top: 70%; max-width: 65%; right: 0; background-color: #8ED1C8; background: rgba(142,209,200,0.8); color: #333; text-align: right;}
-#featured-wrapper .entry-info:hover	{ background-color: #8ED1C8; background: rgba(142,209,200,1); }
-#featured-wrapper .entry-title	a { font-size: 1.3em; text-decoration: none; line-height: 1.6em;}
-#featured-wrapper .entry-excerpt	{ display: none;}
+#slider-image-navbar			{ padding: 7px; padding: 0.5rem;}
+#slider-image-navbar li.activeSlide		{ box-shadow: 2px 2px 6px rgba(100, 100, 100, 0.8); }
+#slider-wrapper .entry-date	{ position: absolute; top: 0; right: 0; text-align: right; background-color: #222; color: #ddd; padding: 7px; font-size: 1.1em; line-height: 1.3em;}
+#slider-wrapper .entry-info	{ position: absolute; top: 70%; max-width: 65%; right: 0; background-color: #8ED1C8; background: rgba(142,209,200,0.8); color: #333; text-align: right;}
+#slider-wrapper .entry-info:hover	{ background-color: #8ED1C8; background: rgba(142,209,200,1); }
+#slider-wrapper .entry-title	a { font-size: 1.3em; text-decoration: none; line-height: 1.6em;}
+#slider-wrapper .entry-excerpt	{ display: none;}
 
 /* events listing pages */
 span.event-page-date	 		{ padding: 0; margin: 0; text-align: left; font-style: italic; }
