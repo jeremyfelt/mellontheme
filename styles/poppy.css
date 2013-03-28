@@ -86,11 +86,11 @@ table.em-calendar.fullcalendar			{ height: 75px; }
 table.em-calendar tr.days-names td 		{ text-align: center; height: auto; }
 table.em-calendar td ul 				{ font-size: 0.9em; line-height: 1.3em; list-style: none; padding: 0; }
 table.em-calendar td ul a 				{ text-decoration: none; }
-table.em-calendar td ul li				{ background: #598A9C; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; padding: 2px; margin-bottom: 4px; }
+table.em-calendar td ul li				{ background: rgba(255,255,255,0.5); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; padding: 2px; margin-bottom: 4px; }
 table.em-calendar td.eventful-pre a, 
 table.em-calendar td.eventful-post a,
 table.em-calendar td.eventful a, 
-table.em-calendar td.eventful-today a 	{ color: #AAA!important; text-decoration: none!important; }
+table.em-calendar td.eventful-today a 	{ color: #FD7E29; text-decoration: none!important; }
 table.em-calendar td.eventful-pre a:hover, 
 table.em-calendar td.eventful-post a:hover,
 table.em-calendar td.eventful a:hover, 
@@ -99,5 +99,6 @@ table.em-calendar td.eventless ,
 table.em-calendar td.eventless-today 	{ color: #1E1B1D!important; }
 table.em-calendar td.eventless-today, 
 table.em-calendar td.eventful-today 	{ background-color: transparent; background: rgba(0, 0, 0, 0.2); }
+table.em-calendar td.eventful ul		{ list-style: none; margin: 0; }
 
 .tubepress_thumb		{ width: 250px; height: 250px; font-size: 1.2em; line-height: 1.3em; margin: 6px; }
