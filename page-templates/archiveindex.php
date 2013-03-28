@@ -1,5 +1,9 @@
 <?php
 /**
+ * Template Name: Archive Page
+ *
+ * Description: Displays an index of different sets of archives
+ * 
  * The template for displaying a custom "Voodoopress" Archive page with different sets of archives.
  *
  * Taken from http://voodoopress.com/make-interesting-useful-archive-explore-page-your-wordpress-site/
@@ -11,9 +15,9 @@
 
 get_header(); ?>
 
-	<section id="primary" class="site-content">
+	<div id="primary" class="site-content full-width">
 		<div id="content" role="main">
-				<div id="col1">
+				<div id="archive-col1">
 
 					<h6><?php _e( 'Archives for the last Year', 'voodoo_lion' ); ?></h6>
 					<ul>
@@ -22,14 +26,14 @@ get_header(); ?>
 
 					<br class="clear" />
 
-					<h6><?php _e( 'Archives from Beyond', 'voodoo_lion' ); ?></h6>
+					<h6><?php _e( 'Archives for all years', 'voodoo_lion' ); ?></h6>
 					<ul>
 						<?php wp_get_archives('type=yearly&show_post_count=1'); ?>
 					</ul>
 
 				</div>
 
-				<div id="col2">
+				<div id="archive-col2">
 
 					<h6><?php _e( 'Archives by Category', 'voodoo_lion' ); ?></h6>
 					<ul>
@@ -53,23 +57,35 @@ get_header(); ?>
 
 				</div>
 
-				<div id="col3">
+				<div id="archive-col3">
 
+					<h6><?php _e( 'Most Commented Posts', 'voodoo_lion' ); ?></h6>
+					<ul>
+					<?php
+						query_posts('orderby=comment_count&posts_per_page=5');
+					    //If there are posts. checks to see if the current query has any results to loop over. 
+					    if (have_posts()) :
+					        //loop through the posts and list each until done. 
+					        while (have_posts()) : 
+					            //Iterate the post index in The Loop. 
+					            the_post(); 
+					            ?>
+					            <li><a href="<?php the_permalink() ?>" title="Permanent Link to: <?php the_title_attribute(); ?>"><?php the_title(); ?></a> <?php echo '(' . get_comments_number() . ')'; ?></li>      
+					    <?php
+					        endwhile; 
+					    endif;
+					    //Destroy the previous query. This is a MUST.
+					    wp_reset_query();
+					?>
+					</ul>
+					
+					<br class="clear" />
+					
 					<?php 
 					if( function_exists('WPPP_show_popular_posts') ) 
 						WPPP_show_popular_posts( "magic_number=10&title=<h6>Posts by Popularity</h6>&number=10&format=<a href='%post_permalink%' title='%post_title_attribute%'>%post_title% (%post_views% views)</a>" ); 
 					?>
-
-					<br class="clear" />
-
-					<?php if( function_exists('mdv_most_commented') ) : ?>
-
-					<h6><?php _e( 'Most Commented Posts', 'voodoo_lion' ); ?></h6>
-					<ul>
-					<?php mdv_most_commented(10); ?>
-					</ul>
-
-					<?php endif; ?>
+					
 				</div>
 
 				<div class="clear"></div>
