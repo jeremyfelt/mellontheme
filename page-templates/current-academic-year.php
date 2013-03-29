@@ -21,12 +21,9 @@ get_header(); ?>
 			<?php if ( of_get_option('events_slider_checkbox',1) && (of_get_option('slider_layout','full-width')=='with-sidebars')) :
 				events_slider();
 			endif; ?>
-			<header class="entry-header">
-				<h1 class="entry-title"><?php the_title(); ?></h1>
-			</header>
-			<?php if (have_posts()):
-				the_content(); 
-			endif; ?>
+			<?php while ( have_posts() ) : the_post(); ?>
+				<?php get_template_part( 'content', 'nometa' ); ?>
+			<?php endwhile; // end of the loop. ?>
 			<?php
 			// add a filter for the current academic year
 			function filter_where( $where = '' ) {
