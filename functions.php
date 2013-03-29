@@ -1,7 +1,7 @@
 <?php
 
 /* 
- * Loads the Options Panel
+ * Load the Options Panel
  *
  * If you're loading from a child theme use stylesheet_directory
  * instead of template_directory
@@ -39,10 +39,10 @@ function load_my_scripts() {
 		wp_enqueue_script('supersubs'); */
 	
 		// scripts for specific pages
-		if (is_front_page() || is_home() || is_archive()) {
+		if (is_front_page() || is_home() || is_archive() || is_page_template( 'page-templates/current-academic-year.php')) {
 			wp_register_script( 'scaleimage', $ss_dir.'/js/scaleimage.min.js', array(),null,false );
 			wp_register_script( 'jquery.imagesloaded', $ss_dir.'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
-			if ((is_front_page() || is_home()) && (of_get_option('events_slider_checkbox','1')=='1')) {
+			if ((is_front_page() || is_home() || is_page_template( 'page-templates/current-academic-year.php')) && (of_get_option('events_slider_checkbox','1')=='1')) {
 				wp_register_script( 'jquery.cycle', $ss_dir.'/js/jquery.cycle.all.js', array( 'jquery' ),null,false ); 
 				wp_register_script( 'slider', $ss_dir.'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
 				wp_enqueue_script('slider');
@@ -153,7 +153,7 @@ register_nav_menus( array(
 
 function combine_posts_events($query) {
 	if (! is_admin() && $query->is_main_query() ) {
-		if (! is_singular()) {
+		if (!is_singular() && !is_post_type_archive('event')) {
 			$paged = (get_query_var('paged') ? get_query_var('paged') : ( get_query_var('page') ? get_query_var('page') : 1 ) ); 
 
 			if (is_tag() || $query->query_vars['event-tags']){
@@ -435,8 +435,7 @@ function custom_breadcrumbs(){
 		global $post;
 		$home = get_bloginfo('url');
 		echo '<a href="' . $home . '">' . $name . '</a> ' . $delimiter . ' ';
-
-		if(is_tax()){
+		if (is_tax()){
 			  $term = get_term_by('slug', get_query_var('term'), get_query_var('taxonomy'));
 			  echo $currentBefore . $term->name . $currentAfter;
 
@@ -468,10 +467,11 @@ function custom_breadcrumbs(){
 			if($postType == 'post'){
 				$cat = get_the_category(); $cat = $cat[0];
 				echo get_category_parents($cat, TRUE, ' ' . $delimiter . ' ');
-			} elseif($postType == 'portfolio'){
-				$terms = get_the_term_list($post->ID, 'portfolio-category', '', '###', '');
+			} elseif($postType == 'event'){
+				$terms = get_the_term_list($post->ID, 'event-categories', '', '###', '');
 				$terms = explode('###', $terms);
-				echo $terms[0]. ' ' . $delimiter . ' ';
+				echo '<a href="/events/">Events</a> ' . $delimiter . ' ';
+				if ($terms[0]) echo $terms[0]. ' ' . $delimiter . ' ';
 			}
 			echo $currentBefore;
 			the_title();
@@ -509,6 +509,13 @@ function custom_breadcrumbs(){
 			$userdata = get_userdata($author);
 			echo $currentBefore . __('Author Archive', 'wpinsite') . $currentAfter;
 
+		} elseif (is_post_type_archive()){ 
+			if ('event' == get_post_type()) {
+				echo $currentBefore . "Events" . $currentAfter;
+			} else {
+				echo $currentBefore . get_post_type() . $currentAfter;				
+			}
+		
 		} elseif (is_404()){
 			echo $currentBefore . __('Page Not Found', 'wpinsite') . $currentAfter;
 

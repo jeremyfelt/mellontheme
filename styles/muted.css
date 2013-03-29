@@ -25,7 +25,7 @@ blockquote					{ background: rgba(255,255,255,0.5); }
 .bloglist .entry-meta a:active, 
 .bloglist .entry-meta a:visited			{ color: #788C83; }
 .bloglist .entry-meta a:hover			{ color: #78525A; }
-.bloglist .post-event-info h6			{ line-height: 1.4em; font-weight: normal; font-size: 1.1em; color: #788C83;}
+.bloglist .post-event-info h6			{ color: #788C83; }
 .widget-area .widget a,
 .widget-area .widget a:link,
 .widget-area .widget a:active			{ color: #3B473B; }

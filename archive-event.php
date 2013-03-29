@@ -5,16 +5,9 @@
  * Used to display archive-type pages if nothing more specific matches a query.
  * For example, puts together date-based pages if no date.php file exists.
  *
- * If you'd like to further customize these archive views, you may create a
- * new template file for each specific one. For example, Twenty Twelve already
- * has tag.php for Tag archives, category.php for Category archives, and
- * author.php for Author archives.
- *
- * Learn more: http://codex.wordpress.org/Template_Hierarchy
- *
  * @package WordPress
- * @subpackage Twenty_Twelve
- * @since Twenty Twelve 1.0
+ * @subpackage mellontheme
+ * @since mellontheme 0.2
  */
 
 get_header(); ?>
@@ -39,7 +32,6 @@ get_header(); ?>
 				get_template_part( 'content', get_post_format() );
 
 			endwhile;
-
 			twentytwelve_content_nav( 'nav-below' );
 			?>
 			</div><!-- #bloglist -->

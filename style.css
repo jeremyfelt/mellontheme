@@ -4,7 +4,7 @@ Theme URI: https://github.com/kaymmm/mellontheme
 Description: A child theme of 2012 default WordPress theme built for the Mellon Transdisciplinary Committee websites
 Author: Keith Miyake
 Author url: http://keithmiyake.commons.gc.cuny.edu
-Version: 0.2
+Version: 0.3
 Tags: fixed-width, custom-header, theme-options
 Template: twentytwelve
 */
@@ -57,6 +57,7 @@ div.post-headline			{ margin-bottom: 5px; }
 .bloglist .entry-summary	{ float: right; width: 65%; padding-left: 2.34375%; margin-bottom: 14px; margin-bottom: 1rem; }
 .bloglist .entry-summary p	{ margin-bottom: 0;}
 .bloglist .entry-meta		{ clear: both; display: block; margin: 0; padding: 7px; padding: .5rem; background-color: rgba(0, 0, 0, 0.2); color: #666; line-height: 1.1em; font-size: 0.8em; border-bottom: 3px solid rgba(0,0,0,0.3); }
+.bloglist .post-event-info h6	{ line-height: 1.4em; font-weight: normal; font-size: 1.1em; margin: 0; }
 .bloglist.sticky			{ padding: 14px; padding: 1rem; padding-bottom: 0; width: 96%; margin-left: auto; margin-right: auto; }
 .site-content article		{ border-bottom: none; margin-bottom: 56px; margin-bottom: 4rem; padding-bottom: 0; }
 

@@ -3,12 +3,12 @@
  * The default template for displaying content. Used for both single and index/archive/search.
  *
  * @package WordPress
- * @subpackage Twenty_Twelve
- * @since Twenty Twelve 1.0
+ * @subpackage mellontheme
+ * @since mellontheme 0.1
  * Modified for MellonTheme by Keith Miyake
  */
 
-	$add_classes = ( (is_home() || is_archive()) ? 'bloglist' : ''); //'bloglist' for styling articles with banner and summary 
+	$add_classes = ( (is_front_page() || is_home() || is_archive() || is_page_template( 'page-templates/current-academic-year.php')) ? 'bloglist' : ''); //'bloglist' for styling articles with banner and summary 
 	$add_classes .= ((has_post_thumbnail() && ! is_single()) ? ' has-thumbnail' : '');
 	?> 
 	<article id="post-<?php the_ID(); ?>" <?php post_class($add_classes); ?>>
