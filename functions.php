@@ -7,9 +7,8 @@
  * instead of template_directory
  */
 
-if ( !function_exists( 'optionsframework_init' ) ) {
-	define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_stylesheet_directory_uri() . '/inc/options-framework/' );
-	require_once dirname( __FILE__ ) . '/inc/options-framework/options-framework.php';
+if ( !function_exists( 'setup_framework_options' ) ) {
+	require_once('theme-options.php');
 }
 
 /* load the scripts for the front page slider */
