@@ -1,0 +1,20 @@
+CHANGELOG
+0.3 (2013-03-29)
+* [FEATURE] added "current-academic-year" page template to display posts from the current academic year
+* [FEATURE] added "content-nometa" content template to display a post without any footer metadata (used in "current-academic-year" page template)
+* [BUGFIX] tweaked built-in styles for slider modifications and to make display more consistent across pages
+* [UPDATE] updated jquery cycle plugin (used for slider) to newest version (3.0.1)
+* [FEATURE] added the option to display the front page slider full-width (between header and content) or in the main content area (adjacent to sidebars)
+* [BUGFIX] cleaned up the archive page template, added appropriate css styles, and fixed the most commented posts section to work without a plugin
+* [UPDATE] switched menu plugin from "superfish reloaded" to the trunk superfish code, which is fully compatible with jquery 1.9+ and should be quicker
+* [BACKEND] cleaned up theme directories to keep options framework files in its own directory
+* [FEATURE] switched image scaling used in the slider from javascript (client side) to php (server side) to improve load times
+* [UPDATE] revamped slider styles to make prev/next buttons more visible, image navigation cleaner, and to center the slider in its parent container
+
+0.2 (2013-03-21)
+* [BUGFIX] lots of tweaks to built-in css styles to fix spacing and color issues
+* [BUGFIX] fixed text alignment for footer widgets
+* [BUGFIX] tried to fix jquery errors by letting wordpress handle the loading of jquery, but still getting some jquery conflicts (due to other plugins)
+
+0.1 (2013-03-11)
+* initial release
