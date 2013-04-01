@@ -1,0 +1,105 @@
+body 						{ color: #444; background-color: #fff; }
+body .site					{ background-color: #fff; box-shadow: none;}
+a, a:link, a:active,a:visited	{ color: #0da4d3; }
+a:hover						{ color: #000; }
+blockquote					{ background: rgba(255,255,255,0.5); color: #aaa; }
+
+/* blog posts */
+.bloglist .entry-header					{ width: 35%; }
+.bloglist .entry-summary				{ width: 60%; }
+.bloglist .post-headline a, 
+.bloglist .post-headline a:link, 
+.bloglist .post-headline a:active, 
+.bloglist .post-headline a:visited				{ color: #0da4d3; }
+.bloglist .post-headline a:hover					{ color: #000; }
+.bloglist .entry-header .entry-title				{ color: #bbb; }
+.bloglist .entry-header .entry-title a, 
+.bloglist .entry-header .entry-title a:link, 
+.bloglist .entry-header .entry-title a:active, 
+.bloglist .entry-header .entry-title a:visited 		{ color: #0da4d3; }
+.bloglist .entry-header .entry-title a:hover		{ color: #000; }
+.bloglist .entry-meta								{ color: #BBB; background: transparent; border-bottom: none; }
+.bloglist .entry-meta a, 
+.bloglist .entry-meta a:link, 
+.bloglist .entry-meta a:active, 
+.bloglist .entry-meta a:visited			{ color: #BBB; }
+.bloglist .entry-meta a:hover			{ color: #000; }
+.bloglist .entry-summary				{ color: #444;}
+.bloglist .post-event-info h6			{ line-height: 1.4em; font-weight: normal; font-size: 1.1em; color: #BBB; margin: 0;}
+.widget-area .widget a,
+.widget-area .widget a:link,
+.widget-area .widget a:active			{ color: #555; }
+.widget-area .widget a:visited			{ color: #555; }
+.widget-area .widget a:hover			{ color: #000; }
+
+div.comment-container,
+div#respond								{ color: #5e5e5e; background: #fff; font-size: 0.9em; border: none; }
+#breadcrumbs							{ text-align: left; font-size: 0.8em; line-height: 1em; }
+
+/* navigation menu */
+ul#menu1.sf-menu							{ background: #fff; border: none; }
+ul#menu1.sf-menu li							{ padding: 14px 0; padding: 1rem 0;}
+ul#menu1.sf-menu li:after					{ content: '/'; }
+ul#menu1.sf-menu li:last-child:after,
+ul#menu1.sf-menu ul li:after				{ content: none; }
+ul#menu1.sf-menu li a						{ color: #0da4d3; font-size: 1.1em; line-height: 1.4em; }
+ul#menu1.sf-menu li:first-child a			{ padding-left: 0;}
+ul#menu1.sf-menu li:hover 					{ background-color: #fff; }
+ul#menu1.sf-menu li:hover a					{ color: #000; background-color: transparent; }
+
+ul#menu1.sf-menu li.current-menu-item, 
+ul#menu1.sf-menu li.current_page_item,
+ul#menu1.sf-menu li.current_page_ancestor	{ background-color: #fff; }
+ul#menu1.sf-menu li.current-menu-item a, 
+ul#menu1.sf-menu li.current_page_item a,
+ul#menu1.sf-menu li.current_page_ancestor a	{ background: transparent; color: #000; font-weight: normal;}
+/*sub menus*/
+ul#menu1.sf-menu ul.sub-menu 				{ background-color: #fff; border: 1px solid #DDD; border-top: 0; border-bottom: 0; }
+ul#menu1.sf-menu ul.sub-menu li				{ border-bottom: 1px solid #DDD;}
+ul#menu1.sf-menu ul.sub-menu li a 			{ color: #0da4d3; font-size: 1em; line-height: 1.2em;}
+ul#menu1.sf-menu ul.sub-menu li:hover a		{ color: #000; }
+
+/* slider styles */
+.slider-post .entry-title a		{ color: #333; }
+.slider-nav						{ color: #333; background: #fff; text-indent: 0; text-align: center; font-size: 2em;}
+.slider-nav:hover 				{ color: #fff; background: #444; }
+#slider-image-navbar			{ padding: 7px; padding: 0.5rem;}
+#slider-image-navbar li.activeSlide		{ box-shadow: 2px 2px 6px rgba(100, 100, 100, 0.8); }
+#slider-wrapper .entry-date		{ position: absolute; top: 0; right: 0; text-align: right; background-color: #fff; color: #333; padding: 7px; font-size: 1.1em; line-height: 1.3em;}
+#slider-wrapper .entry-info		{ position: absolute; top: 70%; max-width: 65%; right: 0; padding: 14px; padding: 1rem; background-color: #fff; color: #333; text-align: right; font-size: 1.3em; line-height: 1.5em;}
+#slider-wrapper .entry-info:hover	{ background-color: #fff; }
+#slider-wrapper .entry-info:hover a	{ color: #0da4d3; text-decoration: underline; }
+#slider-wrapper .entry-title	a { font-size: 1.3em; text-decoration: none; line-height: 1.6em;}
+#slider-wrapper .entry-excerpt	{ display: none;}
+
+/* events listing pages */
+span.event-page-date	 		{ padding: 0; margin: 0; text-align: left; font-style: italic; }
+span.event-page-name 			{ padding: 0; margin: 0; text-align: left; }
+span.event-widget-date			{ padding: 0; margin: 0; text-align: right!important; font-style: italic; font-size: 0.9em; line-height: 1em; color: #668284; }
+span.event-widget-name 			{ padding: 0; margin: 0; text-align: right!important; font-size: 1em; line-height: 1.1em; color: #668284; padding-right: 2px; padding-bottom: 10px;}
+span.event-widget-name:hover	{ color: #757575; }
+
+/*events calendar*/
+table.em-calendar thead td				{ text-align: center; line-height: 2em; height: auto; }
+table.em-calendar						{ width: 100%; margin-bottom: 10px; }
+table.em-calendar td					{ vertical-align: top; width: 14%; padding: 2px; }
+table.em-calendar.fullcalendar			{ height: 75px; }
+table.em-calendar tr.days-names td 		{ text-align: center; height: auto; }
+table.em-calendar td ul 				{ font-size: 0.9em; line-height: 1.3em; list-style: none; padding: 0; }
+table.em-calendar td ul a 				{ text-decoration: none; }
+table.em-calendar td ul li				{ background: rgba(255,255,255,0.5); -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; padding: 2px; margin-bottom: 4px; }
+table.em-calendar td.eventful-pre a, 
+table.em-calendar td.eventful-post a,
+table.em-calendar td.eventful a, 
+table.em-calendar td.eventful-today a 	{ color: #FD7E29; text-decoration: none!important; }
+table.em-calendar td.eventful-pre a:hover, 
+table.em-calendar td.eventful-post a:hover,
+table.em-calendar td.eventful a:hover, 
+table.em-calendar td.eventful-today a:hover 	{ color: #1E1B1D!important; text-decoration: underline!important; }
+table.em-calendar td.eventless , 
+table.em-calendar td.eventless-today 	{ color: #1E1B1D!important; }
+table.em-calendar td.eventless-today, 
+table.em-calendar td.eventful-today 	{ background-color: transparent; background: rgba(0, 0, 0, 0.2); }
+table.em-calendar td.eventful ul		{ list-style: none; margin: 0; }
+
+.tubepress_thumb		{ width: 250px; height: 250px; font-size: 1.2em; line-height: 1.3em; margin: 6px; }
