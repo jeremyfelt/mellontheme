@@ -45,9 +45,21 @@ $secondary_header_url = $options['secondary_header_url'];
 $background_color = $options['background_colorpicker'];
 $main_content_color = $options['main_content_colorpicker'];
 $font_color = $options['font_colorpicker'];
-$font_face = $options['font_face'];
+$font_face_primary = $options['font_face_primary'];
+$font_face_headings = $options['font_face_headings'];
 ?>
-<?php if ($background_color || $main_content_color || $font_color || $font_face): ?>
+<?php 
+if ($font_face_primary != ''){ 
+	$font_name_primary = explode(":", $font_face_primary);
+	$font_name_primary = str_replace("+", " ", $font_name_primary[0]); ?>
+	<link href='http://fonts.googleapis.com/css?family=<?php echo $font_face_primary; ?>' rel='stylesheet' type='text/css'>
+<?php }
+if ($font_face_headings != ''){ 
+	$font_name_headings = explode(":", $font_face_headings);
+	$font_name_headings = str_replace("+", " ", $font_name_headings[0]); ?>
+	<link href='http://fonts.googleapis.com/css?family=<?php echo $font_face_headings; ?>' rel='stylesheet' type='text/css'>
+<?php } ?>
+<?php if ($background_color || $main_content_color || $font_color || $font_face_primary || $font_face_headings): ?>
 <style type="text/css">
 	<?php if ($background_color != '') :?>
 		div#page {background-color: <?php echo $background_color; ?>; }
@@ -58,8 +70,11 @@ $font_face = $options['font_face'];
 	if ($font_color != '') :?>
 		div#main {color: <?php echo $font_color; ?>; }
 	<?php endif; ?>
-	<?php if ($font_face != '') :?>
-		div#main {font-family: <?php echo $font_face; ?>; }
+	<?php if ($font_face_primary != '') :?>
+		div#main {font-family: '<?php echo $font_name_primary; ?>', serif; }
+	<?php endif; ?>
+	<?php if ($font_face_headings != '') :?>
+		h1,h2,h3,h4,h5,h6 {font-family: '<?php echo $font_name_headings; ?>', sans-serif; }
 	<?php endif; ?>
 </style>
 <?php endif; ?>

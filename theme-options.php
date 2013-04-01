@@ -325,10 +325,17 @@ function setup_framework_options() {
                 'std' => ''
 			),
             array(
-                'id' => 'font_face',
+                'id' => 'font_face_primary',
                 'type' => 'google_webfonts',
                 'title' => __('Primary Font Face', Redux_TEXT_DOMAIN), 
-                'sub_desc' => __('<p class="description">Select a Google Webfont to use throughout the site. Note: It is a known bug that this font might be overridden by the selected style.</p>', Redux_TEXT_DOMAIN),
+                'sub_desc' => __('<p class="description">Select a Google Webfont to use throughout the site. Note: Some of the fonts might be overridden by the selected style.</p>', Redux_TEXT_DOMAIN),
+                'desc' => __('', Redux_TEXT_DOMAIN)
+            ),
+            array(
+                'id' => 'font_face_headings',
+                'type' => 'google_webfonts',
+                'title' => __('Heading Font Face', Redux_TEXT_DOMAIN), 
+                'sub_desc' => __('<p class="description">Select a Google Webfont to use for headings throughout the site. Note: Some of the fonts might be overridden by the selected style.</p>', Redux_TEXT_DOMAIN),
                 'desc' => __('', Redux_TEXT_DOMAIN)
             ),
 			array(
