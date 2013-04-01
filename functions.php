@@ -58,7 +58,7 @@ add_action('wp_enqueue_scripts', 'load_my_scripts', 10);
 if (!is_admin()) {
 function load_my_styles() {
 	$options = get_option('mellontheme');
-	$template_override = (is_page_template('page-templates/2col-left-sidebar.php') ? '2c-l-fixed.css' : (is_page_template('page-templates/2col-left-sidebar.php') ? '2c-r-fixed.css' : '');
+	$template_override = (is_page_template('page-templates/2col-left-sidebar.php') ? '2c-l-fixed' : (is_page_template('page-templates/2col-right-sidebar.php') ? '2c-r-fixed' : ''));
 	$page_layout = ($template_override != '') ? $template_override : $options['page_layout'];
 	if ($page_layout != '') {
 		$page_layout_css = get_stylesheet_directory_uri() . '/css/' . $page_layout.'.css';

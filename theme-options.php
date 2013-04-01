@@ -238,7 +238,7 @@ function setup_framework_options() {
 				'sub_desc' => __('<p>Select a default page layout. </p><b>Note:</b> You can set the layout for individual pages by selecting the appropriate template when creating new pages.', Redux_TEXT_DOMAIN),
 				'desc' => __('Default is 2-Column, right sidebar', Redux_TEXT_DOMAIN),
 				'options' => array(
-					'1col-fixed' => array('title' => __('Full-Width, Single Column, no sidebars', Redux_TEXT_DOMAIN), 'img' => Redux_OPTIONS_URL . 'img/1col.png'), 
+					'1col-fixed' => array('title' => __('Full-Width, widgets below', Redux_TEXT_DOMAIN), 'img' => Redux_OPTIONS_URL . 'img/1col.png'), 
 					'2c-l-fixed' => array('title' => __('2-Column, left sidebar', Redux_TEXT_DOMAIN),'img' => Redux_OPTIONS_URL . 'img/2cl.png'),
 					'2c-r-fixed' => array('title' => __('2-Column, right sidebar', Redux_TEXT_DOMAIN),'img' => Redux_OPTIONS_URL . 'img/2cr.png')
 				),
