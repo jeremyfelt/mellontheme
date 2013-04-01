@@ -14,11 +14,15 @@
  * @since mellontheme 0.3
  */
 
-get_header(); ?>
+get_header(); 
+$options = get_option('mellontheme');
+?>
 
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
-			<?php if ( of_get_option('events_slider_checkbox',1) && (of_get_option('slider_layout','full-width')=='with-sidebars')) :
+			<?php 
+			$options = get_option('mellontheme');
+			if ( $options['slider_enabled'] && ($options['slider_layout']=='with-sidebars')) :
 				events_slider();
 			endif; ?>
 			<?php while ( have_posts() ) : the_post(); ?>

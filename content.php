@@ -8,15 +8,17 @@
  * Modified for MellonTheme by Keith Miyake
  */
 
-	$add_classes = ( (is_front_page() || is_home() || is_archive() || is_page_template( 'page-templates/current-academic-year.php')) ? 'bloglist' : ''); //'bloglist' for styling articles with banner and summary 
-	$add_classes .= ((has_post_thumbnail() && ! is_single()) ? ' has-thumbnail' : '');
-	?> 
+$options = get_option('mellontheme');
+
+$add_classes = ( (is_front_page() || is_home() || is_archive() || is_page_template( 'page-templates/current-academic-year.php')) ? 'bloglist' : ''); //'bloglist' for styling articles with banner and summary 
+$add_classes .= ((has_post_thumbnail() && ! is_single()) ? ' has-thumbnail' : '');
+?> 
 	<article id="post-<?php the_ID(); ?>" <?php post_class($add_classes); ?>>
 	<div class="all-but-meta">
 		<?php if (has_post_thumbnail() && ! is_single()) : ?>
-			<div class="post-thumbnail thumbnail-box">
-				<a href="<?php the_permalink(); ?>" title="Read full post"><?php the_post_thumbnail(array(600,400), array('class' => 'bloglist-thumbnail')); ?></a>
-			</div>
+			<?php if ($options['resize_images']!='none') { ?><div class="post-thumbnail thumbnail-box"><? } ?>
+				<a href="<?php the_permalink(); ?>" title="Read full post"><img src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large')[0];?>" class="bloglist-thumbnail" style="width: 100%; height=auto; position: <?php ($options['resize_images']!='none') ? 'relative' : 'absolute'; ?>;" /></a>
+			<?php if ($options['resize_images']!='none') { ?></div><? } ?>
 		<?php endif; // has_post_thumbnail() ?>
 		<?php if (is_home() || is_archive()): ?>
 			<div class="bloglist-post-content">
@@ -59,7 +61,7 @@
 				| <?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a comment', 'twentytwelve' ) . '</span>', __( '1 Comment', 'twentytwelve' ), __( '% Comments', 'twentytwelve' ) ); ?>
 			<?php endif; // comments_open() ?>
 			<?php edit_post_link( __( 'Edit', 'twentytwelve' ), ' | <span class="edit-link">', '</span>' ); ?>
-			<?php if ( is_singular() && get_the_author_meta( 'description' ) && is_multi_author() && of_get_option('authors_checkbox')) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries. ?>
+			<?php if ( is_singular() && get_the_author_meta( 'description' ) && is_multi_author() && $options['authors_checkbox']) : // If a user has filled out their description and this is a multi-author blog, show a bio on their entries. ?>
 				<div class="author-info">
 					<div class="author-avatar">
 						<?php echo get_avatar( get_the_author_meta( 'user_email' ), apply_filters( 'twentytwelve_author_bio_avatar_size', 68 ) ); ?>

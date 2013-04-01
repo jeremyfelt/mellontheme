@@ -1,5 +1,4 @@
 <?php
-
 /* 
  * Load the Options Panel
  *
@@ -7,8 +6,9 @@
  * instead of template_directory
  */
 
-if ( !function_exists( 'setup_framework_options' ) ) {
+if ( is_admin() && !function_exists( 'setup_framework_options' ) ) {
 	require_once('theme-options.php');
+	if (get_option('optionsframework')) delete_option('optionsframework');
 }
 
 /* load the scripts for the front page slider */
@@ -17,36 +17,29 @@ if ( !function_exists( 'ScaleImage' ) ) {
 }
 
 // Register scripts
-
+if (! is_admin()){
 function load_my_scripts() {
-	if (! is_admin()){
+		$options = get_option('mellontheme');
 		$ss_dir = get_stylesheet_directory_uri();
 	    wp_deregister_script( 'jquery' );  
 /*		wp_register_script( 'jquery', 'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js', array(), null, false ); */
 		wp_register_script( 'jquery', $ss_dir.'/js/jquery.min.js', array(),null,false );
 		wp_enqueue_script('jquery');
-/*		wp_deregister_script( 'jquery-ui' );
-		wp_register_script( 'jquery.ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js', array('jquery'), null, false );
-		wp_register_script( 'jquery.ui', $ss_dir.'/js/jquery-ui.min.js', array('jquery'),null,false );
-		wp_enqueue_script('jquery.ui'); */
 
 		wp_register_script('hoverintent', $ss_dir . '/js/jquery.hoverIntent.js');  
 		wp_register_script('superfish',   $ss_dir . '/js/superfish.js', array( 'jquery', 'hoverintent' ));  
 		wp_enqueue_script('superfish');
-	/*	wp_register_script('bgiframe',    $ss_dir . '/js/jquery.bgiframe.min.js');
-		wp_register_script('supersubs',   $ss_dir . '/js/jquery.supersubs.min.js', array( 'superfish' ));
-		wp_enqueue_script('supersubs'); */
 	
 		// scripts for specific pages
 		if (is_front_page() || is_home() || is_archive() || is_page_template( 'page-templates/current-academic-year.php')) {
 			wp_register_script( 'scaleimage', $ss_dir.'/js/scaleimage.min.js', array(),null,false );
 			wp_register_script( 'jquery.imagesloaded', $ss_dir.'/js/jquery.imagesloaded.min.js', array( 'jquery' ),null,false );
-			if ((is_front_page() || is_home() || is_page_template( 'page-templates/current-academic-year.php')) && (of_get_option('events_slider_checkbox','1')=='1')) {
+			if ((is_front_page() || is_home() || is_page_template( 'page-templates/current-academic-year.php')) && ($options['slider_enabled']=='1')) {
 				wp_register_script( 'jquery.cycle', $ss_dir.'/js/jquery.cycle.all.js', array( 'jquery' ),null,false ); 
 				wp_register_script( 'slider', $ss_dir.'/js/slider.js', array('jquery','jquery.imagesloaded','scaleimage','jquery.cycle'),null,false ); 
 				wp_enqueue_script('slider');
 			}
-			$resize_rule = of_get_option('resize_images','grow');
+			$resize_rule = $options['resize_images'];
 			$resize_js = 'jquery.resize.grow.js';
 			if ($resize_rule == 'shrink') {
 				$resize_js = 'jquery.resize.shrink.js';
@@ -57,32 +50,32 @@ function load_my_scripts() {
 			}
 		}
 	}
-}
 
 add_action('wp_enqueue_scripts', 'load_my_scripts', 10);
+}
 
 //register custom stylesheets
+if (!is_admin()) {
 function load_my_styles() {
-	if ($page_layout = of_get_option('page_layout')) {
+	$options = get_option('mellontheme');
+	if ($page_layout = $options['page_layout']) {
 		$page_layout_css = get_stylesheet_directory_uri() . '/css/' . $page_layout.'.css';
 		wp_register_style( 'page_layout_style', $page_layout_css, 'screen');
 		wp_enqueue_style('page_layout_style');
 	}
-	
-	if ( of_get_option('style_css') ) {
-	        wp_enqueue_style( 'options_stylesheets_alt_style', of_get_option('style_css'), array(), null );
+	if ( $options['built_in_style'] ) {
+		wp_enqueue_style( 'options_stylesheets_alt_style', $options['built_in_style'], array(), null );
     }
 	
 	
-	$extra_css = of_get_option('external_css','');
+	$extra_css = $options['external_css'];
 	if ($extra_css != '') {
 		wp_register_style( 'extra_css_style', $extra_css, 'screen');
 		wp_enqueue_style('extra_css_style');
 	}
 }
-
 add_action('wp_enqueue_scripts', 'load_my_styles', 100);
-
+}
 
 // Register additional widget areas
 function add_my_sidebars() {
@@ -149,9 +142,9 @@ register_nav_menus( array(
 ) );
   
 //Add custom query to combine events with regular posts
-
+if (! is_admin()){
 function combine_posts_events($query) {
-	if (! is_admin() && $query->is_main_query() ) {
+	if ($query->is_main_query() ) {
 		if (!is_singular() && !is_post_type_archive('event')) {
 			$paged = (get_query_var('paged') ? get_query_var('paged') : ( get_query_var('page') ? get_query_var('page') : 1 ) ); 
 
@@ -177,6 +170,7 @@ function combine_posts_events($query) {
 	return $query;
 }
 add_filter( 'pre_get_posts', 'combine_posts_events' );
+}
 
 // CHANGE DEFAULT THUMBNAIL SIZE
 function child_theme_setup() {
@@ -199,6 +193,7 @@ add_action( 'template_redirect', 'child_content_width', 11 );
 //Overrides default twenty_twelve_entry_meta
 function twentytwelve_entry_meta() {
 	// Translators: used between list items, there is a space after the comma.
+	$options = get_option('mellontheme');
 	if ( 'event' == get_post_type() && ! is_single() ) : 
 		$EM_Event = em_get_event($post->ID, 'post_id');
 		$tag_list = $EM_Event->output('#_EVENTTAGS');
@@ -221,7 +216,7 @@ function twentytwelve_entry_meta() {
 		get_the_author()
 	);
 
-	$post_author = (of_get_option('authors_checkbox') ? ' <span class="by-author"> by %4$s</span>' : '');
+	$post_author = ($options['authors_checkbox'] ? ' <span class="by-author"> by %4$s</span>' : '');
 	
 	// Translators: 1 is category, 2 is tag, 3 is the date and 4 is the author's name.
 	if ( $tag_list ) {
@@ -242,12 +237,15 @@ function twentytwelve_entry_meta() {
 }
 
 function events_slider() {
-	$slider_width = of_get_option('slider_width',600);
-	$slider_height = of_get_option('slider_height',380);
-	$slider_count = of_get_option('slider_count',6);
-	$slider_nav = of_get_option('slider_nav_checkbox',true);
-	$slider_post_type = of_get_option('slider_page_types','post');
-	$letterbox = (of_get_option('slider_image_letterbox','1') == '1' ? true : false);
+	$options = get_option('mellontheme');
+	$slider_width = $options['slider_width'];
+	$slider_height = $options['slider_height'];
+	$slider_count = $options['slider_count'];
+	$slider_nav = $options['slider_image_nav'];
+	$slider_post_type = $options['slider_page_types'];
+	$letterbox = $options['slider_image_letterbox'] == '1';
+	$slider_sticky = $options['slider_sticky']=='1';
+	$slider_ids = $options['slider_ids'];
 
 	$args = array (
 			'order' => 'DESC',
@@ -255,7 +253,7 @@ function events_slider() {
 			'meta_query' => array(array('key' => '_thumbnail_id')) //make sure the post has a thumbnail image
 	);
 
-	if (of_get_option('slider_sticky','1')=='0' && ($slider_post_type == 'post')):
+	if ($slider_sticky && ($slider_post_type == 'post')):
 		//slider will include sticky posts so reduce the posts_per_page by the number of stickies
 		$sticky_count = count(get_option( 'sticky_posts' ));
 		if ($sticky_count < $slider_count):
@@ -294,8 +292,8 @@ function events_slider() {
 		default:
 			$args['post_type'] = $slider_post_type;
 	}
-	if (of_get_option('slider_ids','') && $ids_in):
-		$slider_ids_array = explode(",", of_get_option('slider_ids',''));
+	if ($slider_ids != '' && $ids_in):
+		$slider_ids_array = explode(",", $slider_ids);
 		$args[$ids_in] = $slider_ids_array;
 	endif;
 	
@@ -341,19 +339,18 @@ function events_slider() {
 	<div id="slider-container" style="width: 100%; height: auto;">
 	<div id="slider-wrapper" class="slider clear fix" style="width: <?php echo $slider_width; ?>px; height:auto;" >
 		<div id="slider-slideshow" style="width: <?php echo $slider_width; ?>px; height:<?php echo $slider_height; ?>px;" >
-<!--			<img class="dummy " src="<?php echo get_stylesheet_directory_uri(); ?>/images/empty.png" alt="" width="<?php echo $slider_width;?>" height="<?php echo $slider_height;?>"> -->
-				<?php echo $slider_code; ?>
-			</div> <!-- slider-content -->
-			<span id="slider-prev" class="slider-nav" style="top: <?php echo floor($slider_height/2-10); ?>px;">←</span>
-			<span id="slider-next" class="slider-nav" style="top: <?php echo floor($slider_height/2-10); ?>px;">→</span>
-				</div> <!-- slider-wrapper-->
-			<?php if ($slider_nav) : ?>
-				<div id="slider-image-navbar" style="width: <?php echo $slider_width; ?>px;">
-					<ul id="slide-thumbs">
-						<?php echo $thumbs_code; ?>
-					</ul>
-				</div><!-- #slider-image-navbar-->
-			<?php endif; ?>
+			<?php echo $slider_code; ?>
+		</div> <!-- slider-content -->
+		<span id="slider-prev" class="slider-nav" style="top: <?php echo floor($slider_height/2-10); ?>px;">←</span>
+		<span id="slider-next" class="slider-nav" style="top: <?php echo floor($slider_height/2-10); ?>px;">→</span>
+	</div> <!-- slider-wrapper-->
+	<?php if ($slider_nav) : ?>
+		<div id="slider-image-navbar" style="width: <?php echo $slider_width; ?>px;">
+			<ul id="slide-thumbs">
+				<?php echo $thumbs_code; ?>
+			</ul>
+		</div><!-- #slider-image-navbar-->
+	<?php endif; ?>
 	</div> <!-- slider-container-->
 <?php
 }

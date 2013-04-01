@@ -30,25 +30,24 @@
 <![endif]-->
 <?php wp_head(); ?>
 <script>
-
-	$(document).ready(function(){
-		$("ul.sf-menu").superfish();
+	jQuery(document).ready(function(){
+		jQuery("ul.sf-menu").superfish();
 	});
-
 </script>
 
 <?php
-// get saved theme options
-$primary_header_image = esc_url(of_get_option('primary_header_image', ''));
-$secondary_header_image = esc_url(of_get_option('secondary_header_image', ''));
-$primary_header_url = esc_url(of_get_option('primary_header_url', '/'));
-$secondary_header_url = esc_url(of_get_option('secondary_header_url', '/'));
-$facebook_url = esc_url(of_get_option('facebook_url', '/'));
-$twitter_feed = esc_url(of_get_option('twitter_feed', '/'));
-$background_color = of_get_option('background_colorpicker');
-$main_content_color = of_get_option('main_content_colorpicker');
-$font_color = of_get_option('font_colorpicker');
+// get theme options
+$options = get_option('mellontheme');
+$primary_header_image = $options['primary_header_image'];
+$secondary_header_image = $options['secondary_header_image'];
+$primary_header_url = $options['primary_header_url'];
+$secondary_header_url = $options['secondary_header_url'];
+$background_color = $options['background_colorpicker'];
+$main_content_color = $options['main_content_colorpicker'];
+$font_color = $options['font_colorpicker'];
+$font_face = $options['font_face'];
 ?>
+<?php if ($background_color || $main_content_color || $font_color || $font_face): ?>
 <style type="text/css">
 	<?php if ($background_color != '') :?>
 		div#page {background-color: <?php echo $background_color; ?>; }
@@ -59,24 +58,32 @@ $font_color = of_get_option('font_colorpicker');
 	if ($font_color != '') :?>
 		div#main {color: <?php echo $font_color; ?>; }
 	<?php endif; ?>
-
+	<?php if ($font_face != '') :?>
+		div#main {font-family: <?php echo $font_face; ?>; }
+	<?php endif; ?>
 </style>
+<?php endif; ?>
 </head>
 
 <body <?php body_class(); ?>>
-<div id="page" class="hfeed site" <?php echo (of_get_option('background_colorpicker') != '' ? 'style="background-color: '.of_get_option('background_colorpicker').';"':''); ?>>
+<div id="page" class="hfeed site" <?php echo ($options['background_colorpicker'] != '' ? 'style="background-color: '.$options['background_colorpicker'].';"':''); ?>>
 	<header id="masthead" class="site-header" role="banner">
 		<hgroup>
 			<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" rel="home"><?php bloginfo( 'name' ); ?></a></h1>
 			<h2 class="site-description"><?php bloginfo( 'description' ); ?></h2>
 		</hgroup>
 		<div id="logoarea">
-			<div id="socialicons">
-				<a target="_blank" href="<?php echo $twitter_feed; ?>" class="twitterlink"></a>
-				<a target="_blank" href="<?php echo $facebook_url; ?>" class="facebooklink"></a> 
-				<a target="_blank" href="http://www.cuny.edu" class="cuny"></a> 
-			</div><!-- #social icons -->
-		
+			<?php 
+			if ($options['facebook_url'] || $options['twitter_url'] || $options['youtube_url'] || $options['rss_feed'] || ($options['cuny_checkbox']=='1') || ($options['commons_checkbox']=='1')) : ?>
+				<div id="socialicons">
+					<?php if ($options['cuny_checkbox'] == '1') { ?><a target="_blank" href="http://www.cuny.edu" title="The City University of New York" alt="The City University of New York" class="cunylink"></a><?php } ?>
+					<?php if ($options['commons_checkbox']=='1') { ?><a target="_blank" href="http://commons.gc.cuny.edu" title="Part of the CUNY Academic Commons" alt="Part of the CUNY Academic Commons" class="commonslink"></a><?php } ?>					
+					<?php if ($options['twitter_url'] !== '') { ?><a target="_blank" href="<?php echo $options['twitter_url']; ?>" title="Visit us on Twitter" alt="Visit us on Twitter" class="twitterlink"></a><?php } ?>
+					<?php if ($options['facebook_url'] != '') { ?><a target="_blank" href="<?php echo $options['facebook_url']; ?>" title="Visit us on Facebook" alt="Visit us on Facebook" class="facebooklink"></a><?php } ?>
+					<?php if ($options['youtube_url'] != '') { ?><a target="_blank" href="<?php echo $options['youtube_url']; ?>" title="Visit our YouTube page" alt="Visit our YouTube page" class="youtubelink"></a><?php } ?>
+					<?php if ($options['rss_feed'] != '') { ?><a target="_blank" href="<?php echo $options['rss_feed']; ?>" title="Subscribe to our RSS feed" alt="Subscribe to our RSS feed" class="rsslink"></a><?php } ?>				 
+				</div><!-- #social icons -->
+			<?php endif; ?>
 			<?php if ( ! empty( $primary_header_image ) || ! empty( $secondary_header_image ) ) : ?>
 				<?php if ( ! empty( $primary_header_image ) ) : ?>
 					<a href="<?php echo $primary_header_url; ?>"><img class="logo" src="<?php echo $primary_header_image; ?>" alt="<?php bloginfo('name'); ?>"></a>
@@ -97,15 +104,14 @@ $font_color = of_get_option('font_colorpicker');
 			<?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_class' => 'sf-menu sf-navbar', 'menu_id' => 'menu1','fallback_cb' => 'wp_page_menu') ); ?>
 		</nav><!-- #site-navigation -->
 
-		<?php if (of_get_option('breadcrumbs_enabled','1') == '1'):?>
+		<?php if ($options['breadcrumbs_enabled'] == '1'):?>
 			<div id="breadcrumbs">
-				<?php custom_breadcrumbs() ?>
+				<?php custom_breadcrumbs(); ?>
 			</div>
 		<?php endif;?>
 	</header><!-- #masthead -->
 
 	<div id="main" class="wrapper">
-		<?php if ( is_home() && of_get_option('events_slider_checkbox',1) && (of_get_option('slider_layout','full-width')=='full-width')) :
+		<?php if ( is_home() && $options['slider_enabled'] && ($options['slider_layout']=='full-width')) :
 			events_slider();
 		endif; ?>
-

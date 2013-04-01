@@ -11,7 +11,9 @@ get_header(); ?>
 
 	<section id="primary" class="site-content">
 		<div id="content" role="main">
-			<?php if ( of_get_option('events_slider_checkbox',1) && (of_get_option('slider_layout','full-width')=='with-sidebars')) :
+			<?php 
+			$options = get_option('mellontheme');
+			if ( $options['slider_enabled'] && ($options['slider_layout']=='with-sidebars')) :
 				events_slider();
 			endif; ?>
 		<?php if ( have_posts() ) : ?>
