@@ -7,13 +7,12 @@
  */
 
 if ( is_admin() && !function_exists( 'setup_framework_options' ) ) {
-	require_once('theme-options.php');
-	if (get_option('optionsframework')) delete_option('optionsframework');
+	include_once('theme-options.php');
 }
 
 /* load the scripts for the front page slider */
 if ( !function_exists( 'ScaleImage' ) ) {
-	require_once dirname( __FILE__ ) . '/inc/scaleimage.php';
+	include_once dirname( __FILE__ ) . '/inc/scaleimage.php';
 }
 
 // Register scripts
