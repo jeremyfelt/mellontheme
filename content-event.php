@@ -8,9 +8,7 @@
  * by Keith Miyake
  */
 
-$options = get_option('mellontheme');
-
-$add_classes = 'bloglist';
+$add_classes = 'bloglist event-post';
 $add_classes .= (has_post_thumbnail() ? ' has-thumbnail' : '');
 ?> 
 	<article id="post-<?php the_ID(); ?>" <?php post_class($add_classes); ?>>
@@ -24,7 +22,7 @@ $add_classes .= (has_post_thumbnail() ? ' has-thumbnail' : '');
 		<div class="bloglist-post-content">
 			<header class="entry-header">
 				<h1 class="post-title entry-title">
-					<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark">EEEVENT<?php the_title(); ?></a>
+					<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentytwelve' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
 				</h1>
 				<?php 
 					$EM_Event = em_get_event($post->ID, 'post_id'); ?>
