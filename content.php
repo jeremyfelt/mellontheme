@@ -16,8 +16,9 @@ $add_classes .= ((has_post_thumbnail() && ! is_single()) ? ' has-thumbnail' : ''
 	<article id="post-<?php the_ID(); ?>" <?php post_class($add_classes); ?>>
 	<div class="all-but-meta">
 		<?php if (has_post_thumbnail() && ! is_single()) : ?>
-			<?php if ($options['resize_images']!='none') { ?><div class="post-thumbnail thumbnail-box"><?php } ?>
-				<a href="<?php the_permalink(); ?>" title="Read full post"><img src="<?php echo wp_get_attachment_image_src( get_post_thumbnail_id($post->ID), 'large')[0];?>" class="bloglist-thumbnail" style="width: 100%; height=auto; position: <?php ($options['resize_images']!='none') ? 'relative' : 'absolute'; ?>;" /></a>
+			<?php $thumbnail_src = wp_get_attachment_image_src( get_post_thumbnail_id($post->ID),'large'); ?>
+			<?php if ($options['resize_images'] != 'none') { ?><div class="post-thumbnail thumbnail-box"><?php } ?>
+			<a href="<?php the_permalink(); ?>" title="Read full post"><img src="<?php echo $thumbnail_src[0]; ?>" class="bloglist-thumbnail" style="width: 100%; height=auto; position: <?php echo ($options['resize_images'] != 'none') ? 'relative' : 'absolute'; ?>;" /></a>
 			<?php if ($options['resize_images']!='none') { ?></div><?php } ?>
 		<?php endif; // has_post_thumbnail() ?>
 		<?php if (is_home() || is_archive()): ?>
