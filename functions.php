@@ -366,6 +366,9 @@ function events_slider() {
 *******************************************************************************/
 function custom_wp_trim_excerpt($text) {
 $raw_excerpt = $text;
+/*** Change the excerpt ending.***/
+$excerpt_end = ' [<a href="'. get_permalink($post->ID) . '">' . 'read more&raquo;' . '</a>]'; 
+$excerpt_more = apply_filters('excerpt_more', ' ' . $excerpt_end);
 if ( '' == $text ) {
     $text = get_the_content('');
  
@@ -375,16 +378,12 @@ if ( '' == $text ) {
     $text = str_replace(']]>', ']]&gt;', $text);
      
     /***Add the allowed HTML tags separated by a comma.***/
-    $allowed_tags = '<em>,<strong>,<i>,<a>,<p>,<br>';  
+    $allowed_tags = '<em>,<strong>,<i>,<a>,<br>';  
     $text = strip_tags($text, $allowed_tags);
      
     /***Change the excerpt word count.***/
     $excerpt_word_count = 60; 
     $excerpt_length = apply_filters('excerpt_length', $excerpt_word_count); 
-     
-    /*** Change the excerpt ending.***/
-    $excerpt_end = '… <a href="'. get_permalink($post->ID) . '">' . ' more&raquo;' . '</a>'; 
-    $excerpt_more = apply_filters('excerpt_more', ' ' . $excerpt_end);
       
 	$words = preg_split("/[\n\r\t ]+/", $text, $excerpt_length + 1, PREG_SPLIT_NO_EMPTY);
     if ( count($words) > $excerpt_length ) {
@@ -395,6 +394,8 @@ if ( '' == $text ) {
         $text = implode(' ', $words);
     }
 	$text = closetags($text);
+} else {
+	$text = $text . $excerpt_more;
 }
 return apply_filters('wp_trim_excerpt', $text, $raw_excerpt);
 }
