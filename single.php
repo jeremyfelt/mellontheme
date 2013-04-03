@@ -14,7 +14,13 @@ get_header(); ?>
 			
 			<?php while ( have_posts() ) : the_post(); ?>
 
-				<?php get_template_part( 'content', get_post_format() ); ?>
+				<?php 
+					if ('event' == get_post_type()):
+						get_template_part( 'event' );
+					else :
+						get_template_part( 'content', get_post_format() );
+					endif; 
+				?>
 
 				<nav class="nav-single">
 					<h3 class="assistive-text"><?php _e( 'Post navigation', 'twentytwelve' ); ?></h3>
