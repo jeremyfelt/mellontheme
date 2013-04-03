@@ -1,4 +1,11 @@
 CHANGELOG
+0.5 (2013-04-03)
+* [FEATURE] added separate content templates for events (blog) and single events
+0.4 (2013-04-01)
+* [BUGFIX] google web fonts now load correctly when font names contain spaces or weight specs.
+* [FEATURE] added page templates for left/right sidebar columns
+* [FEATURE] added "clean" built-in style based on oxygen theme
+* [FEATURE] switched to redux-framework to handle options; import/export now possible; added several new options
 0.3 (2013-03-29)
 * [FEATURE] added "current-academic-year" page template to display posts from the current academic year
 * [FEATURE] added "content-nometa" content template to display a post without any footer metadata (used in "current-academic-year" page template)
