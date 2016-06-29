@@ -52,12 +52,12 @@ $font_face_headings = $options['font_face_headings'];
 if ($font_face_primary != ''){ 
 	$font_name_primary = explode(":", $font_face_primary);
 	$font_name_primary = str_replace("+", " ", $font_name_primary[0]); ?>
-	<link href='http://fonts.googleapis.com/css?family=<?php echo $font_face_primary; ?>' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=<?php echo $font_face_primary; ?>' rel='stylesheet' type='text/css'>
 <?php }
 if ($font_face_headings != ''){ 
 	$font_name_headings = explode(":", $font_face_headings);
 	$font_name_headings = str_replace("+", " ", $font_name_headings[0]); ?>
-	<link href='http://fonts.googleapis.com/css?family=<?php echo $font_face_headings; ?>' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=<?php echo $font_face_headings; ?>' rel='stylesheet' type='text/css'>
 <?php } ?>
 <?php if ($background_color || $main_content_color || $font_color || $font_face_primary || $font_face_headings): ?>
 <style type="text/css">
