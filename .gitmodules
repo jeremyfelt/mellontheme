@@ -1,3 +1,3 @@
 [submodule "inc/redux-framework"]
 	path = inc/redux-framework
-	url = git://github.com:kaymmm/Redux-Framework/
+	url = git@github.com:kaymmm/Redux-Framework.git
